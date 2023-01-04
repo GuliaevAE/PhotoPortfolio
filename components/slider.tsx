@@ -120,9 +120,9 @@ const Slider = (props: props) => {
                     <span>Work</span>
                     <span>About</span>
                 </div>
-                {activeImage && <div className='component'>
+                {/* {activeImage && <div className='component'>
                     {activeImage}
-                </div>}
+                </div>} */}
 
                 {activeImage&&<MiniSlider miniSliderClisck={miniSliderClisck} activeImage={activeImage}/>}
 
