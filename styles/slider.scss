@@ -1,0 +1,124 @@
+.backgr {
+  height: 100vh;
+  width: 100vw;
+  background: rgb(17, 10, 10);
+  margin: 0;
+  overflow: auto;
+  position: relative;
+
+  .content {
+    
+
+
+    .header {
+      position: absolute;
+      display: flex;
+      justify-content: space-between;
+      left: 50%;
+      transform: translate(-50%, 30px);
+      width: 25vmin;
+
+
+      font-size: 20px;
+    }
+
+    .center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+
+      span {
+        font-size: 25px;
+      }
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+
+  .minislider {
+    display: flex;
+    gap: 2vmin;
+    position: absolute;
+    bottom: 5vmin;
+    right: 5vmin;
+    transform: translate(0, 0);
+    align-items: center;
+    animation: miniSliderAction .7s ease-in-out forwards;
+
+    .minisliderOn{
+      animation: miniSliderAction .7s ease-in-out forwards;
+      bottom:5vmin;
+      gap: 21vmin;
+      
+    }
+
+    .minisliderOff{
+      animation: miniSliderAction .7s ease-in-out reverse forwards;
+      bottom:-5vmin;
+    }
+    
+    .image {
+      width: auto;
+      height: 4vmin;
+      
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      transition: all 1s ease-in;
+    }
+  }
+
+
+}
+
+.slider {
+  display: flex;
+  gap: 4vmin;
+  position: absolute;
+  top: 50%;
+  left: 40%;
+  transform: translate(0, -50%);
+  height: 100%;
+  align-items: center;
+
+
+
+  -moz-user-select: none;
+  -o-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  .image {
+    width: 40vmin;
+    height: 56vmin;
+    object-fit: cover;
+    object-position: 0% 100%;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    transition: all 1s ease-in;
+  }
+
+
+}
+
+
+
+
+@keyframes miniSliderAction {
+  0%{
+    transform: translate(100%, 0);
+  }
+  100%{
+    transform: translate(0, 0);
+  }
+}

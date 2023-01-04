@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  
   min-height: 100vh;
 }
 
@@ -275,4 +275,10 @@
   to {
     transform: rotate(0deg);
   }
+}
+
+
+@font-face {
+  font-family: "Try_clover";
+  src: url(../fonts/try_clother_black.woff2);
 }
