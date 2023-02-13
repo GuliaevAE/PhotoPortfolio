@@ -21,13 +21,13 @@ const MiniSlider = (props:props) => {
     useEffect(()=>{
         if(!props.activeImage){
             minislider.current.animate({
-                transform:'translate(0, 300%)'
+                transform:'translate(0, 300%)', opacity: 0
             },{
                 duration:800, fill:'forwards', easing: 'ease-out'
             })
         }else{
             minislider.current.animate({
-                transform:'translate(0, 0)'
+                transform:'translate(0, 0)', opacity: 1
             },{
                 duration:800, fill:'forwards', easing: 'ease-out'
             })

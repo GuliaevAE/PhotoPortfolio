@@ -3,14 +3,14 @@ import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
 import CardImage from './cardimage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent } from '../store/PageContentSlice'
-import { selectContent, selectNull } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
 const SelectedPage = () => {
     const count = useAppSelector(Allcontent)
 
     const selected = useAppSelector(SelectedContent)
     const dispatch = useAppDispatch()
-    const isSelected = useAppSelector(SelectedContent)
+    const isSelected = useAppSelector(booleanSwitcher)
     const refSelectedPage = useRef<any>(null)
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const SelectedPage = () => {
     return (
         <div ref={refSelectedPage} className='SelectedPage'>
             <div className='SelectedPage_imageBlock'>
-                <span onClick={() => dispatch(selectNull())} className='SelectedPage_imageBlock_back'>
+                <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
                     Back
                 </span>
                 <div className='SelectedPage_imageBlock_header'>
@@ -82,7 +82,8 @@ const SelectedPage = () => {
                         className='SelectedPage_content_images_item'
                         draggable='false'
                         src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
-                        alt="img" />
+                        alt="img" 
+                        priority={true}/>
 
                     <Image
                         loader={myLoader}

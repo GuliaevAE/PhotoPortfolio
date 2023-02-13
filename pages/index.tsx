@@ -5,6 +5,7 @@ import styles from '../styles/Home.module.css'
 import Slider from '../components/slider'
 
 import SelectedPage from '../components/selectedPage'
+
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -21,6 +22,7 @@ export default function Home() {
       <main className={styles.main}>
         <Slider />
         <SelectedPage />
+   
       </main>
     </>
   )

@@ -6,91 +6,147 @@ import SliderItem from './sliderItem';
 import MiniSlider from './miniSlider';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
 
 interface props {
     mini?: boolean
 }
 
-interface mouseevent {
-    target: {
-        alt: string,
-        id: string
-    }
-}
+
 
 
 const Slider = (props: props) => {
+    const dispatch = useAppDispatch()
+    const isSelected = useAppSelector(booleanSwitcher)
+    const allImages = useAppSelector(Allcontent)
+    const pageTag = useAppSelector(selectedPage)
 
-    const ref = useRef<any>(null)
-    const ref2 = useRef<any>(null)
+    const sliderComponent = useRef<any>(null)
+    const background = useRef<any>(null)
+    const work = useRef<any>(null)
+    const about = useRef<any>(null)
+    const animatedTextWork = useRef<any>(null)
+    const animatedTextAbout = useRef<any>(null)
+
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
-    let cloneOfAllSliderItems: { id: string, offsetLeft: number }[] = []
 
-    const isSelected = useAppSelector(SelectedContent)
-    const allImages = useAppSelector(Allcontent)
+
+
     useEffect(() => {
-        if (cloneOfAllSliderItems.length === 0) {
-            for (const image of ref.current.getElementsByClassName('image')) {
+        switch (pageTag) {
+            case 'work':
+                work.current.animate({
+                    height: '100vh'
+                }, {
+                    duration: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                });
+                about.current.animate({
+                    height: '0vh'
+                }, {
+                    duration: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                })
+                break;
+            case 'about':
+                work.current.animate({
+                    height: '0vh'
+                }, {
+                    duration: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                })
+                about.current.animate({
+                    height: '100vh'
+                }, {
+                    duration: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                });
 
-                cloneOfAllSliderItems.push({ id: image.id, offsetLeft: image.parentNode.offsetLeft })
-            }
+                break;
+
+            default:
+                break;
         }
-    }, [])
+    }, [pageTag])
+
+
+
 
     useEffect(() => {
+
         if (isSelected) {
-            ref2.current.animate({
+            background.current.animate({
                 height: '0'
             }, {
                 duration: 1000,
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
+            // animatedTextWork.current.animate({
+            //     transform: 'translate(0, -100%)'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
+            // animatedTextAbout.current.animate({
+            //     transform: 'translate(0, -100%)'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
         } else {
-            ref2.current.animate({
+            background.current.animate({
                 height: '100vh'
             }, {
                 duration: 1000,
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
+            // animatedTextWork.current.animate({
+            //     transform: 'translate(0, 0)'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
+            // animatedTextAbout.current.animate({
+            //     transform: 'translate(0, 0)'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
         }
     }, [isSelected])
 
     let [isact, setisact] = useState<boolean>(false)
 
-    // let ImageArray = [
-    //     { id: '1', img: "https://look.com.ua/pic/201701/1920x1080/look.com.ua-192291.jpg", title: 'From Nature to Culture' },
-    //     { id: '2', img: "https://img2.akspic.ru/crops/9/2/1/6/6/166129/166129-california_streaming_apple_event_wallpaper_without_logo-1920x1080.jpg", title: 'Reventing Wonder' },
-    //     { id: '3', img: "https://images.wallpaperscraft.ru/image/single/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg", title: 'Sound Expressed In Full' },
-    //     { id: '4', img: "https://wallpaperaccess.com/full/109666.jpg", title: 'From Gaggio With Love' },
-    //     { id: '5', img: "https://mikhail.krivyy.com/wallpapers/list/m11-6-4/1920x1080.jpg", title: 'The Regeneration Suit' },
-    //     { id: '6', img: "https://mobimg.b-cdn.net/v3/fetch/9c/9c63d540a3284fd5b7077e6a63dd2d3e.jpeg", title: 'Чето еще' },
-    // ]
 
     useEffect(() => {
         if (activeImage !== null) {
 
+            const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
 
-
-
-            const selectedImg = ref.current.getElementsByClassName(activeImage)[0]
-
-
-
-
-
-            let asd = window.innerWidth / 2 - selectedImg.offsetWidth
-            selectedImg.animate({
-                width: '100vw', height: '100vh'
-            }, { duration: 700, fill: "forwards", ease: 'easy-in-out' })
-            ref.current.animate({
+            sliderComponent.current.animate({
                 left: '0',
 
                 transform: `translate(calc(-${selectedImg.parentNode.offsetLeft}px),-50%)`
-            }, { duration: 400, fill: 'forwards', ease: 'easy-in-out' })
+            }, { duration: 700, fill: 'forwards', ease: 'easy-in-out' })
+
+
+            selectedImg.animate({
+
+                width: '100vw', height: '100vh'
+            }, { duration: 700, fill: "forwards", ease: 'easy-in-out' })
+
         }
 
     }, [activeImage])
@@ -111,35 +167,35 @@ const Slider = (props: props) => {
 
 
     function onmousedown(e: any) {
-        ref.current.dataset.mouseDownAt = e.clientX
+        sliderComponent.current.dataset.mouseDownAt = e.clientX
 
     }
 
     function onmouseup(e: any) {
-        ref.current.dataset.mouseDownAt = '0'
-        ref.current.dataset.prevPercentage = ref.current.dataset.percentage
+        sliderComponent.current.dataset.mouseDownAt = '0'
+        sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
         setisact(false)
         if (!isact) { actImg(e) }
     }
 
     function onmousemove(e: any) {
-        if (ref.current.dataset.mouseDownAt === '0') return
-        if (Math.abs(ref.current.dataset.mouseDownAt - e.clientX) > window.innerWidth / 50) { setisact(true) }
+        if (sliderComponent.current.dataset.mouseDownAt === '0') return
+        if (Math.abs(sliderComponent.current.dataset.mouseDownAt - e.clientX) > window.innerWidth / 50) { setisact(true) }
         if (isact) {
-            const mouseDelta = parseFloat(ref.current.dataset.mouseDownAt) - e.clientX
+            const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - e.clientX
             const maxDelta = window.innerWidth / 2
             const percentage = mouseDelta / maxDelta * -100
-            const nextPercentageUnconstrained = parseFloat(ref.current.dataset.prevPercentage) + percentage
+            const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -100))
-            ref.current.dataset.percentage = nextPercentage
+            sliderComponent.current.dataset.percentage = nextPercentage
 
-            ref.current.animate({
+            sliderComponent.current.animate({
                 left: '50%',
                 // gap: '4vmin',
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 400, fill: 'forwards' })
 
-            // const selectedImg = ref.current.getElementsByClassName(activeImage)[0]
+            // const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             // if (selectedImg) {
             //     selectedImg.animate({
             //         width: '40vmin', height: '56vmin'
@@ -147,7 +203,7 @@ const Slider = (props: props) => {
             // }
 
             if (activeImage !== null) {
-                const allimg = ref.current.getElementsByClassName(activeImage)
+                const allimg = sliderComponent.current.getElementsByClassName(activeImage)
                 console.log('allimg', allimg)
                 for (let img of allimg) {
 
@@ -161,91 +217,50 @@ const Slider = (props: props) => {
         }
     }
 
-    // if (typeof document !== "undefined" && !isSelected) {
-    //     document.onmousedown = e => {
-    //         ref.current.dataset.mouseDownAt = e.clientX
-
-
-    //     }
-    //     document.onmouseup = (e) => {
-    //         ref.current.dataset.mouseDownAt = '0'
-    //         ref.current.dataset.prevPercentage = ref.current.dataset.percentage
-    //         setisact(false)
-    //         if (!isact) { actImg(e) }
-    //     }
-
-    //     document.onmousemove = (e) => {
-    //         if (ref.current.dataset.mouseDownAt === '0') return
-    //         if (Math.abs(ref.current.dataset.mouseDownAt - e.clientX) > window.innerWidth / 50) { setisact(true) }
-    //         if (isact) {
-    //             const mouseDelta = parseFloat(ref.current.dataset.mouseDownAt) - e.clientX
-    //             const maxDelta = window.innerWidth / 2
-    //             const percentage = mouseDelta / maxDelta * -100
-    //             const nextPercentageUnconstrained = parseFloat(ref.current.dataset.prevPercentage) + percentage
-    //             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -100))
-    //             ref.current.dataset.percentage = nextPercentage
-
-    //             ref.current.animate({
-    //                 left: '50%',
-    //                 // gap: '4vmin',
-    //                 transform: `translate(${nextPercentage}%,-50%)`
-    //             }, { duration: 400, fill: 'forwards' })
-
-    //             const selectedImg = ref.current.getElementsByClassName(activeImage)[0]
-    //             if (selectedImg) {
-    //                 selectedImg.animate({
-    //                     width: '40vmin', height: '56vmin'
-    //                 }, { duration: 700, fill: 'forwards' })
-    //             }
-
-
-
-
-    //             if (activeImage !== null) { setImage(null) }
-    //             // for (const image of ref.current.getElementsByClassName('image')) {
-    //             //     image.dataset.active = 'false'
-    //             //     image.animate({
-    //             //         objectPosition: `${nextPercentage + 100}% 50%`,
-    //             //         width: '40vmin',
-    //             //         height: '56vmin',
-    //             //         position: 'relative',
-
-    //             //         transform: 'none',
-    //             //         zindex: '3'
-    //             //     }, { duration: 1000, fill: 'forwards' })
-    //             // }
-    //         }
-    //     }
-    // }
-
-
 
     return (
-        <div ref={ref2} className="backgr">
-            <div ref={ref}
-                className='slider'
-                data-mouse-down-at='0'
-                data-prev-percentage='0'
-                data-percentage='0'
-                onMouseDown={onmousedown}
-                onMouseMove={onmousemove}
-                onMouseUp={onmouseup}     >
-                {allImages.map((x, k) => <SliderItem activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
-                )}
-
-            </div>
-
+        <div ref={background} className="backgr">
             <div className='content'>
+
                 <div className='header'>
-                    <div>
-                        <span>Work</span>
+                    <div className={pageTag === 'work' ? 'header_item active' : 'header_item'}>
+                        <span ref={animatedTextWork}  onClick={() => dispatch(changeSelectedPage('work'))}>work</span>
                     </div>
-                    <div>
-                        <span>About </span>
+                    <div className={pageTag === 'about' ? 'header_item active' : 'header_item'}>
+                        <span ref={animatedTextAbout}  onClick={() => dispatch(changeSelectedPage('about'))}>about </span>
                     </div>
                 </div>
-                <MiniSlider miniSliderClisck={miniSliderClisck} activeImage={activeImage} />
+                <div ref={work} className='sliderAndMinislider'>
+                    <div ref={sliderComponent}
+                        className='slider'
+                        data-mouse-down-at='0'
+                        data-prev-percentage='0'
+                        data-percentage='0'
+                        onMouseDown={onmousedown}
+                        onMouseMove={onmousemove}
+                        onMouseUp={onmouseup}     >
+                        {allImages.map((x, k) => <SliderItem activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
+                        )}
+
+                    </div>
+                    <MiniSlider miniSliderClisck={miniSliderClisck} activeImage={activeImage} />
+                </div>
+                <div ref={about} className='about'>
+                    <div className='about_content'>
+                        <span>Статья́ — это жанр журналистики, в котором автор ставит задачу проанализировать общественные ситуации, процессы, явления, прежде всего с точки зрения закономерностей, лежащих в их основе. В статье автор рассматривает отдельные ситуации как часть более широкого явления. Автор аргументированно пишет о своей точке зрения.
+
+                            В статье выражается развернутая обстоятельная аргументированная концепция автора или редакции по поводу актуальной социологической проблемы. Также в статье журналист обязательно должен интерпретировать факты (это могут быть цифры, дополнительная информация, которая будет правильно расставлять акценты и ярко раскрывать суть вопроса).
+
+                            Отличительным аспектом статьи является её готовность. Если подготавливаемый материал так и не был опубликован (не вышел в тираж, не получил распространения), то такой труд относить к статье некорректно. Скорее всего данную работу можно назвать черновиком или заготовкой. Поэтому целью любой статьи является распространение содержащейся в ней информации.</span>
+                    </div>
+
+                </div>
+
+
             </div>
+
+
+
 
         </div>
     );

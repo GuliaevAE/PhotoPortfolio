@@ -39,6 +39,11 @@
             
             width: 100vmin;
             overflow: hidden;
+            div{
+                display: flex;
+                width: 100%;
+                justify-content: space-between;
+            }
             h1{
                 animation: titleUp 1s ease-in-out ;
             }

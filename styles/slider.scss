@@ -1,6 +1,11 @@
 @keyframes visionSelectedPage {
-  0%{height: 100vh}
-  100%{height: 0}
+  0% {
+    height: 100vh
+  }
+
+  100% {
+    height: 0
+  }
 }
 
 .backgr {
@@ -13,8 +18,108 @@
   overflow: hidden;
 
   .content {
-    
+    height: 100%;
 
+    .sliderAndMinislider {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+
+
+      .slider {
+        display: flex;
+        position: absolute;
+        top: 50%;
+        left: 40%;
+        transform: translate(0, -50%);
+        height: 100%;
+        align-items: center;
+        gap: 4vmin;
+
+        -moz-user-select: none;
+        -o-user-select: none;
+        -khtml-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        .image {
+          width: 40vmin;
+          height: 56vmin;
+          object-fit: cover;
+          object-position: 0% 100%;
+          -moz-user-select: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          transition: all 1s ease-in;
+        }
+
+        .gag {
+          display: block;
+          background: red;
+          width: 4vmin;
+          height: 100%;
+          border: 1px solid white
+        }
+
+
+      }
+
+      .minislider {
+        display: flex;
+        gap: 2vmin;
+        position: absolute;
+        bottom: 5vmin;
+        right: 5vmin;
+
+        align-items: center;
+        transform: translate(0, 300%);
+        z-index: 1;
+        animation: miniSliderAction .7s ease-in-out forwards;
+
+        .minisliderOn {
+          animation: miniSliderAction .7s ease-in-out forwards;
+          bottom: 5vmin;
+          gap: 21vmin;
+
+        }
+
+        .minisliderOff {
+          animation: miniSliderAction .7s ease-in-out reverse forwards;
+          bottom: -5vmin;
+        }
+
+        .image {
+          width: auto;
+          height: 4vmin;
+
+          -moz-user-select: none;
+          -webkit-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+          transition: all 1s ease-in;
+        }
+      }
+    }
+
+    .about {
+      background: rgb(0, 0, 0);
+      height: 100vh;
+      width: 100vw;
+      overflow-y: auto;
+      position: relative;
+
+      .about_content {
+        position: absolute;
+        top: 20vmin;
+        right: 40vmin;
+        font-size: 25px;
+        width: 30%;
+
+      }
+    }
 
     .header {
       position: absolute;
@@ -23,9 +128,29 @@
       left: 50%;
       transform: translate(-50%, 30px);
       width: 25vmin;
-
+      z-index: 1;
 
       font-size: 20px;
+      overflow: hidden;
+      
+
+      span {
+        display: block;
+
+      }
+
+      .header_item {
+        opacity: .5;
+        transition: all .5s;
+
+        &.active {
+          opacity: 1 ;
+        }
+
+
+      }
+
+
     }
 
     .center {
@@ -46,92 +171,22 @@
 
 
 
-  .minislider {
-    display: flex;
-    gap: 2vmin;
-    position: absolute;
-    bottom: 5vmin;
-    right: 5vmin;
-    transform: translate(0, 0);
-    align-items: center;
-    animation: miniSliderAction .7s ease-in-out forwards;
 
-    .minisliderOn{
-      animation: miniSliderAction .7s ease-in-out forwards;
-      bottom:5vmin;
-      gap: 21vmin;
-      
-    }
-
-    .minisliderOff{
-      animation: miniSliderAction .7s ease-in-out reverse forwards;
-      bottom:-5vmin;
-    }
-    
-    .image {
-      width: auto;
-      height: 4vmin;
-      
-      -moz-user-select: none;
-      -webkit-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-      transition: all 1s ease-in;
-    }
-  }
 
 
 }
 
-.slider {
-  display: flex;
-  
-  position: absolute;
-  top: 50%;
-  left: 40%;
-  transform: translate(0, -50%);
-  height: 100%;
-  align-items: center;
-gap:4vmin;
 
-  -moz-user-select: none;
-  -o-user-select: none;
-  -khtml-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-
-  .image {
-    width: 40vmin;
-    height: 56vmin;
-    object-fit: cover;
-    object-position: 0% 100%;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    transition: all 1s ease-in;
-  }
-
-  .gag{
-    display: block;
-    background:red;
-    width: 4vmin;
-    height: 100%;
-    border:1px solid white
-  }
-
-
-}
 
 
 
 
 @keyframes miniSliderAction {
-  0%{
+  0% {
     transform: translate(100%, 0);
   }
-  100%{
+
+  100% {
     transform: translate(0, 0);
   }
 }
