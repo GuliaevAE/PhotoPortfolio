@@ -3,7 +3,11 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Slider from '../components/slider'
+
+import SelectedPage from '../components/selectedPage'
 const inter = Inter({ subsets: ['latin'] })
+
+
 
 export default function Home() {
   return (
@@ -16,7 +20,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Slider />
-
+        <SelectedPage />
       </main>
     </>
   )

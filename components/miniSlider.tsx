@@ -1,20 +1,38 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import Image from 'next/image';
 
 
 
 interface props {
     activeImage: string | null
-    miniSliderClisck: (e)=> void
+    miniSliderClisck: (e:any)=> void
 }
 
 const MiniSlider = (props:props) => {
 
-    const [switcher, setSwitch] = useState<boolean>(false)
+    // const [switcher, setSwitch] = useState<boolean>(false)
+    // useEffect(()=>{
+    //     if(props.activeImage===null && switcher){setSwitch(false)}
+    //     if(props.activeImage!==null && !switcher){setSwitch(true)}
+    // },[props.activeImage, switcher])
+
+
+    const minislider = useRef<any>(null)
     useEffect(()=>{
-        if(props.activeImage===null && switcher){setSwitch(false)}
-        if(props.activeImage!==null && !switcher){setSwitch(true)}
-    },[props.activeImage, switcher])
+        if(!props.activeImage){
+            minislider.current.animate({
+                transform:'translate(0, 300%)'
+            },{
+                duration:800, fill:'forwards', easing: 'ease-out'
+            })
+        }else{
+            minislider.current.animate({
+                transform:'translate(0, 0)'
+            },{
+                duration:800, fill:'forwards', easing: 'ease-out'
+            })
+        }
+    },[props.activeImage])
 
     let ImageArray = [
         { id: '1', img: "https://look.com.ua/pic/201701/1920x1080/look.com.ua-192291.jpg", title: 'From Nature to Culture' },
@@ -28,7 +46,7 @@ const MiniSlider = (props:props) => {
     const myLoader = ({ src }: { src: string }) => src
 
     return (
-        <div className={`minislider `} onClick={(e)=>props.miniSliderClisck(e)}>
+        <div ref={minislider} className={`minislider `} onClick={(e:any)=>props.miniSliderClisck(e)}>
             {ImageArray.map(img => <Image key={img.id} loader={myLoader} width={0} height={10} className={`image ${img.id}`} id={img.id} draggable='false' src={img.img} alt='img' />)}
         </div>
     );

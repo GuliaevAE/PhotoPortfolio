@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  
+  overflow: hidden;
   min-height: 100vh;
 }
 

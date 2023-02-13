@@ -1,6 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
+import { useAppSelector, useAppDispatch } from '../store/hooks'
+import {Allcontent, SelectedContent} from '../store/PageContentSlice'
+import {selectContent, selectNull} from '../store/PageContentSlice'
 
 interface props {
     id: string,
@@ -12,6 +15,7 @@ interface props {
 }
 
 const SliderItem = (props: props) => {
+    const dispatch = useAppDispatch()
     const ref = useRef<any>(null)
     const [act, setact] = useState<boolean>(false)
     let switcher: boolean = false
@@ -48,7 +52,7 @@ const SliderItem = (props: props) => {
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <h1>+</h1>
-                    <h1>{props.content}</h1>
+                    <h1 onClick={(()=>dispatch(selectContent(props.id)))} id={props.id}>{props.content}</h1>
                     <h1>+</h1>
                 </div>
             </div>}
