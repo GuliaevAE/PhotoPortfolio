@@ -32,11 +32,14 @@
         position: absolute;
         top: 50%;
         left: 40%;
-        transform: translate(0, -50%);
+        // transform: translate(0, -50%);
         height: 100%;
         align-items: center;
         gap: 4vmin;
-        
+
+        transform: translate(21%, -50%) scale(1.5);
+        opacity: 0;
+
         -moz-user-select: none;
         -o-user-select: none;
         -khtml-user-select: none;
@@ -79,7 +82,7 @@
         z-index: 1;
         animation: miniSliderAction .7s ease-in-out forwards;
 
-        
+
 
         .image {
           width: auto;
@@ -91,8 +94,9 @@
           user-select: none;
           transition: all 1s ease-out;
           cursor: pointer;
-          &.slideDown{
-          transform: translateY(300%)
+
+          &.slideDown {
+            transform: translateY(300%)
           }
         }
       }
@@ -105,14 +109,17 @@
       overflow-y: auto;
       position: relative;
       z-index: 1;
-      &::-webkit-scrollbar{
-        width: 15px; 
+
+      &::-webkit-scrollbar {
+        width: 15px;
       }
-      &::-webkit-scrollbar-thumb{
-       background:white;
-       border: 5px solid rgb(0, 0, 0);
-       border-radius: 10px;
+
+      &::-webkit-scrollbar-thumb {
+        background: white;
+        border: 5px solid rgb(0, 0, 0);
+        border-radius: 10px;
       }
+
       .about_content {
         position: absolute;
         top: 20vmin;
@@ -134,7 +141,7 @@
 
       font-size: 20px;
       overflow: hidden;
-      
+
 
       span {
         display: block;
@@ -144,9 +151,9 @@
       .header_item {
         opacity: .5;
         transition: all .5s;
-        
+
         &.active {
-          opacity: 1 ;
+          opacity: 1;
         }
 
 
@@ -177,8 +184,3 @@
 
 
 }
-
-
-
-
-

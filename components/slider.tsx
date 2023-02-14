@@ -30,7 +30,24 @@ const Slider = (props: props) => {
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
+    useEffect(() => {
 
+
+        sliderComponent.current.animate([
+            // {
+            //     transform: ' translate(-150%, -50%)', opacity: 0, gap: '44vmin'
+            // },
+            {
+                transform: ' translate(0, -50%)', opacity: 1, gap: '4vmin'
+            }], {
+            duration: 4000,
+            delay: 1000,
+            fill: 'forwards',
+            easing: 'ease-in-out'
+        })
+
+
+    }, [])
 
     useEffect(() => {
         switch (pageTag) {
@@ -173,6 +190,7 @@ const Slider = (props: props) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
         setisact(false)
+
         if (!isact) { actImg(e) }
     }
 
@@ -207,7 +225,7 @@ const Slider = (props: props) => {
 
                     img.animate({
                         width: '40vmin', height: '56vmin'
-                    }, { duration: 1000, fill: 'forwards', easing:'ease-out' })
+                    }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
 
                 }
                 setImage(null)
