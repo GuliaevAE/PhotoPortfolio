@@ -14,8 +14,6 @@ interface props {
 }
 
 
-
-
 const Slider = (props: props) => {
     const dispatch = useAppDispatch()
     const isSelected = useAppSelector(booleanSwitcher)
@@ -29,7 +27,7 @@ const Slider = (props: props) => {
     const animatedTextWork = useRef<any>(null)
     const animatedTextAbout = useRef<any>(null)
 
-    const [activeImage, setImage] = useState<string  | null>(null)
+    const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
 
@@ -133,7 +131,7 @@ const Slider = (props: props) => {
             for (let img of allimg) {
                 img.animate({
                     width: '40vmin', height: '56vmin'
-                }, { duration: 700, fill: 'forwards', ease: 'easy-in-out' })
+                }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
             }
 
 
@@ -142,17 +140,17 @@ const Slider = (props: props) => {
                 left: '0',
                 // transform: `translate(calc(-${selectedImg.parentNode.offsetLeft}px),-50%)`
                 transform: `translate(calc(-40vmin * ${Number(activeImage) - 1} - 4vmin * ${Number(activeImage) - 1}),-50%)`
-            }, { duration: 700, fill: 'forwards', ease: 'easy-in-out' })
+            }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
 
             selectedImg.animate({
 
                 width: '100vw', height: '100vh'
-            }, { duration: 800, fill: "forwards", ease: 'easy-in-out' })
+            }, { duration: 1000, fill: "forwards", easing: 'ease-in-out' })
         }
     }, [activeImage])
 
 
-    
+
 
 
     const actImg = (e: ChangeEvent<HTMLImageElement>) => {
@@ -160,10 +158,10 @@ const Slider = (props: props) => {
             setImage(e.target.id)
         }
     }
-    const actImgForPlus = (activeImage: string |null) => {
-      
-            setImage(activeImage)
-       
+    const actImgForPlus = (activeImage: string | null) => {
+
+        setImage(activeImage)
+
     }
 
     function onmousedown(e: any) {
@@ -193,7 +191,7 @@ const Slider = (props: props) => {
                 left: '50%',
                 // gap: '4vmin',
                 transform: `translate(${nextPercentage}%,-50%)`
-            }, { duration: 400, fill: 'forwards' })
+            }, { duration: 800, fill: 'forwards', easing: 'linear' })
 
             // const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             // if (selectedImg) {
@@ -209,7 +207,7 @@ const Slider = (props: props) => {
 
                     img.animate({
                         width: '40vmin', height: '56vmin'
-                    }, { duration: 700, fill: 'forwards' })
+                    }, { duration: 1000, fill: 'forwards', easing:'ease-out' })
 
                 }
                 setImage(null)

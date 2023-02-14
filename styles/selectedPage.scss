@@ -4,14 +4,14 @@
     position: relative;
     overflow-y: hidden;
 
-    .SelectedPage_scrollBlock{
-        
+    .SelectedPage_scrollBlock {
+
         width: .5vmin;
         position: absolute;
         left: 0;
         top: 0;
         z-index: 1;
-        background:rgb(255, 255, 255);
+        background: rgb(255, 255, 255);
     }
 
 
@@ -71,9 +71,9 @@
         width: 100vw;
         display: flex;
         justify-content: center;
-       
+
         .SelectedPage_content_images {
-            
+
             margin-top: 20vh;
             gap: 20vh;
 
@@ -88,6 +88,12 @@
                 width: 100%;
                 height: auto;
                 aspect-ratio: 3/2;
+
+                opacity: .1;
+                transition: all 1s;
+                &.element-show {
+                    opacity: 1;
+                }
             }
         }
 

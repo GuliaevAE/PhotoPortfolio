@@ -13,15 +13,33 @@ const SelectedPage = () => {
     const isSelected = useAppSelector(booleanSwitcher)
     const refSelectedPage = useRef<any>(null)
     const scrollBlock = useRef<any>(null)
-    // useEffect(()=>{
-    //   let i =  document.body.getElementsByClassName('SelectedPage_content')[0]
-    //   i.addEventListener("scroll", (event)=>{
-    //     console.log('dsfsfdf', event)
-    //   })
-    //   console.log('i',i)
-    // }, [])
 
-    function onscroll(event:React.UIEvent<HTMLDivElement>):void {
+
+
+    //////////////////////observer
+
+    const observer = useRef<any>(null);
+    useEffect(() => {
+        let options = { threshold: [0.5] };
+        observer.current = new IntersectionObserver(onEntry, options);
+        let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
+        for (let elm of elements) {
+            observer.current.observe(elm);
+        }
+
+    }, [])
+
+
+    function onEntry(entry: any) {
+        entry.forEach((change: any) => {
+            if (change.isIntersecting) {
+                change.target.classList.add('element-show');
+            }
+        });
+    }
+    //////////////////////
+
+    function onscroll(event: React.UIEvent<HTMLDivElement>): void {
         scrollBlock.current.animate({
             height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
@@ -49,8 +67,6 @@ const SelectedPage = () => {
     }, [isSelected])
 
     const myLoader = ({ src }: { src: string }) => src
-
-
 
 
 

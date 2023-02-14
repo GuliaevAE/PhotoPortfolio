@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
+import Zhuravli from '../assets/images/zhuravli.jpg'
 
 type Note = {
   id: string
   header: string
   content: string
-  img:string
+  img:string |any
   imagetitle:string
   
 }
@@ -19,7 +20,7 @@ interface NoteState {
 
 const initialState: NoteState = {
   AllContent:
-    [{ id: '1', header: '1Toadsadasdo for the day', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem',img: "https://look.com.ua/pic/201701/1920x1080/look.com.ua-192291.jpg", imagetitle: 'From sadasdNature to Culture' },
+    [{ id: '1', header: '1Toadsadasdo for the day', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem',img: Zhuravli, imagetitle: 'From sadasdNature to Culture' },
     { id: '2', header: '2Toadsadasdo for the day', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://img2.akspic.ru/crops/9/2/1/6/6/166129/166129-california_streaming_apple_event_wallpaper_without_logo-1920x1080.jpg", imagetitle: 'Reventing Wonder' },
     { id: '3', header: '3Toadsadasdo for the day', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://images.wallpaperscraft.ru/image/single/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg", imagetitle: 'Sound Expressed In Full' },
     { id: '4', header: '4Toadsadasdo for the day', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://wallpaperaccess.com/full/109666.jpg", imagetitle: 'From Gaggio With Love' },
