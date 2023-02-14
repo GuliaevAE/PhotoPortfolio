@@ -23,7 +23,7 @@ const SelectedPage = () => {
 
     function onscroll(event:React.UIEvent<HTMLDivElement>):void {
         scrollBlock.current.animate({
-            height: `${Math.floor(event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100)}%`
+            height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
     }
 
