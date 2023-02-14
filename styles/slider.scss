@@ -36,7 +36,7 @@
         height: 100%;
         align-items: center;
         gap: 4vmin;
-
+        
         -moz-user-select: none;
         -o-user-select: none;
         -khtml-user-select: none;
@@ -110,7 +110,14 @@
       width: 100vw;
       overflow-y: auto;
       position: relative;
-
+      &::-webkit-scrollbar{
+        width: 15px; 
+      }
+      &::-webkit-scrollbar-thumb{
+       background:white;
+       border: 5px solid rgb(0, 0, 0);
+       border-radius: 10px;
+      }
       .about_content {
         position: absolute;
         top: 20vmin;

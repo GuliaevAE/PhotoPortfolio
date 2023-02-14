@@ -11,7 +11,8 @@ interface props {
     content: string,
     switcher: boolean,
     nextPercentage: number,
-    activeImage: string | null
+    activeImage: string | null,
+    actImgForPlus: (e:string | null)=>void
 }
 
 const SliderItem = (props: props) => {
@@ -20,7 +21,7 @@ const SliderItem = (props: props) => {
     const [act, setact] = useState<boolean>(false)
     const boolSwitcher = useAppSelector(booleanSwitcher)
     const title = useRef<any>(null)
-
+    const actImgForPlus = props.actImgForPlus
     let switcher: boolean = false
 
 
@@ -30,13 +31,13 @@ const SliderItem = (props: props) => {
         if(titleText){
             if (boolSwitcher) {
                 titleText.animate({ transform: 'translate(0, -100%)' }, {
-                    duration: 1000,
+                    duration: 700,
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
             } else {
                 titleText.animate({ transform: 'translate(0, 0)' }, {
-                    duration: 1000,
+                    duration: 700,
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
@@ -77,12 +78,12 @@ const SliderItem = (props: props) => {
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <div ref={title}>
-                        <h1>+</h1>
+                        <h1 onClick={()=>actImgForPlus(String(Number(props.activeImage)-1) )}>+</h1>
                         <h1  onClick={(() => {
                             dispatch(selectContent(props.id))
                             dispatch(changeBooleanSwitcher(true))
                         })} id={props.id}>{props.content}</h1>
-                        <h1>+</h1>
+                        <h1 onClick={()=>actImgForPlus(String(Number(props.activeImage)+1) )}>+</h1>
                     </div>
 
                 </div>

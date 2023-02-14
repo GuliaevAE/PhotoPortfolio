@@ -29,7 +29,7 @@ const Slider = (props: props) => {
     const animatedTextWork = useRef<any>(null)
     const animatedTextAbout = useRef<any>(null)
 
-    const [activeImage, setImage] = useState<string | null>(null)
+    const [activeImage, setImage] = useState<string  | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
 
@@ -76,8 +76,6 @@ const Slider = (props: props) => {
     }, [pageTag])
 
 
-
-
     useEffect(() => {
 
         if (isSelected) {
@@ -88,20 +86,20 @@ const Slider = (props: props) => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
-            // animatedTextWork.current.animate({
-            //     transform: 'translate(0, -100%)'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
-            // animatedTextAbout.current.animate({
-            //     transform: 'translate(0, -100%)'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
+            animatedTextWork.current.animate({
+                transform: 'translate(0, -100%)'
+            }, {
+                duration: 800,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
+            animatedTextAbout.current.animate({
+                transform: 'translate(0, -100%)'
+            }, {
+                duration: 800,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
         } else {
             background.current.animate({
                 height: '100vh'
@@ -110,53 +108,51 @@ const Slider = (props: props) => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
-            // animatedTextWork.current.animate({
-            //     transform: 'translate(0, 0)'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
-            // animatedTextAbout.current.animate({
-            //     transform: 'translate(0, 0)'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
+            animatedTextWork.current.animate({
+                transform: 'translate(0, 0)'
+            }, {
+                duration: 800,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
+            animatedTextAbout.current.animate({
+                transform: 'translate(0, 0)'
+            }, {
+                duration: 800,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
         }
     }, [isSelected])
 
     let [isact, setisact] = useState<boolean>(false)
 
-
     useEffect(() => {
         if (activeImage !== null) {
+            const allimg = sliderComponent.current.getElementsByClassName('image')
+            for (let img of allimg) {
+                img.animate({
+                    width: '40vmin', height: '56vmin'
+                }, { duration: 700, fill: 'forwards', ease: 'easy-in-out' })
+            }
+
 
             const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
-
             sliderComponent.current.animate({
                 left: '0',
-
-                transform: `translate(calc(-${selectedImg.parentNode.offsetLeft}px),-50%)`
+                // transform: `translate(calc(-${selectedImg.parentNode.offsetLeft}px),-50%)`
+                transform: `translate(calc(-40vmin * ${Number(activeImage) - 1} - 4vmin * ${Number(activeImage) - 1}),-50%)`
             }, { duration: 700, fill: 'forwards', ease: 'easy-in-out' })
-
 
             selectedImg.animate({
 
                 width: '100vw', height: '100vh'
-            }, { duration: 700, fill: "forwards", ease: 'easy-in-out' })
-
+            }, { duration: 800, fill: "forwards", ease: 'easy-in-out' })
         }
-
     }, [activeImage])
 
 
-    const miniSliderClisck = (e: ChangeEvent<HTMLImageElement>) => {
-        if (e.target.alt === 'img') {
-            setImage(e.target.id)
-        }
-    }
+    
 
 
     const actImg = (e: ChangeEvent<HTMLImageElement>) => {
@@ -164,7 +160,11 @@ const Slider = (props: props) => {
             setImage(e.target.id)
         }
     }
-
+    const actImgForPlus = (activeImage: string |null) => {
+      
+            setImage(activeImage)
+       
+    }
 
     function onmousedown(e: any) {
         sliderComponent.current.dataset.mouseDownAt = e.clientX
@@ -203,8 +203,8 @@ const Slider = (props: props) => {
             // }
 
             if (activeImage !== null) {
-                const allimg = sliderComponent.current.getElementsByClassName(activeImage)
-                console.log('allimg', allimg)
+                const allimg = sliderComponent.current.getElementsByClassName('image')
+
                 for (let img of allimg) {
 
                     img.animate({
@@ -224,10 +224,10 @@ const Slider = (props: props) => {
 
                 <div className='header'>
                     <div className={pageTag === 'work' ? 'header_item active' : 'header_item'}>
-                        <span ref={animatedTextWork}  onClick={() => dispatch(changeSelectedPage('work'))}>work</span>
+                        <span ref={animatedTextWork} onClick={() => dispatch(changeSelectedPage('work'))}>work</span>
                     </div>
                     <div className={pageTag === 'about' ? 'header_item active' : 'header_item'}>
-                        <span ref={animatedTextAbout}  onClick={() => dispatch(changeSelectedPage('about'))}>about </span>
+                        <span ref={animatedTextAbout} onClick={() => dispatch(changeSelectedPage('about'))}>about </span>
                     </div>
                 </div>
                 <div ref={work} className='sliderAndMinislider'>
@@ -239,11 +239,11 @@ const Slider = (props: props) => {
                         onMouseDown={onmousedown}
                         onMouseMove={onmousemove}
                         onMouseUp={onmouseup}     >
-                        {allImages.map((x, k) => <SliderItem activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
+                        {allImages.map((x, k) => <SliderItem actImgForPlus={actImgForPlus} activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
                         )}
 
                     </div>
-                    <MiniSlider miniSliderClisck={miniSliderClisck} activeImage={activeImage} />
+                    <MiniSlider miniSliderClisck={actImg} activeImage={activeImage} />
                 </div>
                 <div ref={about} className='about'>
                     <div className='about_content'>

@@ -12,6 +12,28 @@ const SelectedPage = () => {
     const dispatch = useAppDispatch()
     const isSelected = useAppSelector(booleanSwitcher)
     const refSelectedPage = useRef<any>(null)
+    const scrollBlock = useRef<any>(null)
+    // useEffect(()=>{
+    //   let i =  document.body.getElementsByClassName('SelectedPage_content')[0]
+    //   i.addEventListener("scroll", (event)=>{
+    //     console.log('dsfsfdf', event)
+    //   })
+    //   console.log('i',i)
+    // }, [])
+
+    function onscroll(event) {
+        // console.log('event', event)
+        // console.log('event.target.scrollHeight', event.target.scrollHeight)
+        // console.log('event.target.scrollTop', event.target.scrollTop + event.target.clientHeight)
+
+      
+        scrollBlock.current.animate({
+            height: `${Math.floor(event.target.scrollTop / (event.target.scrollHeight - event.target.clientHeight) * 100)}%`
+        }, { duration: 300, fill: 'forwards', easing: 'ease' })
+
+        // scrollBlock.current.style.height = `${Math.floor((event.target.scrollTop + event.target.clientHeight)/event.target.scrollHeight*100)}%`
+    }
+
 
     useEffect(() => {
         if (isSelected) {
@@ -40,72 +62,78 @@ const SelectedPage = () => {
 
 
     return (
-        <div ref={refSelectedPage} className='SelectedPage'>
-            <div className='SelectedPage_imageBlock'>
-                <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
-                    Back
-                </span>
-                <div className='SelectedPage_imageBlock_header'>
-                    <h1 >
-                        {selected && selected.header}
-                    </h1>
-                    <h3>
-                        {selected && selected.imagetitle}
-                    </h3>
-                    <h4>
-                        {selected && selected.content}
-                    </h4>
-                </div>
+        <div ref={refSelectedPage} className='SelectedPage' >
+            <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
+                Back
+            </span>
+            <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
+            <div className='backAndScroll' onScroll={(e) => onscroll(e)}>
 
+                <div className='SelectedPage_imageBlock'>
 
-                <Image
-                    loader={myLoader}
-                    width={10}
-                    height={10}
-                    className='SelectedPage_imageBlock_img'
-                    draggable='false'
-                    src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
-                    alt="img" />
+                    <div className='SelectedPage_imageBlock_header'>
+                        <h1 >
+                            {selected && selected.header}
+                        </h1>
+                        <h3>
+                            {selected && selected.imagetitle}
+                        </h3>
+                        <h4>
+                            {selected && selected.content}
+                        </h4>
+                    </div>
 
-                {/* <CardImage imageAltText='alt' imageSrc='https://p4.wallpaperbetter.com/wallpaper/471/152/20/background-art-images-1920x1080-wallpaper-preview.jpg'></CardImage> */}
-                {/* <Image alt='sdf' src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'} width={100} height={100}></Image> */}
-                {/* <img src="https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg" alt="img" /> */}
-
-            </div>
-
-            <div className='SelectedPage_content'>
-                <div className='SelectedPage_content_images'>
-                    <Image
-                        loader={myLoader}
-                        width={10}
-                        height={10}
-                        className='SelectedPage_content_images_item'
-                        draggable='false'
-                        src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
-                        alt="img" 
-                        priority={true}/>
 
                     <Image
                         loader={myLoader}
                         width={10}
                         height={10}
-                        className='SelectedPage_content_images_item'
+                        className='SelectedPage_imageBlock_img'
                         draggable='false'
                         src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
                         alt="img" />
 
+                    {/* <CardImage imageAltText='alt' imageSrc='https://p4.wallpaperbetter.com/wallpaper/471/152/20/background-art-images-1920x1080-wallpaper-preview.jpg'></CardImage> */}
+                    {/* <Image alt='sdf' src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'} width={100} height={100}></Image> */}
+                    {/* <img src="https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg" alt="img" /> */}
 
-                    <Image
-                        loader={myLoader}
-                        width={10}
-                        height={10}
-                        className='SelectedPage_content_images_item'
-                        draggable='false'
-                        src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
-                        alt="img" />
                 </div>
 
+                <div className='SelectedPage_content'>
+                    <div className='SelectedPage_content_images'>
+                        <Image
+                            loader={myLoader}
+                            width={10}
+                            height={10}
+                            className='SelectedPage_content_images_item'
+                            draggable='false'
+                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            alt="img"
+                            priority={true} />
+
+                        <Image
+                            loader={myLoader}
+                            width={10}
+                            height={10}
+                            className='SelectedPage_content_images_item'
+                            draggable='false'
+                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            alt="img" />
+
+
+                        <Image
+                            loader={myLoader}
+                            width={10}
+                            height={10}
+                            className='SelectedPage_content_images_item'
+                            draggable='false'
+                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            alt="img" />
+                    </div>
+
+                </div>
             </div>
+
         </div>
     );
 };

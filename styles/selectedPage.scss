@@ -2,10 +2,36 @@
     height: 0;
     width: 100vw;
     position: relative;
-    overflow-y: auto;
+    overflow-y: hidden;
 
-    &::-webkit-scrollbar {
-        width: 0;
+    .SelectedPage_scrollBlock{
+        
+        width: .5vmin;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        background:rgb(255, 255, 255);
+    }
+
+
+
+    .SelectedPage_imageBlock_back {
+        position: absolute;
+        top: 10vmin;
+        left: 10vmin;
+        z-index: 1;
+    }
+
+    .backAndScroll {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        overflow-y: scroll;
+
+        &::-webkit-scrollbar {
+            width: 0;
+        }
     }
 
     .SelectedPage_imageBlock {
@@ -15,11 +41,7 @@
 
         background: rgba(0, 0, 0, 0);
 
-        .SelectedPage_imageBlock_back {
-            position: absolute;
-            top: 10vmin;
-            left: 10vmin;
-        }
+
 
         .SelectedPage_imageBlock_header {
             position: absolute;
@@ -30,7 +52,7 @@
             width: 50vmin;
             gap: 5vmin;
             height: 90vmin;
-            background:rgba(255, 255, 255, 0.216);
+            background: rgba(255, 255, 255, 0.216);
         }
 
         .SelectedPage_imageBlock_img {
@@ -53,13 +75,14 @@
         .SelectedPage_content_images {
             margin-top: 20vh;
             gap: 20vh;
-            
+
             width: 50%;
             height: fit-content;
             display: flex;
             flex-direction: column;
             align-items: center;
             padding-bottom: 20vh;
+
             .SelectedPage_content_images_item {
                 width: 100%;
                 height: auto;
