@@ -21,17 +21,10 @@ const SelectedPage = () => {
     //   console.log('i',i)
     // }, [])
 
-    function onscroll(event) {
-        // console.log('event', event)
-        // console.log('event.target.scrollHeight', event.target.scrollHeight)
-        // console.log('event.target.scrollTop', event.target.scrollTop + event.target.clientHeight)
-
-      
+    function onscroll(event:React.UIEvent<HTMLDivElement>):void {
         scrollBlock.current.animate({
-            height: `${Math.floor(event.target.scrollTop / (event.target.scrollHeight - event.target.clientHeight) * 100)}%`
-        }, { duration: 300, fill: 'forwards', easing: 'ease' })
-
-        // scrollBlock.current.style.height = `${Math.floor((event.target.scrollTop + event.target.clientHeight)/event.target.scrollHeight*100)}%`
+            height: `${Math.floor(event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100)}%`
+        }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
     }
 
 
