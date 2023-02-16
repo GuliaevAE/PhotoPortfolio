@@ -5,6 +5,8 @@ import Image from 'next/image';
 import SliderItem from './sliderItem';
 import MiniSlider from './miniSlider';
 
+import { CSSTransition } from 'react-transition-group';
+
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
@@ -66,6 +68,14 @@ const Slider = (props: props) => {
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
+
+                setTimeout(() => {
+                    about.current.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 1000)
+
                 break;
             case 'about':
                 work.current.animate({
@@ -271,6 +281,7 @@ const Slider = (props: props) => {
                     </div>
 
                 </div>
+
 
 
             </div>

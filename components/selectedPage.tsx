@@ -14,20 +14,24 @@ const SelectedPage = () => {
     const refSelectedPage = useRef<any>(null)
     const scrollBlock = useRef<any>(null)
 
-
-
+    const backAndScroll = useRef<any>(null)
+    const [switcher, setSwitch] = useState<boolean>(false)
     //////////////////////observer
 
     const observer = useRef<any>(null);
     useEffect(() => {
-        let options = { threshold: [0.5] };
-        observer.current = new IntersectionObserver(onEntry, options);
-        let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
-        for (let elm of elements) {
-            observer.current.observe(elm);
+        if (switcher) {
+
+            let options = { threshold: [0.5] };
+            observer.current = new IntersectionObserver(onEntry, options);
+            let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
+            for (let elm of elements) {
+                observer.current.observe(elm);
+            }
         }
 
-    }, [])
+
+    }, [switcher])
 
 
     function onEntry(entry: any) {
@@ -48,6 +52,7 @@ const SelectedPage = () => {
 
     useEffect(() => {
         if (isSelected) {
+            setSwitch(true)
             refSelectedPage.current.animate({
                 height: '100vh'
             }, {
@@ -63,8 +68,27 @@ const SelectedPage = () => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
+            
+
+
+
+            
         }
-    }, [isSelected])
+    }, [isSelected, ])
+
+
+useEffect(()=>{
+    if (!isSelected&&switcher) {
+        setTimeout(() => {
+            backAndScroll.current.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }, 1000)
+        setTimeout(() => { setSwitch(false) }, 1000)
+    }
+
+},[isSelected, switcher])
 
     const myLoader = ({ src }: { src: string }) => src
 
@@ -76,7 +100,7 @@ const SelectedPage = () => {
                 Back
             </span>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
-            <div className='backAndScroll' onScroll={(e) => onscroll(e)}>
+            {switcher && <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
 
                 <div className='SelectedPage_imageBlock'>
 
@@ -109,14 +133,14 @@ const SelectedPage = () => {
                 </div>
 
                 <div className='SelectedPage_content'>
-                    <div className='SelectedPage_content_images'>
+                    {switcher && <div className='SelectedPage_content_images'>
                         <Image
                             loader={myLoader}
                             width={10}
                             height={10}
                             className='SelectedPage_content_images_item'
                             draggable='false'
-                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            src={selected && selected.img}
                             alt="img"
                             priority={true} />
 
@@ -138,10 +162,10 @@ const SelectedPage = () => {
                             draggable='false'
                             src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
                             alt="img" />
-                    </div>
+                    </div>}
 
                 </div>
-            </div>
+            </div>}
 
         </div>
     );
