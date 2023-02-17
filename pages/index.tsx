@@ -11,12 +11,6 @@ import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageConte
 import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
 
 
-import { CSSTransition } from 'react-transition-group';
-
-
-
-
-
 export default function Home() {
 
   return (
@@ -29,9 +23,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Slider />
-
         <SelectedPage />
-
       </main>
     </>
   )

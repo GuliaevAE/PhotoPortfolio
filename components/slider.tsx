@@ -33,12 +33,7 @@ const Slider = (props: props) => {
     let [nextPercentage, setnextPercentage] = useState(0)
 
     useEffect(() => {
-
-
         sliderComponent.current.animate([
-            // {
-            //     transform: ' translate(-150%, -50%)', opacity: 0, gap: '44vmin'
-            // },
             {
                 transform: ' translate(0, -50%)', opacity: 1, gap: '4vmin'
             }], {
@@ -47,8 +42,6 @@ const Slider = (props: props) => {
             fill: 'forwards',
             easing: 'ease-in-out'
         })
-
-
     }, [])
 
     useEffect(() => {
@@ -165,7 +158,6 @@ const Slider = (props: props) => {
             const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             sliderComponent.current.animate({
                 left: '0',
-                // transform: `translate(calc(-${selectedImg.parentNode.offsetLeft}px),-50%)`
                 transform: `translate(calc(-40vmin * ${Number(activeImage) - 1} - 4vmin * ${Number(activeImage) - 1}),-50%)`
             }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
 
@@ -177,23 +169,17 @@ const Slider = (props: props) => {
     }, [activeImage])
 
 
-
-
-
     const actImg = (e: ChangeEvent<HTMLImageElement>) => {
         if (e.target.alt === 'img') {
             setImage(e.target.id)
         }
     }
     const actImgForPlus = (activeImage: string | null) => {
-
         setImage(activeImage)
-
     }
 
     function onmousedown(e: any) {
         sliderComponent.current.dataset.mouseDownAt = e.clientX
-
     }
 
     function onmouseup(e: any) {
@@ -217,16 +203,8 @@ const Slider = (props: props) => {
 
             sliderComponent.current.animate({
                 left: '50%',
-                // gap: '4vmin',
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'linear' })
-
-            // const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
-            // if (selectedImg) {
-            //     selectedImg.animate({
-            //         width: '40vmin', height: '56vmin'
-            //     }, { duration: 700, fill: 'forwards' })
-            // }
 
             if (activeImage !== null) {
                 const allimg = sliderComponent.current.getElementsByClassName('image')
@@ -279,16 +257,8 @@ const Slider = (props: props) => {
 
                             Отличительным аспектом статьи является её готовность. Если подготавливаемый материал так и не был опубликован (не вышел в тираж, не получил распространения), то такой труд относить к статье некорректно. Скорее всего данную работу можно назвать черновиком или заготовкой. Поэтому целью любой статьи является распространение содержащейся в ней информации.</span>
                     </div>
-
                 </div>
-
-
-
             </div>
-
-
-
-
         </div>
     );
 };

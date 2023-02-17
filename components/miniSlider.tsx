@@ -5,7 +5,6 @@ import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
 
-
 interface props {
     activeImage: string | null
     miniSliderClisck: (e:any)=> void
@@ -36,8 +35,6 @@ const MiniSlider = (props:props) => {
             })
         }
     },[props.activeImage])
-
-    
 
     const myLoader = ({ src }: { src: string }) => src
 

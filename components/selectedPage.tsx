@@ -75,10 +75,6 @@ const SelectedPage = () => {
                 easing: 'ease-in-out'
             })
 
-
-
-
-
         }
     }, [isSelected,])
 
