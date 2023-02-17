@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from '../styles/Home.module.css'
 import Slider from '../components/slider'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import SelectedPage from '../components/selectedPage'
 import { useAppSelector, useAppDispatch } from '../store/hooks'
@@ -18,10 +18,7 @@ import { CSSTransition } from 'react-transition-group';
 
 
 export default function Home() {
-  const nodeRef = useRef<any>(null)
 
-
-  const isSelected = useAppSelector(booleanSwitcher)
   return (
     <>
       <Head>
@@ -32,9 +29,9 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Slider />
-     
-       <SelectedPage />
-   
+
+        <SelectedPage />
+
       </main>
     </>
   )

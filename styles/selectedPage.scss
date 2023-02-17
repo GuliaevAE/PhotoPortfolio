@@ -1,4 +1,25 @@
+.my-node-enter {
+    height: 0;
+  }
+  .my-node-enter-active {
+    height: 100vh;
+    transition: all 1200ms;
+  }
+  .my-node-exit {
+    height: 100vh;
+  }
+  .my-node-exit-active {
+    height: 0;
+    transition: all 1200ms;
+  }
 
+.divForSelectedPage{
+    background:green;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    overflow-y: scroll;
+}
 
 .SelectedPage {
     height: 100vh;
@@ -54,7 +75,7 @@
             width: 50vmin;
             gap: 5vmin;
             height: 90vmin;
-            background: rgba(255, 255, 255, 0.216);
+            text-shadow: 2px 2px black;
         }
 
         .SelectedPage_imageBlock_img {
@@ -69,7 +90,7 @@
 
 
     .SelectedPage_content {
-        height: 100vh;
+        // height: 100vh;
         width: 100vw;
         display: flex;
         justify-content: center;

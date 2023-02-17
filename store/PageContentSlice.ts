@@ -2,14 +2,15 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
 import Zhuravli from '../assets/images/zhuravli.jpg'
 
-type Note = {
+export type Note = {
   id: string
   header: string
   content: string
   img:string |any
   imagetitle:string
-  
 }
+
+export type SelectedContentType = null | undefined| Note
 
 interface NoteState {
   AllContent: Array<Note>,

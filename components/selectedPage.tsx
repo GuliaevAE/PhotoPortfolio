@@ -1,7 +1,9 @@
 import React from 'react';
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
-import CardImage from './cardimage';
+
+import ImageBlock from './imageBlockForSelectedPage';
+
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
@@ -28,6 +30,10 @@ const SelectedPage = () => {
             for (let elm of elements) {
                 observer.current.observe(elm);
             }
+        } else {
+            scrollBlock.current.animate({
+                height: `0%`
+            }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
         }
 
 
@@ -68,31 +74,32 @@ const SelectedPage = () => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
-            
 
 
 
-            
+
+
         }
-    }, [isSelected, ])
+    }, [isSelected,])
 
 
-useEffect(()=>{
-    if (!isSelected&&switcher) {
-        setTimeout(() => {
-            backAndScroll.current.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }, 1000)
-        setTimeout(() => { setSwitch(false) }, 1000)
-    }
+    useEffect(() => {
+        if (!isSelected && switcher) {
+            setTimeout(() => {
+                backAndScroll.current.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 1000)
+            setTimeout(() => {
+                setSwitch(false)
 
-},[isSelected, switcher])
+            }, 1000)
+        }
+
+    }, [isSelected, switcher])
 
     const myLoader = ({ src }: { src: string }) => src
-
-
 
     return (
         <div ref={refSelectedPage} className='SelectedPage' >
@@ -100,37 +107,9 @@ useEffect(()=>{
                 Back
             </span>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
-            {switcher && <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-
-                <div className='SelectedPage_imageBlock'>
-
-                    <div className='SelectedPage_imageBlock_header'>
-                        <h1 >
-                            {selected && selected.header}
-                        </h1>
-                        <h3>
-                            {selected && selected.imagetitle}
-                        </h3>
-                        <h4>
-                            {selected && selected.content}
-                        </h4>
-                    </div>
-
-
-                    <Image
-                        loader={myLoader}
-                        width={10}
-                        height={10}
-                        className='SelectedPage_imageBlock_img'
-                        draggable='false'
-                        src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
-                        alt="img" />
-
-                    {/* <CardImage imageAltText='alt' imageSrc='https://p4.wallpaperbetter.com/wallpaper/471/152/20/background-art-images-1920x1080-wallpaper-preview.jpg'></CardImage> */}
-                    {/* <Image alt='sdf' src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'} width={100} height={100}></Image> */}
-                    {/* <img src="https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg" alt="img" /> */}
-
-                </div>
+            <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
+                {selected&&<ImageBlock selected={selected}/>}
+                
 
                 <div className='SelectedPage_content'>
                     {switcher && <div className='SelectedPage_content_images'>
@@ -150,7 +129,7 @@ useEffect(()=>{
                             height={10}
                             className='SelectedPage_content_images_item'
                             draggable='false'
-                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            src={selected && selected.img}
                             alt="img" />
 
 
@@ -160,12 +139,12 @@ useEffect(()=>{
                             height={10}
                             className='SelectedPage_content_images_item'
                             draggable='false'
-                            src={'https://mymoscowcity.com/upload/iblock/a9c/a9c2b0b174448e6054cbbbd957fd0429.jpg'}
+                            src={selected && selected.img}
                             alt="img" />
                     </div>}
 
                 </div>
-            </div>}
+            </div>
 
         </div>
     );
