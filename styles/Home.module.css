@@ -5,7 +5,7 @@
   align-items: center;
   overflow: hidden;
   min-height: 100vh;
-  background:rgb(34, 34, 34);
+  background:rgb(0, 0, 0);
   color: white
 }
 
@@ -282,5 +282,5 @@
 
 @font-face {
   font-family: "Try_clover";
-  src: url(../fonts/try_clother_black.woff2);
+  src: url(../fonts/DolomanPavljenko.otf);
 }

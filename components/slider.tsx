@@ -35,7 +35,7 @@ const Slider = (props: props) => {
 
     const [aboutSwitcher, setAboutSwitch] = useState<boolean>(false)
 
-    
+
 
 
     //////////////////////observer
@@ -58,8 +58,15 @@ const Slider = (props: props) => {
         if (aboutSwitcher) {
             let options = { threshold: [0.5] };
             observer.current = new IntersectionObserver(onEntry, options);
-            let elements = about.current.getElementsByClassName('about_content_textBlock_span');
+            // let elements = about.current.getElementsByClassName('about_content_textBlock_span');
+            let elements = about.current.getElementsByClassName('about_content');
             for (let elm of elements) {
+                observer.current.observe(elm);
+            }
+
+
+            let elements1 = about.current.getElementsByClassName('about_image');
+            for (let elm of elements1) {
                 observer.current.observe(elm);
             }
         } else {
@@ -254,7 +261,7 @@ const Slider = (props: props) => {
             sliderComponent.current.dataset.percentage = nextPercentage
 
             sliderComponent.current.animate({
-                left: '50%',
+                left: '40vw',
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'linear' })
 
@@ -272,15 +279,20 @@ const Slider = (props: props) => {
             }
         }
     }
-    let str = 'Красивый визуал сделать легко.'
-    let str1 = 'Умный визуал — это глубокая работа.'
-    let str2 = 'И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве. '
+    let str = 'Красивый визуал сделать легко. Умный визуал — это глубокая работа. И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
+    let str1 = 'Умный визуал — это глубокая работа. И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
+    let str2 = 'И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
+
+
     let str3 = 'Brand фотография'
-    let str4 = '— это новое уникальное направление, которое сочетает в себе ум и творчество, логику и полёт фантазии, красивую картинку и глубокий смысл.  '
-    let str5 = 'Правильно выстроенный визуальный контент максимально отражает Вас и Ваш продукт, верно транслирует Ваши роли в медиа-пространстве и привлекает именно Вашу целевую аудиторию. Ведь визуал — это первое, что заставляет Ваших потенциальных клиентов задержаться на Вашей странице. '
+    let str4 = '— это новое уникальное направление, которое сочетает в себе ум и творчество, логику и полёт фантазии, красивую картинку и глубокий смысл.'
+    let str5 = 'Правильно выстроенный визуальный контент максимально отражает Вас и Ваш продукт, верно транслирует Ваши роли в медиа-пространстве и привлекает именно Вашу целевую аудиторию. Ведь визуал — это первое, что заставляет Ваших потенциальных клиентов задержаться на Вашей странице.'
 
     let str6 = 'Грамотная визуализация бренда создает ДОВЕРИЕ'
     let str7 = 'А доверие, как известно, вовлекает, удерживает внимание и прекрасно продает!'
+
+
+
     let str8 = 'Я — Brand фотограф и эксперт по визуальному продвижению в Instagram'
 
     let str11 = '- два высших образования, что говорит о системности, структуре и желании быть в постоянном развитии'
@@ -339,19 +351,107 @@ const Slider = (props: props) => {
                     <MiniSlider miniSliderClisck={actImg} activeImage={activeImage} />
                 </div>
                 <div ref={about} className='about'>
+
+                    {aboutSwitcher && <div className='about_container'>
+
+                        <div className='about_content'>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str}</span> </div>
+                            </div>
+
+                            {/* <div className='about_content_textBlock'>
+                                {str1.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                            </div>
+                            <div className='about_content_textBlock'>
+                                {str2.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                            </div> */}
+                        </div>
+                    </div>}
+
+                    {aboutSwitcher && <div className='about_container '>
+                        <div className='about_image'>
+                            <Image className='img long'
+                                height={40}
+                                width={40}
+                                loader={myLoader}
+                                draggable='false'
+                                alt="img"
+                                src={'https://sun9-west.userapi.com/sun9-68/s/v1/ig2/Ys8rUumKXY61umxr_L8-i5M0frxN4NmlCQxhuQODGgMMEy4PmYfXdSmHU0kpATE94EwfiJ-ElOxIjYTzzdqj7R3S.jpg?size=1600x1066&quality=95&type=album'} />
+                        </div>
+                        <div className='about_content'>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str3}</span> </div>
+                            </div>
+
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str4}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str5}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str6}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str7}</span> </div>
+                            </div>
+                        </div>
+                    </div>}
+
+                    {aboutSwitcher && <div className='about_container reverse'>
+                        <div className='about_image'>
+                            <Image className='img'
+                                height={40}
+                                width={40}
+                                loader={myLoader}
+                                draggable='false'
+                                alt="img"
+                                src={'https://sun9-west.userapi.com/sun9-4/s/v1/ig2/TWKftKfkIaVgqdaJy-4bq_Q5aBlalEHDAZvlGP0VsDPxqVQCDUclymlRDvcqb4YhnXv90Nfe_UDqW6vCDIG2vJ-6.jpg?size=1201x1280&quality=95&type=album'} />
+                        </div>
+                        <div className='about_content'>
+                            <div className='about_content_textBlock'>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str8}</span> </div>
+                            </div>
+
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str11}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str12}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str13}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str14}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str15}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str16}</span> </div>
+                            </div>
+                            <div className='about_content_textBlock'>
+                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str17}</span> </div>
+                            </div>
+                        </div>
+                    </div>}
+
+
+
                     {aboutSwitcher && <div className='about_image'>
-                        <Image className='img'
+                        {/* <Image className='img'
                             height={40}
                             width={40}
                             loader={myLoader}
                             draggable='false'
                             alt="img"
-                            src={'https://img-10.wfolio.com/QPMs3IyRCgMwE_iazelPKmR6dX7vp8OI5EFnBU8QkVc/c:853:853:nowe:0:370/rs:fill:320:0:0/cb:v2/aHR0cDovL3N0b3Jh/Z2Uud2ZvbGlvLnJ1/L3NpdGVzLzEyOTc0/L2Fzc2V0cy8xNjQy/NjA1OTUzXzNkNmFh/OS5qcGc.jpg'} />
+                            src={'https://img-10.wfolio.com/QPMs3IyRCgMwE_iazelPKmR6dX7vp8OI5EFnBU8QkVc/c:853:853:nowe:0:370/rs:fill:320:0:0/cb:v2/aHR0cDovL3N0b3Jh/Z2Uud2ZvbGlvLnJ1/L3NpdGVzLzEyOTc0/L2Fzc2V0cy8xNjQy/NjA1OTUzXzNkNmFh/OS5qcGc.jpg'} /> */}
                     </div>}
                     {aboutSwitcher && <div className='about_content'>
 
 
-                        {aboutTextArr.map((str, k) => {
+                        {/* {aboutTextArr.map((str, k) => {
 
                             if (k === 3) {
                                 return <div key={str} className='about_content_textBlock'>
@@ -363,11 +463,11 @@ const Slider = (props: props) => {
                                 </div>
                             } else {
                                 return <div key={str} className='about_content_textBlock'>
-                                {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
-                            </div>
+                                    {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                                </div>
                             }
 
-                        })}
+                        })} */}
 
 
 
