@@ -32,6 +32,50 @@ const Slider = (props: props) => {
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
+
+    const [aboutSwitcher, setAboutSwitch] = useState<boolean>(false)
+
+    
+
+
+    //////////////////////observer
+
+    const observer = useRef<any>(null);
+
+
+    function onEntry(entry: any) {
+        entry.forEach((change: any) => {
+            if (change.isIntersecting) {
+                change.target.classList.add('element-show');
+            }
+        });
+    }
+    //////////////////////
+
+
+
+    useEffect(() => {
+        if (aboutSwitcher) {
+            let options = { threshold: [0.5] };
+            observer.current = new IntersectionObserver(onEntry, options);
+            let elements = about.current.getElementsByClassName('about_content_textBlock_span');
+            for (let elm of elements) {
+                observer.current.observe(elm);
+            }
+        } else {
+            about.current.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    }, [aboutSwitcher])
+
+
+
+
+
+
+
     useEffect(() => {
         sliderComponent.current.animate([
             {
@@ -63,11 +107,13 @@ const Slider = (props: props) => {
                 })
 
                 setTimeout(() => {
-                    about.current.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                }, 1000)
+                    setAboutSwitch(false)
+
+                    // about.current.scrollTo({
+                    //     top: 0,
+                    //     behavior: 'smooth'
+                    // });
+                }, 900)
 
                 break;
             case 'about':
@@ -85,7 +131,13 @@ const Slider = (props: props) => {
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 });
-
+                setAboutSwitch(true)
+                // let options = { threshold: [0.5] };
+                // observer.current = new IntersectionObserver(onEntry, options);
+                // let elements = about.current.getElementsByClassName('about_content_textBlock_span');
+                // for (let elm of elements) {
+                //     observer.current.observe(elm);
+                // }
                 break;
 
             default:
@@ -220,10 +272,47 @@ const Slider = (props: props) => {
             }
         }
     }
+    let str = 'Красивый визуал сделать легко.'
+    let str1 = 'Умный визуал — это глубокая работа.'
+    let str2 = 'И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве. '
+    let str3 = 'Brand фотография'
+    let str4 = '— это новое уникальное направление, которое сочетает в себе ум и творчество, логику и полёт фантазии, красивую картинку и глубокий смысл.  '
+    let str5 = 'Правильно выстроенный визуальный контент максимально отражает Вас и Ваш продукт, верно транслирует Ваши роли в медиа-пространстве и привлекает именно Вашу целевую аудиторию. Ведь визуал — это первое, что заставляет Ваших потенциальных клиентов задержаться на Вашей странице. '
 
+    let str6 = 'Грамотная визуализация бренда создает ДОВЕРИЕ'
+    let str7 = 'А доверие, как известно, вовлекает, удерживает внимание и прекрасно продает!'
+    let str8 = 'Я — Brand фотограф и эксперт по визуальному продвижению в Instagram'
+
+    let str11 = '- два высших образования, что говорит о системности, структуре и желании быть в постоянном развитии'
+    let str12 = '- 10 лет опыта работы в красивом бизнесе снимаю с 2013 года'
+    let str13 = '- бэкграунд: пейзажная фотография, детские и семейные съёмки, кинематографическая фотография, создание Slide movie'
+    let str14 = '- участник тематических конкурсов 35AWARDS 2019'
+    let str15 = '- участник выставки BICFP ROME EXPO В Италии 2020  '
+    let str16 = '- снимаю с 2013 года'
+    let str17 = '- повышение квалификации на курсе «BRAND фотография» в агентстве визуального брендинга MIA'
+
+    let aboutTextArr = [str,
+        str1,
+        str2,
+        str3,
+        str4,
+        str5,
+        str6,
+        str7,
+        str8,
+        str11,
+        str12,
+        str13,
+        str14,
+        str15,
+        str16,
+        str17]
+
+
+    const myLoader = ({ src }: { src: string }) => src
 
     return (
-        <div ref={background} className="backgr">
+        <div ref={background} className="container">
             <div className='content'>
 
                 <div className='header'>
@@ -250,13 +339,63 @@ const Slider = (props: props) => {
                     <MiniSlider miniSliderClisck={actImg} activeImage={activeImage} />
                 </div>
                 <div ref={about} className='about'>
-                    <div className='about_content'>
-                        <span>Статья́ — это жанр журналистики, в котором автор ставит задачу проанализировать общественные ситуации, процессы, явления, прежде всего с точки зрения закономерностей, лежащих в их основе. В статье автор рассматривает отдельные ситуации как часть более широкого явления. Автор аргументированно пишет о своей точке зрения.
+                    {aboutSwitcher && <div className='about_image'>
+                        <Image className='img'
+                            height={40}
+                            width={40}
+                            loader={myLoader}
+                            draggable='false'
+                            alt="img"
+                            src={'https://img-10.wfolio.com/QPMs3IyRCgMwE_iazelPKmR6dX7vp8OI5EFnBU8QkVc/c:853:853:nowe:0:370/rs:fill:320:0:0/cb:v2/aHR0cDovL3N0b3Jh/Z2Uud2ZvbGlvLnJ1/L3NpdGVzLzEyOTc0/L2Fzc2V0cy8xNjQy/NjA1OTUzXzNkNmFh/OS5qcGc.jpg'} />
+                    </div>}
+                    {aboutSwitcher && <div className='about_content'>
 
-                            В статье выражается развернутая обстоятельная аргументированная концепция автора или редакции по поводу актуальной социологической проблемы. Также в статье журналист обязательно должен интерпретировать факты (это могут быть цифры, дополнительная информация, которая будет правильно расставлять акценты и ярко раскрывать суть вопроса).
 
-                            Отличительным аспектом статьи является её готовность. Если подготавливаемый материал так и не был опубликован (не вышел в тираж, не получил распространения), то такой труд относить к статье некорректно. Скорее всего данную работу можно назвать черновиком или заготовкой. Поэтому целью любой статьи является распространение содержащейся в ней информации.</span>
-                    </div>
+                        {aboutTextArr.map((str, k) => {
+
+                            if (k === 3) {
+                                return <div key={str} className='about_content_textBlock'>
+                                    {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text title uppercase'>{x}</span> </div>)}
+                                </div>
+                            } else if (k >= 9) {
+                                return <div key={str} className='about_content_textBlock ul'>
+                                    {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                                </div>
+                            } else {
+                                return <div key={str} className='about_content_textBlock'>
+                                {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                            </div>
+                            }
+
+                        })}
+
+
+
+
+
+
+                        {/* <div className='about_content_textBlock'>
+                            {str.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                        </div>
+
+                        <div className='about_content_textBlock'>
+                            {str1.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                        </div>
+                        <div className='about_content_textBlock'>
+                            {str2.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                        </div>
+                        <div className='about_content_textBlock'>
+                            {str3.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text title uppercase'>{x}</span> </div>)}
+                        </div>
+
+                        <div className='about_content_textBlock'>
+                            {str4.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                        </div>
+                        <div className='about_content_textBlock'>
+                            {str5.split(' ').map((x, k) => <div key={x + k} className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{x}</span> </div>)}
+                        </div> */}
+
+                    </div>}
                 </div>
             </div>
         </div>
