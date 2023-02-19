@@ -11,7 +11,7 @@ export default function ImageBlock({ selected }: ImageBlockinterface) {
 
     return (
         <div className='SelectedPage_imageBlock'>
-
+ 
             <div className='SelectedPage_imageBlock_header'>
                 <h1 >
                     {selected && selected.header}

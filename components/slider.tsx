@@ -234,7 +234,17 @@ const Slider = (props: props) => {
         }
     }
     const actImgForPlus = (activeImage: string | null) => {
-        setImage(activeImage)
+        if (!activeImage) return
+        
+        if (Number(activeImage) >= Number(allImages[allImages.length - 1].id)) {
+            setImage('1')
+        } else
+            if (Number(activeImage) === 0) {
+                setImage(allImages[allImages.length - 1].id)
+            } else {
+                setImage(activeImage)
+            }
+
     }
 
     function onmousedown(e: any) {
@@ -414,25 +424,25 @@ const Slider = (props: props) => {
                             </div>
 
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str11}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str11}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str12}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str12}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str13}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str13}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str14}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str14}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str15}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str15}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str16}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str16}</span> </div>
                             </div>
                             <div className='about_content_textBlock'>
-                                 <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str17}</span> </div>
+                                <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str17}</span> </div>
                             </div>
                         </div>
                     </div>}
