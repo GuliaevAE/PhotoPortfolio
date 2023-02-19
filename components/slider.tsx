@@ -217,7 +217,7 @@ const Slider = (props: props) => {
             const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             sliderComponent.current.animate({
                 left: '0',
-                transform: `translate(calc(-40vmin * ${Number(activeImage) - 1} - 4vmin * ${Number(activeImage) - 1}),-50%)`
+                transform: `translate(calc(-40vmin * ${Number(activeImage) - 1} - 4vmin * ${Number(activeImage) - 1} - 85vmin),-50%)`
             }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
 
             selectedImg.animate({
@@ -257,11 +257,11 @@ const Slider = (props: props) => {
             const maxDelta = window.innerWidth / 2
             const percentage = mouseDelta / maxDelta * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
-            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -100))
+            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -50))
             sliderComponent.current.dataset.percentage = nextPercentage
 
             sliderComponent.current.animate({
-                left: '40vw',
+                // left: '40vw',
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'linear' })
 

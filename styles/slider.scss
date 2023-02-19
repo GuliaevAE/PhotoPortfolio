@@ -31,13 +31,13 @@
         display: flex;
         position: absolute;
         top: 50%;
-        left: 40vw;
+        padding-left: 85vmin;
+        padding-right: 95vmin;
         // transform: translate(0, -50%);
         height: 100%;
         align-items: center;
         gap: 4vmin;
-
-        transform: translate(21%, -50%) scale(1.5);
+        transform: translate( 55vmin, -50%) scale(1.5);
         opacity: 0;
 
         -moz-user-select: none;
