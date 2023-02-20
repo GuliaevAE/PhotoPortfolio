@@ -54,7 +54,7 @@ const SliderItem = (props: props) => {
         const image = ref.current.getElementsByClassName('image')[0]
         image.animate({
             objectPosition: `${props.nextPercentage + 100}% 50%`,
-        }, { duration: 800, fill: 'forwards' })
+        }, { duration: 800, fill: 'forwards', easing: 'ease'})
     }, [props.nextPercentage])
 
 

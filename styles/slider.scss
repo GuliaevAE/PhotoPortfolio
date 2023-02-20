@@ -31,13 +31,14 @@
         display: flex;
         position: absolute;
         top: 50%;
-        padding-left: 85vmin;
-        padding-right: 95vmin;
+        padding-left: calc((100vw - 18vw)/2) ;
+        // background:green;
+        padding-right: calc((100vw - 18vw)/2);
         // transform: translate(0, -50%);
         height: 100%;
         align-items: center;
-        gap: 4vmin;
-        transform: translate( 55vmin, -50%) scale(1.5);
+        gap: 4vw;
+        transform: translate(55vmin, -50%) scale(1.5);
         opacity: 0;
 
         -moz-user-select: none;
@@ -48,8 +49,8 @@
         user-select: none;
 
         .image {
-          width: 40vmin;
-          height: 56vmin;
+          width: 18vw;
+          height: 56vh;
           object-fit: cover;
           object-position: 0% 100%;
           -moz-user-select: none;
@@ -112,7 +113,8 @@
       display: flex;
       flex-direction: column;
       padding-bottom: 20vmin;
-
+      padding-top: 20vmin;
+      gap: 10%;
       &::-webkit-scrollbar {
         width: 15px;
       }
@@ -125,16 +127,16 @@
 
       .about_container {
 
-        width:100%;
+        width: 100%;
         display: flex;
         justify-content: center;
         margin: 0 auto;
         // margin-top: 10%;
         // background:blue;
-        min-height: 100vh;
+        // min-height: 50vh;
         height: auto;
-       gap: 3%;
-      
+        gap: 3%;
+
 
         &.reverse {
           flex-direction: row-reverse;
@@ -184,17 +186,17 @@
 
             transform: translateX(100%);
             transition: all 1s;
-  
+
           }
 
-          
-          &.element-show .about_content_textBlock{
+
+          &.element-show .about_content_textBlock {
             transform: none;
           }
 
         }
 
-        &.reverse .about_content_textBlock{
+        &.reverse .about_content_textBlock {
           transform: translateX(-100%);
         }
 
@@ -311,4 +313,48 @@
 
 
 
+}
+
+@media (max-width: 600px) {
+  .about_container{
+    flex-direction: column;
+    align-items:center;
+    gap: 5vh !important;
+   min-height: auto !important;
+    
+    .about_image,
+    .about_content {
+      width: 90% !important;
+      
+
+    }
+
+    .about_image {
+      // background: green;
+      height: fit-content !important;
+      
+      .img {
+        height: 100% !important;
+        // object-fit: cover !important;
+        object-fit: cover !important;
+      }
+    }
+  }
+
+   .about_container.reverse {
+    flex-direction:column !important;
+   }
+}
+
+
+@media (max-width:600px) {
+  .minislider{
+    right: 0 !important;
+    width: 100% !important;
+    gap: 0 !important;
+    justify-content: space-around;
+    .image{
+      height: 4vh !important;
+    }
+  }
 }
