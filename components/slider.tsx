@@ -254,7 +254,7 @@ const Slider = (props: props) => {
 
 
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
-            const maxDelta = window.innerWidth / 2
+            const maxDelta = window.innerWidth 
 
             const percentage = mouseDelta / maxDelta * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage

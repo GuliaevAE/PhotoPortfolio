@@ -78,12 +78,12 @@ const SliderItem = (props: props) => {
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <div ref={title}>
-                        <h1 onClick={()=>actImgForPlus(String(Number(props.activeImage)-1) )}>+</h1>
-                        <h1  onClick={(() => {
+                        <span onClick={()=>actImgForPlus(String(Number(props.activeImage)-1) )}>+</span>
+                        <span  onClick={(() => {
                             dispatch(selectContent(props.id))
                             dispatch(changeBooleanSwitcher(true))
-                        })} id={props.id}>{props.content}</h1>
-                        <h1 onClick={()=>actImgForPlus(String(Number(props.activeImage)+1) )}>+</h1>
+                        })} id={props.id}>{props.content}</span>
+                        <span onClick={()=>actImgForPlus(String(Number(props.activeImage)+1) )}>+</span>
                     </div>
 
                 </div>

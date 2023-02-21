@@ -8,7 +8,7 @@ import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
 const SelectedPage = () => {
-    const count = useAppSelector(Allcontent)
+    const allContent = useAppSelector(Allcontent)
 
     const selected = useAppSelector(SelectedContent)
     const dispatch = useAppDispatch()
@@ -95,6 +95,14 @@ const SelectedPage = () => {
 
     }, [isSelected, switcher])
 
+
+    function scrollToImages(){
+        let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
+        backAndScroll.current.scrollTo({
+            left: 0, top: SelectedPage_content.getBoundingClientRect().top,  behavior: 'smooth'
+        })
+    }
+
     const myLoader = ({ src }: { src: string }) => src
 
     return (
@@ -102,9 +110,14 @@ const SelectedPage = () => {
             <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
                 Back
             </span>
+            <div className='SelectedPage_imageBlock_imageIdOnCenter'>
+                <div>{selected && selected.id}</div>
+                <div>-</div>
+                <div> {allContent.length}</div>
+            </div>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-                {selected&&<ImageBlock selected={selected}/>}
+                {selected&&<ImageBlock selected={selected} scrollToImages={scrollToImages}/>}
                 
 
                 <div className='SelectedPage_content'>
