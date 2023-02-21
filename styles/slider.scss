@@ -13,13 +13,12 @@
   width: 100vw;
   background: rgb(21, 21, 21);
   margin: 0;
-  overflow: auto;
   position: relative;
   overflow: hidden;
 
   .content {
     height: 100%;
-
+    overflow: hidden;
     .sliderAndMinislider {
       position: relative;
       display: flex;
