@@ -48,7 +48,7 @@ const SliderItem = (props: props) => {
 
     useEffect(() => {
         if (props.switcher) { setact(false) }
-    }, [act, props.switcher])
+    }, [ props.switcher])
 
     useEffect(() => {
         const image = ref.current.getElementsByClassName('image')[0]

@@ -29,19 +29,65 @@ const Slider = (props: props) => {
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
+    const [touchScreen, setTouch] = useState<boolean>(false)
 
 
     useEffect(() => {
+
+
+        // if (window.innerWidth < 600) {
+        resize()
+
+
+        // }
+
         sliderComponent.current.animate([
             {
-                transform: ' translate(0, -50%)', opacity: 1, 
+                transform: ` translate(${touchScreen ? -4 : -0}%, -50%)`, opacity: 1,
             }], {
             duration: 4000,
             delay: 1000,
             fill: 'forwards',
             easing: 'ease-in-out'
         })
+
+
+        window.addEventListener('resize', (e) => {
+            console.log('asfdoas')
+            resize()
+        })
+
+
+
     }, [])
+
+    function resize() {
+        if (window.innerWidth < 600 && !touchScreen) {
+            return setTouch(true)
+
+        }
+        if (window.innerWidth >= 600 && touchScreen) {
+            return setTouch(false)
+
+        }
+
+    }
+
+    useEffect(() => {
+        if (touchScreen) {
+            const allimg = sliderComponent.current.getElementsByClassName('image')
+            for (let img of allimg) {
+                img.style.width = '50vw'
+                img.style.height = '56vh'
+            }
+        } else {
+            const allimg = sliderComponent.current.getElementsByClassName('image')
+            for (let img of allimg) {
+                img.style.width = '18vw'
+                img.style.height = '56vh'
+            }
+        }
+    }, [touchScreen])
 
     useEffect(() => {
         switch (pageTag) {
@@ -191,11 +237,21 @@ const Slider = (props: props) => {
         if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
         if (isact) {
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
-            const maxDelta = window.innerWidth
-           
-            const percentage = mouseDelta / maxDelta * -100
+            const maxDelta = window.innerWidth /2
+
+            const percentage = mouseDelta / window.innerWidth * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
-            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -53))
+
+            // console.log(sliderComponent.current.getBoundingClientRect())
+
+            let max
+            if (touchScreen) {
+                max = 71
+            } else {
+                max = 53
+            }
+
+            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -max))
             sliderComponent.current.dataset.percentage = nextPercentage
 
             sliderComponent.current.animate({
@@ -204,16 +260,17 @@ const Slider = (props: props) => {
             }, { duration: 800, fill: 'forwards', easing: 'ease' })
 
             if (activeImage !== null) {
+                setImage(null)
                 const allimg = sliderComponent.current.getElementsByClassName('image')
 
                 for (let img of allimg) {
 
                     img.animate({
-                        width: '18vw', height: '56vh'
+                        width: touchScreen ? ' 50vw' : '18vw', height: '56vh'
                     }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
 
                 }
-                setImage(null)
+
             }
         }
     }
