@@ -34,16 +34,12 @@ const Slider = (props: props) => {
 
     useEffect(() => {
 
-
-        // if (window.innerWidth < 600) {
         resize()
 
 
-        // }
-
         sliderComponent.current.animate([
             {
-                transform: ` translate(${touchScreen ? -4 : -0}%, -50%)`, opacity: 1,
+                transform: ` translate(${touchScreen ? -6 : -0}%, -50%)`, opacity: 1,
             }], {
             duration: 4000,
             delay: 1000,
@@ -236,6 +232,22 @@ const Slider = (props: props) => {
         if (sliderComponent.current.dataset.mouseDownAt === '0') return
         if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
         if (isact) {
+
+            if (activeImage !== null) {
+                setImage(null)
+                const allimg = sliderComponent.current.getElementsByClassName('image')
+
+                for (let img of allimg) {
+
+                    img.animate({
+                        width: touchScreen ? ' 50vw' : '18vw', height: '56vh'
+                    }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
+
+                }
+
+            }
+
+
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
             const maxDelta = window.innerWidth /2
 
@@ -259,19 +271,7 @@ const Slider = (props: props) => {
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'ease' })
 
-            if (activeImage !== null) {
-                setImage(null)
-                const allimg = sliderComponent.current.getElementsByClassName('image')
-
-                for (let img of allimg) {
-
-                    img.animate({
-                        width: touchScreen ? ' 50vw' : '18vw', height: '56vh'
-                    }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
-
-                }
-
-            }
+            
         }
     }
 
