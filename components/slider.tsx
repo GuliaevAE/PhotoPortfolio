@@ -48,10 +48,7 @@ const Slider = (props: props) => {
         })
 
 
-        window.addEventListener('resize', (e) => {
-            console.log('asfdoas')
-            resize()
-        })
+        
 
 
 
