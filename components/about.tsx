@@ -57,7 +57,7 @@ const About = () => {
 
     const observer = useRef<any>(null);
 
-    function onEntry(entry: any) {
+    const onEntry=(entry: any)=> {
         entry.forEach((change: any) => {
             if (change.isIntersecting) {
                 change.target.classList.add('element-show');
@@ -203,10 +203,6 @@ const About = () => {
                 </div>
             </div>}
 
-
-
-            
-           
         </div>
     );
 };

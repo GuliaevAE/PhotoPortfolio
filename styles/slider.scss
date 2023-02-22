@@ -37,7 +37,7 @@
         height: 100%;
         align-items: center;
         gap: 4vw;
-        transform: translate(55vmin, -50%) scale(1.5);
+        transform: translate(13%, -50%) scale(1.5);
         opacity: 0;
 
         -moz-user-select: none;
@@ -116,12 +116,14 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 60px;
-      font-weight: 1000;
-      // background: green;
+      font-size: 50px;
+      // font-weight: 300;
+      opacity: 0;
       cursor: pointer;
-
+      color:#ffffff00;
+      font-family:'Times New Roman', Times, serif;
     }
+    
 
     .about {
       background: rgb(0, 0, 0);
@@ -147,17 +149,12 @@
       }
 
       .about_container {
-
         width: 100%;
         display: flex;
         justify-content: center;
         margin: 0 auto;
-        // margin-top: 10%;
-        // background:blue;
-        // min-height: 50vh;
         height: auto;
         gap: 3%;
-
 
         &.reverse {
           flex-direction: row-reverse;

@@ -40,7 +40,7 @@ const SelectedPage = () => {
     }, [switcher])
 
 
-    function onEntry(entry: any) {
+    const onEntry = (entry: any) => {
         entry.forEach((change: any) => {
             if (change.isIntersecting) {
                 change.target.classList.add('element-show');
@@ -49,7 +49,7 @@ const SelectedPage = () => {
     }
     //////////////////////
 
-    function onscroll(event: React.UIEvent<HTMLDivElement>): void {
+    const onscroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         scrollBlock.current.animate({
             height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
@@ -96,10 +96,10 @@ const SelectedPage = () => {
     }, [isSelected, switcher])
 
 
-    function scrollToImages(){
+    function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
         backAndScroll.current.scrollTo({
-            left: 0, top: SelectedPage_content.getBoundingClientRect().top,  behavior: 'smooth'
+            left: 0, top: SelectedPage_content.getBoundingClientRect().top, behavior: 'smooth'
         })
     }
 
@@ -117,8 +117,8 @@ const SelectedPage = () => {
             </div>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-                {selected&&<ImageBlock selected={selected} scrollToImages={scrollToImages}/>}
-                
+                {selected && <ImageBlock selected={selected} scrollToImages={scrollToImages} />}
+
 
                 <div className='SelectedPage_content'>
                     {switcher && <div className='SelectedPage_content_images'>

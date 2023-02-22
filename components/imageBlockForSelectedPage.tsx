@@ -37,6 +37,7 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                 height={10}
                 className='SelectedPage_imageBlock_img'
                 draggable='false'
+                priority={true}
                 src={'https://wallpapershome.ru/images/wallpapers/ozero-2560x1440-4k-hd-wallpaper-gori-154.jpg'}
                 alt="img" />
         </div>

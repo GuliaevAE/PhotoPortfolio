@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { useRef, useState, useEffect, ChangeEvent } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import SliderItem from './sliderItem';
 import MiniSlider from './miniSlider';
@@ -51,6 +51,12 @@ const Slider = (props: props) => {
 
 
     useEffect(() => {
+        plus.current.animate({ color: '#ffffff' }, {
+            duration: 4000,
+            delay: 1000,
+            fill: 'forwards',
+            easing: 'ease-in-out'
+        })
         sliderComponent.current.animate([
             {
                 transform: ` translate(0%, -50%)`, opacity: 1,
@@ -154,7 +160,6 @@ const Slider = (props: props) => {
                 { opacity: 0, transform: 'translateY(-100%)' }
             ], { duration: 300, fill: 'forwards', easing: 'ease-in' })
 
-
             const allimg = sliderComponent.current.getElementsByClassName('image')
             for (let img of allimg) {
                 img.animate({
@@ -162,27 +167,16 @@ const Slider = (props: props) => {
                 }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
             }
 
-
             const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             sliderComponent.current.animate({
                 left: '0',
                 transform: `translate(calc(-18vw * ${Number(activeImage) - 1} - 4vw * ${Number(activeImage) - 1} - (100vw - 18vw)/2),-50%)`
             }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
 
-            // sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
-
             selectedImg.animate({
 
                 width: '100vw', height: '100vh'
             }, { duration: 1000, fill: "forwards", easing: 'ease-in-out' })
-
-
-            // let prcentag = - Number(activeImage) / allImages.length * 100
-            // sliderComponent.current.dataset.prevPercentage = prcentag < -52 ? -52 : prcentag
-
-
-
-
         }
         else {
             plus.current.animate({
@@ -193,7 +187,9 @@ const Slider = (props: props) => {
     }, [activeImage])
 
 
-    const actImg = (e: ChangeEvent<HTMLImageElement>) => {
+
+    const actImg = (e: any) => {
+        if (!(e.target instanceof HTMLImageElement)) return
         if (e.target.alt === 'img') {
             setImage(e.target.id)
         }
@@ -209,9 +205,7 @@ const Slider = (props: props) => {
             } else {
                 setImage(activeImage)
             }
-
     }
-
 
     function identificationPictureNumber() {
         let allImg = sliderComponent.current.getElementsByClassName('image')
@@ -222,84 +216,113 @@ const Slider = (props: props) => {
         }
     }
 
-
-    function onmousedown(e: any, mouse: boolean = false) {
-        if (mouse) {
-            sliderComponent.current.dataset.mouseDownAt = e.clientX
-        } else {
-            sliderComponent.current.dataset.mouseDownAt = e.touches[0].clientX;
-        }
+    const ontouchdown: React.TouchEventHandler<HTMLDivElement> = (e) => {
+        sliderComponent.current.dataset.mouseDownAt = e.touches[0].clientX;
     }
 
-    function onmouseup(e: any) {
+    const onmousedown: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        sliderComponent.current.dataset.mouseDownAt = e.clientX
+    }
+
+    const ontouchup: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
         setisact(false)
-
         if (!isact) { actImg(e) }
     }
 
-    function onmousemove(e: any, mouse: boolean = false) {
-        let clientX
-        if (mouse) {
-            clientX = e.clientX
-        } else {
-            clientX = e.touches[0].clientX
-        }
+    const onmouseup: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        sliderComponent.current.dataset.mouseDownAt = '0'
+        sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
+        setisact(false)
+        if (!isact) { actImg(e) }
+    }
+
+    const onwheelmove: React.WheelEventHandler = (e) => {
+        let clientX = e.deltaY
+
         if (sliderComponent.current.dataset.mouseDownAt === '0') return
         if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
         if (isact) {
 
-
-
-
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
-            const maxDelta = window.innerWidth 
-
+            const maxDelta = window.innerWidth
             const percentage = mouseDelta / maxDelta * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
-
-
-            identificationPictureNumber()
 
             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
             sliderComponent.current.dataset.percentage = nextPercentage
 
             sliderComponent.current.animate({
-                // left: '40vw',
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
+
+            identificationPictureNumber()
 
             if (activeImage !== null) {
                 setImage(null)
                 const allimg = sliderComponent.current.getElementsByClassName('image')
 
                 for (let img of allimg) {
-                    // img.style.width='18vw'
-                    // img.style.height='56vh'
-                    // const allimg = sliderComponent.current.getElementsByClassName('image')
-
-
                     if (img.id === activeImage) {
                         img.animate({
                             width: '18vw', height: '56vh'
                         }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
-
                     }
-
-
                 }
+            }
+        }
+    }
+    const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
+        let clientX = e.touches[0].clientX
+        moveFunction(clientX)
+    }
 
+    const onmousemove: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        let clientX = e.clientX
+        moveFunction(clientX)
+
+    }
+
+    const moveFunction = (clientX: number) => {
+        if (sliderComponent.current.dataset.mouseDownAt === '0') return
+        if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
+        if (isact) {
+
+            const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
+            const maxDelta = window.innerWidth
+            const percentage = mouseDelta / maxDelta * -100
+            const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
+
+            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
+            sliderComponent.current.dataset.percentage = nextPercentage
+
+            sliderComponent.current.animate({
+                transform: `translate(${nextPercentage}%,-50%)`
+            }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
+
+            identificationPictureNumber()
+
+            if (activeImage !== null) {
+                setImage(null)
+                const allimg = sliderComponent.current.getElementsByClassName('image')
+
+                for (let img of allimg) {
+                    if (img.id === activeImage) {
+                        img.animate({
+                            width: '18vw', height: '56vh'
+                        }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
+                    }
+                }
             }
         }
     }
 
 
 
-    const myLoader = ({ src }: { src: string }) => src
 
     return (
-        <div ref={background} className="container">
+        <div ref={background} className="container" onWheel={onwheelmove}>
             <div className='content'>
 
                 <div className='header'>
@@ -316,13 +339,13 @@ const Slider = (props: props) => {
                         data-mouse-down-at='0'
                         data-prev-percentage='0'
                         data-percentage='0'
-                        onMouseDown={(e) => onmousedown(e, true)}
-                        onMouseMove={(e) => onmousemove(e, true)}
+                        onMouseDown={onmousedown}
+                        onMouseMove={onmousemove}
                         onMouseUp={onmouseup}
 
-                        onTouchStart={onmousedown}
-                        onTouchMove={onmousemove}
-                        onTouchEnd={onmouseup}
+                        onTouchStart={ontouchdown}
+                        onTouchMove={ontouchmove}
+                        onTouchEnd={ontouchup}
                     >
                         {allImages.map((x, k) => <SliderItem actImgForPlus={actImgForPlus} activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
                         )}
