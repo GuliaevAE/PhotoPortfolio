@@ -347,7 +347,17 @@ const Slider = (props: props) => {
                         onTouchMove={ontouchmove}
                         onTouchEnd={ontouchup}
                     >
-                        {allImages.map((x, k) => <SliderItem actImgForPlus={actImgForPlus} activeImage={activeImage} key={x.img} id={x.id} nextPercentage={nextPercentage} switcher={isact} content={x.imagetitle} src={x.img} />
+                        {allImages.map((x, k) => <SliderItem
+                            actImgForPlus={actImgForPlus}
+                            activeImage={activeImage}
+                            key={x.id}
+                            id={x.id}
+                            nextPercentage={nextPercentage}
+                            switcher={isact}
+                            content={x.imagetitle}
+                            src={x.img}
+                            header={x.dir}
+                        />
                         )}
 
                     </div>

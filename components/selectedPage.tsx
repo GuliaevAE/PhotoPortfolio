@@ -1,15 +1,17 @@
 import React from 'react';
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
-
+import SelectPageImage from './Image';
 import ImageBlock from './imageBlockForSelectedPage';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, selectedDir } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
+
+import { getStorage, ref, getDownloadURL } from "firebase/storage";
 const SelectedPage = () => {
     const allContent = useAppSelector(Allcontent)
-
+    const Dir = useAppSelector(selectedDir)
     const selected = useAppSelector(SelectedContent)
     const dispatch = useAppDispatch()
     const isSelected = useAppSelector(booleanSwitcher)
@@ -18,18 +20,21 @@ const SelectedPage = () => {
 
     const backAndScroll = useRef<any>(null)
     const [switcher, setSwitch] = useState<boolean>(false)
+
+
+    const [arrayOfImages, setArr] = useState<string[]>([])
     //////////////////////observer
 
     const observer = useRef<any>(null);
     useEffect(() => {
         if (switcher) {
 
-            let options = { threshold: [0.5] };
-            observer.current = new IntersectionObserver(onEntry, options);
-            let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
-            for (let elm of elements) {
-                observer.current.observe(elm);
-            }
+            // let options = { threshold: [0.5] };
+            // observer.current = new IntersectionObserver(onEntry, options);
+            // let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
+            // for (let elm of elements) {
+            //     observer.current.observe(elm);
+            // }
         } else {
             scrollBlock.current.animate({
                 height: `0%`
@@ -95,6 +100,32 @@ const SelectedPage = () => {
 
     }, [isSelected, switcher])
 
+    const storage = getStorage();
+
+
+
+
+
+    useEffect(() => {
+        async function fillingArray() {
+            if (Dir) {
+                let subarr = []
+                if (!selected) return
+                for (let i = 1; i < selected.numberOfImages; i++) {
+                    let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+                    subarr.push(img)
+                }
+                console.log('subarr', subarr)
+                setArr(subarr)
+            } else {
+                setArr([])
+            }
+
+        }
+
+        fillingArray()
+
+    }, [Dir, selected, storage])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
@@ -103,7 +134,11 @@ const SelectedPage = () => {
         })
     }
 
-    const myLoader = ({ src }: { src: string }) => src
+
+
+
+
+   
 
     return (
         <div ref={refSelectedPage} className='SelectedPage' >
@@ -122,17 +157,42 @@ const SelectedPage = () => {
 
                 <div className='SelectedPage_content'>
                     {switcher && <div className='SelectedPage_content_images'>
-                        <Image
-                            loader={myLoader}
+                        {arrayOfImages.map(x =>
+                            <SelectPageImage
+                                key={x}
+                                width={10}
+                                height={10}
+                                unoptimized={true}
+                                
+                                src={x} />
+
+
+                            // <Image
+                            //     key={x}
+                            //     unoptimized={true}
+                            //     // loader={myLoader}
+
+                            //     width={10}
+                            //     height={10}
+                            //     className='SelectedPage_content_images_item'
+                            //     draggable='false'
+                            //     src={x}
+                            //     alt="img"
+                            // />
+                        )}
+
+                        {/* <Image
+                            // loader={myLoader}
                             width={10}
                             height={10}
                             className='SelectedPage_content_images_item'
                             draggable='false'
-                            src={selected && selected.img}
+                            src={"images/Comand/img1.JPG"}
                             alt="img"
-                            priority={true} />
+                            unoptimized={true}
+                            priority={true} /> */}
 
-                        <Image
+                        {/* <Image
                             loader={myLoader}
                             width={10}
                             height={10}
@@ -149,7 +209,7 @@ const SelectedPage = () => {
                             className='SelectedPage_content_images_item'
                             draggable='false'
                             src={selected && selected.img}
-                            alt="img" />
+                            alt="img" /> */}
                     </div>}
 
                 </div>

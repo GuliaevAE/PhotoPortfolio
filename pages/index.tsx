@@ -10,8 +10,17 @@ import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
 
+import firebase from '../firebase/init'
+
+firebase()
+
+
+
+
+
 
 export default function Home() {
+  
 
   return (
     <>

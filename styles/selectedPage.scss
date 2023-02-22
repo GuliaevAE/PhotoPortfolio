@@ -145,11 +145,16 @@
                 height: 60vh;
                 // aspect-ratio: 3/2;
                 object-fit: contain;
-                opacity: .1;
+                // opacity: .1;
                 transition: all 1s;
-
+                filter: blur(0);
                 &.element-show {
                     opacity: 1;
+                }
+
+                &.blur{
+                    background:grey;
+                    filter: blur(4px);
                 }
             }
         }

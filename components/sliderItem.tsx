@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher,changeSelectedDir } from '../store/PageContentSlice'
 
 interface props {
     id: string,
@@ -11,6 +11,7 @@ interface props {
     content: string,
     switcher: boolean,
     nextPercentage: number,
+    header:string,
     activeImage: string | null,
     actImgForPlus: (e:string | null)=>void
 }
@@ -82,6 +83,7 @@ const SliderItem = (props: props) => {
                         <span  onClick={(() => {
                             dispatch(selectContent(props.id))
                             dispatch(changeBooleanSwitcher(true))
+                            dispatch(changeSelectedDir(props.header))
                         })} id={props.id}>{props.content}</span>
                         <span onClick={()=>actImgForPlus(String(Number(props.activeImage)+1) )}>+</span>
                     </div>
