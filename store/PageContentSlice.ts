@@ -28,10 +28,10 @@ const initialState: NoteState = {
   AllContent:
     [{ id: '1',numberOfImages:51, header: 'Команда', dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
     { id: '2',numberOfImages:54, header: 'Ольга Ипатова', dir:'Olga Ipatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
-      { id: '3',numberOfImages:51, header: '3Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://images.wallpaperscraft.ru/image/single/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg", imagetitle: 'Sound Expressed In Full' },
-      { id: '4',numberOfImages:51, header: '4Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://wallpaperaccess.com/full/109666.jpg", imagetitle: 'From Gaggio With Love' },
-      { id: '5',numberOfImages:51, header: '5Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mikhail.krivyy.com/wallpapers/list/m11-6-4/1920x1080.jpg", imagetitle: 'The Regeneration Suit' },
-      { id: '6',numberOfImages:51, header: '6Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mobimg.b-cdn.net/v3/fetch/9c/9c63d540a3284fd5b7077e6a63dd2d3e.jpeg", imagetitle: 'Чето еще' }
+      // { id: '3',numberOfImages:51, header: '3Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://images.wallpaperscraft.ru/image/single/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg", imagetitle: 'Sound Expressed In Full' },
+      // { id: '4',numberOfImages:51, header: '4Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://wallpaperaccess.com/full/109666.jpg", imagetitle: 'From Gaggio With Love' },
+      // { id: '5',numberOfImages:51, header: '5Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mikhail.krivyy.com/wallpapers/list/m11-6-4/1920x1080.jpg", imagetitle: 'The Regeneration Suit' },
+      // { id: '6',numberOfImages:51, header: '6Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mobimg.b-cdn.net/v3/fetch/9c/9c63d540a3284fd5b7077e6a63dd2d3e.jpeg", imagetitle: 'Чето еще' }
     ],
   SelectedContent: null,
   booleanSwitcher: false,
