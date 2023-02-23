@@ -2,7 +2,7 @@ import React from 'react';
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
 import SelectPageImage from './Image';
-import ImageBlock from './imageBlockForSelectedPage';
+import ImageBlock from './imageBlock';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedDir } from '../store/PageContentSlice'
@@ -29,12 +29,12 @@ const SelectedPage = () => {
     useEffect(() => {
         if (switcher) {
 
-            // let options = { threshold: [0.5] };
-            // observer.current = new IntersectionObserver(onEntry, options);
-            // let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
-            // for (let elm of elements) {
-            //     observer.current.observe(elm);
-            // }
+            let options = { threshold: [0.5] };
+            observer.current = new IntersectionObserver(onEntry, options);
+            let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
+            for (let elm of elements) {
+                observer.current.observe(elm);
+            }
         } else {
             scrollBlock.current.animate({
                 height: `0%`
@@ -100,32 +100,26 @@ const SelectedPage = () => {
 
     }, [isSelected, switcher])
 
-    const storage = getStorage();
+    // const storage = getStorage();
 
 
-
-
-
-    useEffect(() => {
-        async function fillingArray() {
-            if (Dir) {
-                let subarr = []
-                if (!selected) return
-                for (let i = 1; i < selected.numberOfImages; i++) {
-                    let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-                    subarr.push(img)
-                }
-                console.log('subarr', subarr)
-                setArr(subarr)
-            } else {
-                setArr([])
-            }
-
-        }
-
-        fillingArray()
-
-    }, [Dir, selected, storage])
+    // useEffect(() => {
+    //     async function fillingArray() {
+    //         if (Dir) {
+    //             let subarr = []
+    //             if (!selected) return
+    //             for (let i = 1; i < selected.numberOfImages; i++) {
+    //                 let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+    //                 subarr.push(img)
+    //             }
+    //             console.log('subarr', subarr)
+    //             setArr(subarr)
+    //         } else {
+    //             setArr([])
+    //         }
+    //     }
+    //     fillingArray()
+    // }, [Dir, selected, storage])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
@@ -138,7 +132,7 @@ const SelectedPage = () => {
 
 
 
-   
+    const myLoader = ({ src }: { src: string }) => src
 
     return (
         <div ref={refSelectedPage} className='SelectedPage' >
@@ -156,32 +150,18 @@ const SelectedPage = () => {
 
 
                 <div className='SelectedPage_content'>
-                    {switcher && <div className='SelectedPage_content_images'>
-                        {arrayOfImages.map(x =>
-                            <SelectPageImage
-                                key={x}
-                                width={10}
-                                height={10}
-                                unoptimized={true}
-                                
-                                src={x} />
+                    {switcher &&
+                        <div className='SelectedPage_content_images'>
+                            {/* {arrayOfImages.map(x =>
+                                <SelectPageImage
+                                    key={x}
+                                    width={10}
+                                    height={10}
+                                    unoptimized={true}
+                                    src={x} />
+                            )} */}
 
-
-                            // <Image
-                            //     key={x}
-                            //     unoptimized={true}
-                            //     // loader={myLoader}
-
-                            //     width={10}
-                            //     height={10}
-                            //     className='SelectedPage_content_images_item'
-                            //     draggable='false'
-                            //     src={x}
-                            //     alt="img"
-                            // />
-                        )}
-
-                        {/* <Image
+                            {/* <Image
                             // loader={myLoader}
                             width={10}
                             height={10}
@@ -192,25 +172,25 @@ const SelectedPage = () => {
                             unoptimized={true}
                             priority={true} /> */}
 
-                        {/* <Image
-                            loader={myLoader}
-                            width={10}
-                            height={10}
-                            className='SelectedPage_content_images_item'
-                            draggable='false'
-                            src={selected && selected.img}
-                            alt="img" />
+                            <Image
+                                loader={myLoader}
+                                width={10}
+                                height={10}
+                                className='SelectedPage_content_images_item'
+                                draggable='false'
+                                src={selected && selected.img}
+                                alt="img" />
 
 
-                        <Image
-                            loader={myLoader}
-                            width={10}
-                            height={10}
-                            className='SelectedPage_content_images_item'
-                            draggable='false'
-                            src={selected && selected.img}
-                            alt="img" /> */}
-                    </div>}
+                            <Image
+                                loader={myLoader}
+                                width={10}
+                                height={10}
+                                className='SelectedPage_content_images_item'
+                                draggable='false'
+                                src={selected && selected.img}
+                                alt="img" />
+                        </div>}
 
                 </div>
             </div>
