@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
 import Comand from '../public/images/Comand.jpg'
-import Comand1 from '../public/images/Comand1.jpg'
+import Comand1 from '../public/images/Comand2.jpg'
 import Olga from '../public/images/Olga.jpg'
-import Olga1 from '../public/images/Olga1.jpg'
+import Olga1 from '../public/images/Olga2.jpg'
 import Retush from '../public/images/Retush.jpg'
-import Retush1 from '../public/images/Retush1.jpg'
+import Retush1 from '../public/images/Retush2.jpg'
 import YulySmirnova from '../public/images/YulySmirnova.jpg'
-import YulySmirnova1 from '../public/images/YulySmirnova1.jpg'
+import YulySmirnova1 from '../public/images/YulySmirnova2.jpg'
 import FSTany from '../public/images/FSTany.jpg'
-import FSTany1 from '../public/images/FSTany1.jpg'
+import FSTany1 from '../public/images/FSTany2.jpg'
 import Yana from '../public/images/Yana.jpg'
-import Yana1 from '../public/images/Yana1.jpg'
+import Yana1 from '../public/images/Yana2.jpg'
 import FS from '../public/images/FSs.jpg'
-import FS1 from '../public/images/FSs1.jpg'
+import FS1 from '../public/images/FSs2.jpg'
  
 export type Note = {
   id: string
