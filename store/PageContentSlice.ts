@@ -6,8 +6,8 @@ import Retush from '../public/images/Retush.jpg'
 import YulySmirnova from '../public/images/YulySmirnova.jpg'
 import FSTany from '../public/images/FSTany.jpg'
 import Yana from '../public/images/Yana.jpg'
-import FS from '../public/images/FS.jpg'
-
+import FS from '../public/images/FS.JPG'
+ 
 export type Note = {
   id: string
   header: string
