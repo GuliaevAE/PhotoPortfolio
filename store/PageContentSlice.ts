@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
 import Comand from '../public/images/Comand.jpg'
 import Olga from '../public/images/Olga.jpg'
-
+import Retush from '../public/images/Retush.jpg'
+import YulySmirnova from '../public/images/YulySmirnova.jpg'
+import FSTany from '../public/images/FSTany.jpg'
+import Yana from '../public/images/Yana.jpg'
+import FS from '../public/images/FS.jpg'
 
 export type Note = {
   id: string
@@ -10,8 +14,8 @@ export type Note = {
   content: string
   img: string | any
   imagetitle: string,
-  numberOfImages:number,
-  dir:string
+  numberOfImages: number,
+  dir: string
 }
 
 export type SelectedContentType = null | undefined | Note
@@ -26,13 +30,15 @@ interface NoteState {
 
 const initialState: NoteState = {
   AllContent:
-    [{ id: '1',numberOfImages:51, header: 'Команда', dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
-    { id: '2',numberOfImages:54, header: 'Ольга Ипатова', dir:'Olga Ipatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
-      // { id: '3',numberOfImages:51, header: '3Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://images.wallpaperscraft.ru/image/single/ulitsa_osveshchenie_podsvetka_134856_1920x1080.jpg", imagetitle: 'Sound Expressed In Full' },
-      // { id: '4',numberOfImages:51, header: '4Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://wallpaperaccess.com/full/109666.jpg", imagetitle: 'From Gaggio With Love' },
-      // { id: '5',numberOfImages:51, header: '5Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mikhail.krivyy.com/wallpapers/list/m11-6-4/1920x1080.jpg", imagetitle: 'The Regeneration Suit' },
-      // { id: '6',numberOfImages:51, header: '6Toadsadasdo for the day',dir:'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem' ,img: "https://mobimg.b-cdn.net/v3/fetch/9c/9c63d540a3284fd5b7077e6a63dd2d3e.jpeg", imagetitle: 'Чето еще' }
-    ],
+    [{ id: '1', numberOfImages: 51, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
+    { id: '2', numberOfImages: 54, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
+    { id: '3', numberOfImages: 42, header: 'Ретушь', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' },
+    { id: '4', numberOfImages: 59, header: 'Юля Смирнова', dir: 'YulySmirnova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: YulySmirnova, imagetitle: 'From Gaggio With Love' },
+    { id: '5', numberOfImages: 15, header: 'Таня', dir: 'FSTany', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FSTany, imagetitle: 'The Regeneration Suit' },
+    { id: '6', numberOfImages: 27, header: '6Toadsadasdo for the day', dir: 'Yana', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Yana, imagetitle: 'Чето еще' },
+    { id: '7', numberOfImages: 98, header: 'FS', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
+
+  ],
   SelectedContent: null,
   booleanSwitcher: false,
   selectedPage: "work",
@@ -57,14 +63,14 @@ export const pageContentSlice = createSlice({
     changeSelectedPage: (state, action: PayloadAction<string>) => {
       state.selectedPage = action.payload
     },
-    changeSelectedDir: (state, action: PayloadAction<string>) => {
+    changeSelectedDir: (state, action: PayloadAction<string|null>) => {
       state.selectedDir = action.payload
     }
   }
 })
 
 // actions
-export const { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage,changeSelectedDir } = pageContentSlice.actions
+export const { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir } = pageContentSlice.actions
 
 // selectors
 export const Allcontent = (state: RootState) => state.pageContent.AllContent

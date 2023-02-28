@@ -12,7 +12,7 @@ import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageC
 
 import firebase from '../firebase/init'
 
-firebase()
+// firebase()
 
 
 

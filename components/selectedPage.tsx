@@ -6,9 +6,9 @@ import ImageBlock from './imageBlock';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedDir } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher , changeSelectedDir} from '../store/PageContentSlice'
 
-import { getStorage, ref, getDownloadURL } from "firebase/storage";
+// import { getStorage, ref, getDownloadURL } from "firebase/storage";
 const SelectedPage = () => {
     const allContent = useAppSelector(Allcontent)
     const Dir = useAppSelector(selectedDir)
@@ -22,7 +22,12 @@ const SelectedPage = () => {
     const [switcher, setSwitch] = useState<boolean>(false)
 
 
-    const [arrayOfImages, setArr] = useState<string[]>([])
+    interface arrayOfImagesItem {
+        dir:string,
+        img:string
+    }
+
+    const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
     //////////////////////observer
 
     const observer = useRef<any>(null);
@@ -79,9 +84,10 @@ const SelectedPage = () => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
+            setTimeout(()=> dispatch(changeSelectedDir(null)),1000)
 
         }
-    }, [isSelected,])
+    }, [dispatch, isSelected])
 
 
     useEffect(() => {
@@ -100,29 +106,34 @@ const SelectedPage = () => {
 
     }, [isSelected, switcher])
 
-    const storage = getStorage();
+    // const storage = getStorage();
 
 
 
 
 
     useEffect(() => {
-        async function fillingArray() {
+         function fillingArray() {
             if (Dir) {
                 let subarr = []
                 if (!selected) return
-                for (let i = 1; i < selected.numberOfImages; i++) {
-                    let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-                    subarr.push(img)
+                // for (let i = 1; i < selected.numberOfImages; i++) {
+                //     let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+                //     subarr.push(img)
+                // }
+                // console.log('subarr', subarr)
+                for (let i = 1; i <= selected.numberOfImages; i++) {
+                    // let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+                    subarr.push({dir:Dir , img: String(i)} )
                 }
-                console.log('subarr', subarr)
                 setArr(subarr)
             } else {
+                console.log('удалено')
                 setArr([])
             }
         }
         fillingArray()
-    }, [Dir, selected, storage])
+    }, [Dir, selected])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
@@ -153,11 +164,11 @@ const SelectedPage = () => {
 
 
                 <div className='SelectedPage_content'>
-                    {switcher &&
+                    {switcher && Dir&&
                         <div className='SelectedPage_content_images'>
                             {arrayOfImages.map(x =>
                                 <SelectPageImage
-                                    key={x}
+                                    key={x.img}
                                     width={10}
                                     height={10}
                                     unoptimized={true}

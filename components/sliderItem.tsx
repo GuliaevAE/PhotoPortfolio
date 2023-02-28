@@ -75,7 +75,7 @@ const SliderItem = (props: props) => {
 
     return (
         <div ref={ref} className='sliderItem' onClick={() => active()} onMouseDown={() => switcher = true}>
-            <Image loader={myLoader} width={10} height={10} className={`image ${props.id} ${act ? "activeaaa" : ""}`} id={props.id} draggable='false' src={props.src} alt="img" />
+            <Image priority={true} unoptimized loader={myLoader}  className={`image ${props.id} ${act ? "activeaaa" : ""}`} id={props.id} draggable='false' src={props.src} alt="img" />
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <div ref={title}>
