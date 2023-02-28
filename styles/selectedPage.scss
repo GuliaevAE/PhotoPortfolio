@@ -151,10 +151,10 @@
                 &.element-show {
                     opacity: 1;
                 }
-
+                opacity: 1;
                 &.blur{
-                    background:black;
-                    filter: blur(4px);
+                  
+                    opacity: 0;
                 }
             }
         }

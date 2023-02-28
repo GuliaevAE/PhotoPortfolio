@@ -171,6 +171,7 @@ const About = () => {
                         loader={myLoader}
                         draggable='false'
                         alt="img"
+                        unoptimized={true}
                         priority={true}
                         src={'https://sun9-east.userapi.com/sun9-76/s/v1/ig2/59A7dDDLihBlIHffrT-j5Rv28tkuxAYyPLlSsF7hhr8yotq4vc7z9m7CvG8rt8D-byP2AWRneIthadsEfS8KqQZS.jpg?size=1600x1270&quality=95&type=album'} />
                 </div>  
