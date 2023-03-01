@@ -3,12 +3,20 @@ import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
 import SelectPageImage from './SelectPageImage';
 import ImageBlock from './imageBlock';
-
+import FocusedImage from './focusedImage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedDir } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, selectedDir, focusImage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage } from '../store/PageContentSlice'
 
-// import { getStorage, ref, getDownloadURL } from "firebase/storage";
+
+
+interface arrayOfImagesItem {
+    dir: string,
+    img: string
+}
+
+
+
 const SelectedPage = () => {
     const allContent = useAppSelector(Allcontent)
     const Dir = useAppSelector(selectedDir)
@@ -21,11 +29,8 @@ const SelectedPage = () => {
     const backAndScroll = useRef<any>(null)
     const [switcher, setSwitch] = useState<boolean>(false)
 
+    const focusedImages = useAppSelector(focusImage)
 
-    interface arrayOfImagesItem {
-        dir: string,
-        img: string
-    }
 
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
     //////////////////////observer
@@ -150,6 +155,7 @@ const SelectedPage = () => {
 
     return (
         <div ref={refSelectedPage} className='SelectedPage' >
+            {focusedImages && <FocusedImage />}
             <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
                 Back
             </span>
@@ -167,7 +173,7 @@ const SelectedPage = () => {
                     {switcher && Dir &&
                         <>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x,k) => k<=arrayOfImages.length /3 &&
+                                {arrayOfImages.map((x, k) => k <= arrayOfImages.length / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}
@@ -177,7 +183,7 @@ const SelectedPage = () => {
                                 )}
                             </div>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x,k) => k>arrayOfImages.length /3&& k<=arrayOfImages.length *2/3&&
+                                {arrayOfImages.map((x, k) => k > arrayOfImages.length / 3 && k <= arrayOfImages.length * 2 / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}
@@ -187,7 +193,7 @@ const SelectedPage = () => {
                                 )}
                             </div>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x,k) => k>arrayOfImages.length *2/3&&
+                                {arrayOfImages.map((x, k) => k > arrayOfImages.length * 2 / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}
@@ -196,7 +202,7 @@ const SelectedPage = () => {
                                         src={x} />
                                 )}
                             </div>
-                           
+
 
                         </>}
 

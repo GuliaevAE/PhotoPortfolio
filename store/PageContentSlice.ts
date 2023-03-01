@@ -14,6 +14,7 @@ import Yana from '../public/images/Yana.jpg'
 import Yana1 from '../public/images/Yana2.jpg'
 import FS from '../public/images/FSs.jpg'
 import FS1 from '../public/images/FSs2.jpg'
+import { StaticImageData } from "next/image"
  
 export type Note = {
   id: string
@@ -33,7 +34,8 @@ interface NoteState {
   SelectedContent: null | undefined | Note,
   booleanSwitcher: boolean,
   selectedPage: string,
-  selectedDir: null | string
+  selectedDir: null | string,
+  focusImage: any
 }
 
 const initialState: NoteState = {
@@ -50,7 +52,9 @@ const initialState: NoteState = {
   SelectedContent: null,
   booleanSwitcher: false,
   selectedPage: "work",
-  selectedDir: null
+  selectedDir: null, 
+
+  focusImage: FS1
 
 }
 
@@ -73,12 +77,15 @@ export const pageContentSlice = createSlice({
     },
     changeSelectedDir: (state, action: PayloadAction<string|null>) => {
       state.selectedDir = action.payload
+    },
+    changeFocusedImage: (state, action: PayloadAction<any>) => {
+      state.focusImage = action.payload
     }
   }
 })
 
 // actions
-export const { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir } = pageContentSlice.actions
+export const { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir, changeFocusedImage } = pageContentSlice.actions
 
 // selectors
 export const Allcontent = (state: RootState) => state.pageContent.AllContent
@@ -86,4 +93,5 @@ export const SelectedContent = (state: RootState) => state.pageContent.SelectedC
 export const booleanSwitcher = (state: RootState) => state.pageContent.booleanSwitcher
 export const selectedPage = (state: RootState) => state.pageContent.selectedPage
 export const selectedDir = (state: RootState) => state.pageContent.selectedDir
+export const focusImage = (state: RootState) => state.pageContent.focusImage
 export default pageContentSlice.reducer

@@ -1,6 +1,6 @@
 # Portfolio site
 
-## Deploed on Vercel:  https://photo-portfolio-phi.vercel.app
+## Deploed on Vercel:  https://natalyshando.vercel.app
 
 ## Getting Started
 
