@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image'
 
 import { Allcontent, SelectedContent, booleanSwitcher, SelectedContentType } from '../store/PageContentSlice'
@@ -18,7 +18,7 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
     };
     const myLoader = ({ src }: { src: string }) => src
 
-
+    const image = useRef<any>(null)
 
     return (
         <> {selected &&
@@ -46,7 +46,7 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                 {/* <PrerenderImage selected={selected}/> */}
 
 
-                <Image
+                <Image ref={image}
                     loader={myLoader}
                     width={10}
                     height={10}

@@ -68,6 +68,14 @@ const SelectedPage = () => {
         scrollBlock.current.animate({
             height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
+
+
+
+        let SelectedPageimageBlockimg = document.body.getElementsByClassName('SelectedPage_imageBlock_img')[0]
+
+        SelectedPageimageBlockimg.animate({
+            transform: `translateY(${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%)`
+        }, { duration: 10, fill: 'forwards', easing: 'linear' })
     }
 
 
@@ -98,10 +106,10 @@ const SelectedPage = () => {
     useEffect(() => {
         if (!isSelected && switcher) {
             // setTimeout(() => {
-                backAndScroll.current.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+            backAndScroll.current.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
             // }, 1000)
             setTimeout(() => {
                 setSwitch(false)
@@ -145,6 +153,8 @@ const SelectedPage = () => {
         backAndScroll.current.scrollTo({
             left: 0, top: SelectedPage_content.getBoundingClientRect().top, behavior: 'smooth'
         })
+
+      
     }
 
 
@@ -166,11 +176,11 @@ const SelectedPage = () => {
             </div>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-                 <ImageBlock selected={selected} scrollToImages={scrollToImages} />
+                <ImageBlock selected={selected} scrollToImages={scrollToImages} />
 
 
                 <div className='SelectedPage_content'>
-                    {switcher  &&
+                    {switcher &&
                         <>
                             <div className='SelectedPage_content_images'>
                                 {arrayOfImages.map((x, k) => k <= arrayOfImages.length / 3 &&

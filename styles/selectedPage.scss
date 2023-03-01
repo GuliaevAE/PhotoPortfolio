@@ -17,7 +17,7 @@
 }
 
 .divForSelectedPage {
-   
+
     height: 100vh;
     width: 100vw;
     position: relative;
@@ -29,7 +29,11 @@
     width: 100vw;
     position: relative;
     overflow-y: hidden;
-    // background:rgb(12, 12, 12);
+    background: rgb(40, 39, 39);
+
+    // background: rgb(0, 0, 0);
+    // background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(145, 106, 106, 1) 38%, rgba(235, 235, 235, 1) 100%);
+
     .SelectedPage_scrollBlock {
 
         width: .5vmin;
@@ -40,7 +44,7 @@
         background: rgb(255, 255, 255);
     }
 
-    .SelectedPage_imageBlock_imageIdOnCenter{
+    .SelectedPage_imageBlock_imageIdOnCenter {
         position: absolute;
         display: flex;
         justify-content: space-around;
@@ -52,7 +56,7 @@
 
     .SelectedPage_imageBlock_back {
         position: absolute;
-        top:5vh;
+        top: 5vh;
         left: 5vw;
         z-index: 1;
     }
@@ -62,7 +66,7 @@
         height: 100%;
         width: 100%;
         overflow-y: scroll;
-        
+
         &::-webkit-scrollbar {
             width: 0;
         }
@@ -72,12 +76,12 @@
         position: relative;
         height: 100%;
         width: 100%;
-
+        overflow: hidden;
 
         // background-size: cover;
         // background-repeat: no-repeat;
 
-        
+
         // object-fit: fill;
         // object-position: 50% 50%;
         // background: rgb(240, 15, 15);
@@ -89,18 +93,21 @@
             right: 20vw;
             align-items: center;
             gap: 10px;
+
             // background:blue;
-            span{
+            span {
                 display: block;
             }
+
             div {
                 padding: 10px 30px;
                 border: 1px solid white;
-                border-radius:15px;
+                border-radius: 15px;
                 transition: all .5s;
-                &:hover{
-                    background:white;
-                    color:black;
+
+                &:hover {
+                    background: white;
+                    color: black;
                 }
             }
         }
@@ -118,17 +125,20 @@
 
         .SelectedPage_imageBlock_img {
             object-fit: cover;
+            // object-position: 50% 100% ;
+            // object-position: 50% 50%;
             height: 100%;
             width: 100%;
             opacity: 1;
             transition: all .5s;
-            object-position: 0% 0%;
-            &.blur{
+
+            // object-position: 0% 0%;
+            &.blur {
                 opacity: 0;
             }
         }
 
-       
+
     }
 
 
@@ -142,7 +152,7 @@
         justify-content: center;
         gap: 2vw;
         margin: 0 auto;
-        
+
         .SelectedPage_content_images {
 
             margin-top: 20vh;
@@ -166,12 +176,15 @@
                 // opacity: .1;
                 transition: all 1s;
                 filter: blur(0);
+
                 &.element-show {
                     opacity: 1;
                 }
+
                 opacity: 1;
-                &.blur{
-                  
+
+                &.blur {
+
                     opacity: 0;
                 }
             }
@@ -181,9 +194,10 @@
 }
 
 @media (max-width:600px) {
-    .SelectedPage_content{
+    .SelectedPage_content {
         flex-wrap: wrap;
     }
+
     .SelectedPage_imageBlock_header {
         top: 50%;
         left: 50%;
@@ -194,11 +208,11 @@
         transform: translate(-0%, 50%);
     }
 
-    .SelectedPage_content_images{
+    .SelectedPage_content_images {
         width: 40% !important;
         // gap: 15vh !important;
         margin-top: 15vh !important;
         padding-bottom: 15vh !important;
-        
+
     }
 }

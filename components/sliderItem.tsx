@@ -65,17 +65,21 @@ const SliderItem = (props: props) => {
         if (props.activeImage !== props.id && act) { setact(false) }
     }, [act, props.activeImage, props.id])
 
-
+    useEffect(() => {
+        if (props.activeImage === props.id) {
+            const image = ref.current.getElementsByClassName('image')[0]
+            image.animate({
+                objectPosition: `50% 50%`,
+            }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
+        }
+    }, [ props.activeImage, props.id])
 
     const myLoader = ({ src }: { src: string }) => src
 
-    const active = () => {
-        // if (switcher) {setact(true)}
-    }
 
     return (
-        <div ref={ref} className='sliderItem' onClick={() => active()} onMouseDown={() => switcher = true}>
-            <Image  unoptimized={true} priority={true} loader={myLoader}  className={`image ${props.id} ${act ? "activeaaa" : ""}`} id={props.id} draggable='false' src={props.src} alt="img" />
+        <div ref={ref} className='sliderItem'  onMouseDown={() => switcher = true}>
+            <Image  unoptimized={true} priority={true} loader={myLoader}  className={`image ${props.id}`} id={props.id} draggable='false' src={props.src} alt="img" />
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <div ref={title}>
