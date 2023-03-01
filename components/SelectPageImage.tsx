@@ -34,7 +34,7 @@ const SelectPageImage = ({ src, ...props }: SelectPageImageProps) => {
             className={`SelectedPage_content_images_item ${isReady ? '' : 'blur'}`}
             draggable='false'
           
-            src={`http://natalyshando.ru/imageDir?img=${src.img}&dir=${src.dir}`}
+            src={`https://natalyshando.ru/imageDir?img=${src.img}&dir=${src.dir}`}
             {...props}
             onLoadingComplete={onLoadCallback}
             alt='img'
