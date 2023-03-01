@@ -82,13 +82,13 @@ const SelectedPage = () => {
                 easing: 'ease-in-out'
             })
         } else {
-            refSelectedPage.current.animate({
-                height: '0'
-            }, {
-                duration: 1000,
-                fill: 'forwards',
-                easing: 'ease-in-out'
-            })
+            // refSelectedPage.current.animate({
+            //     height: '0'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
             setTimeout(() => dispatch(changeSelectedDir(null)), 1000)
 
         }
@@ -97,12 +97,12 @@ const SelectedPage = () => {
 
     useEffect(() => {
         if (!isSelected && switcher) {
-            setTimeout(() => {
+            // setTimeout(() => {
                 backAndScroll.current.scrollTo({
                     top: 0,
                     behavior: 'smooth'
                 });
-            }, 1000)
+            // }, 1000)
             setTimeout(() => {
                 setSwitch(false)
 
@@ -166,11 +166,11 @@ const SelectedPage = () => {
             </div>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-                {selected && <ImageBlock selected={selected} scrollToImages={scrollToImages} />}
+                 <ImageBlock selected={selected} scrollToImages={scrollToImages} />
 
 
                 <div className='SelectedPage_content'>
-                    {switcher && Dir &&
+                    {switcher  &&
                         <>
                             <div className='SelectedPage_content_images'>
                                 {arrayOfImages.map((x, k) => k <= arrayOfImages.length / 3 &&

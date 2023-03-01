@@ -14,8 +14,8 @@ const FocusedImage = () => {
     const myLoader = ({ src }: { src: string }) => src
 
     return (
-        <div className='focusedImageComponent'>
-            <div className='focusedImageComponent_closeButton' onClick={()=>dispatch(changeFocusedImage(null))}>close</div>
+        <div className='focusedImageComponent' onClick={()=>dispatch(changeFocusedImage(null))}>
+            {/* <div className='focusedImageComponent_closeButton' onClick={()=>dispatch(changeFocusedImage(null))}>close</div> */}
             <Image
                 loader={myLoader}
                 width={10}

@@ -22,7 +22,6 @@ const SelectPageImage = ({ src, ...props }: SelectPageImageProps) => {
 
 
     const onLoadCallback = (e:any) => {
-        console.log('onLoadCallback',e.src)
         setIsReady(e.src);
     };
     const myLoader = ({ src }: { src: string }) => src

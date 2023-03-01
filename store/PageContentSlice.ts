@@ -40,13 +40,13 @@ interface NoteState {
 
 const initialState: NoteState = {
   AllContent:
-    [{ id: '1',selectpImg: Comand1, numberOfImages: 51, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
-    { id: '2', selectpImg: Olga1, numberOfImages: 54, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
-    { id: '3', selectpImg: Retush1, numberOfImages: 42, header: 'Ретушь', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' },
-    { id: '4', selectpImg: YulySmirnova1, numberOfImages: 59, header: 'Юля Смирнова', dir: 'YulySmirnova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: YulySmirnova, imagetitle: 'From Gaggio With Love' },
+    [{ id: '1',selectpImg: Comand1, numberOfImages: 15, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
+    { id: '2', selectpImg: Olga1, numberOfImages: 15, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
+    { id: '3', selectpImg: Retush1, numberOfImages: 15, header: 'Ретушь', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' },
+    { id: '4', selectpImg: YulySmirnova1, numberOfImages: 15, header: 'Юля Смирнова', dir: 'YulySmirnova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: YulySmirnova, imagetitle: 'From Gaggio With Love' },
     { id: '5', selectpImg: FSTany1, numberOfImages: 15, header: 'Таня', dir: 'FSTany', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FSTany, imagetitle: 'The Regeneration Suit' },
-    { id: '6', selectpImg: Yana1, numberOfImages: 27, header: '6Toadsadasdo for the day', dir: 'Yana', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Yana, imagetitle: 'Чето еще' },
-    { id: '7', selectpImg: FS1, numberOfImages: 98, header: 'FS', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
+    { id: '6', selectpImg: Yana1, numberOfImages: 15, header: '6Toadsadasdo for the day', dir: 'Yana', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Yana, imagetitle: 'Чето еще' },
+    { id: '7', selectpImg: FS1, numberOfImages: 15, header: 'FS', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
 
   ],
   SelectedContent: null,
@@ -63,7 +63,6 @@ export const pageContentSlice = createSlice({
   initialState,
   reducers: {
     selectContent: (state, action: PayloadAction<string>) => {
-      console.log('action', action)
       state.SelectedContent = state.AllContent.find(x => x.id === action.payload)
     },
     selectNull: (state) => {

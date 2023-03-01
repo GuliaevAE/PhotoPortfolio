@@ -72,8 +72,11 @@
         position: relative;
         height: 100%;
         width: 100%;
-
-        background: rgba(0, 0, 0, 0);
+        background-size: cover;
+        background-repeat: no-repeat;
+        // object-fit: fill;
+        // object-position: 50% 50%;
+        // background: rgb(240, 15, 15);
 
         .SelectedPage_imageBlock_buttonForScroll {
             display: flex;
@@ -113,6 +116,12 @@
             object-fit: cover;
             height: 100%;
             width: 100%;
+            opacity: 1;
+            transition: all .5s;
+            object-position: 0% 0%;
+            &.blur{
+                opacity: 0;
+            }
         }
 
        
@@ -182,7 +191,7 @@
     }
 
     .SelectedPage_content_images{
-        width: 90% !important;
+        width: 40% !important;
         // gap: 15vh !important;
         margin-top: 15vh !important;
         padding-bottom: 15vh !important;
