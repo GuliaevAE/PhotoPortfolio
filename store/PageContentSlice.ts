@@ -54,7 +54,7 @@ const initialState: NoteState = {
   selectedPage: "work",
   selectedDir: null, 
 
-  focusImage: FS1
+  focusImage: null
 
 }
 
