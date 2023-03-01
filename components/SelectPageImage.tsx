@@ -20,7 +20,6 @@ const SelectPageImage = ({ src, ...props }: SelectPageImageProps) => {
     };
     const myLoader = ({ src }: { src: string }) => src
     return (<>
-        {/* <div className='blur'/> */}
         <Image
             loader={myLoader}
             className={`SelectedPage_content_images_item ${isReady ? '' : 'blur'}`}

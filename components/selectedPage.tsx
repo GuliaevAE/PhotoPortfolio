@@ -1,12 +1,12 @@
 import React from 'react';
 import { useRef, useState, useEffect, ChangeEvent } from 'react';
 import Image from 'next/image'
-import SelectPageImage from './Image';
+import SelectPageImage from './SelectPageImage';
 import ImageBlock from './imageBlock';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedDir } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher , changeSelectedDir} from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir } from '../store/PageContentSlice'
 
 // import { getStorage, ref, getDownloadURL } from "firebase/storage";
 const SelectedPage = () => {
@@ -23,8 +23,8 @@ const SelectedPage = () => {
 
 
     interface arrayOfImagesItem {
-        dir:string,
-        img:string
+        dir: string,
+        img: string
     }
 
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
@@ -84,7 +84,7 @@ const SelectedPage = () => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
-            setTimeout(()=> dispatch(changeSelectedDir(null)),1000)
+            setTimeout(() => dispatch(changeSelectedDir(null)), 1000)
 
         }
     }, [dispatch, isSelected])
@@ -113,7 +113,7 @@ const SelectedPage = () => {
 
 
     useEffect(() => {
-         function fillingArray() {
+        function fillingArray() {
             if (Dir) {
                 let subarr = []
                 if (!selected) return
@@ -124,7 +124,7 @@ const SelectedPage = () => {
                 // console.log('subarr', subarr)
                 for (let i = 1; i <= selected.numberOfImages; i++) {
                     // let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-                    subarr.push({dir:Dir , img: String(i)} )
+                    subarr.push({ dir: Dir, img: String(i) })
                 }
                 setArr(subarr)
             } else {
@@ -164,47 +164,31 @@ const SelectedPage = () => {
 
 
                 <div className='SelectedPage_content'>
-                    {switcher && Dir&&
-                        <div className='SelectedPage_content_images'>
-                            {arrayOfImages.map(x =>
-                                <SelectPageImage
-                                    key={x.img}
-                                    width={10}
-                                    height={10}
-                                    unoptimized={true}
-                                    src={x} />
-                            )}
+                    {switcher && Dir &&
+                        <>
+                            <div className='SelectedPage_content_images'>
+                                {arrayOfImages.map((x,k) => k<=arrayOfImages.length /2 &&
+                                    <SelectPageImage
+                                        key={x.img}
+                                        width={10}
+                                        height={10}
+                                        unoptimized={true}
+                                        src={x} />
+                                )}
+                            </div>
+                            <div className='SelectedPage_content_images'>
+                                {arrayOfImages.map((x,k) => k>arrayOfImages.length /2&&
+                                    <SelectPageImage
+                                        key={x.img}
+                                        width={10}
+                                        height={10}
+                                        unoptimized={true}
+                                        src={x} />
+                                )}
+                            </div>
+                           
 
-                            {/* <Image
-                            // loader={myLoader}
-                            width={10}
-                            height={10}
-                            className='SelectedPage_content_images_item'
-                            draggable='false'
-                            src={"images/Comand/img1.JPG"}
-                            alt="img"
-                            unoptimized={true}
-                            priority={true} /> */}
-
-                            {/* <Image
-                                loader={myLoader}
-                                width={10}
-                                height={10}
-                                className='SelectedPage_content_images_item'
-                                draggable='false'
-                                src={selected && selected.img}
-                                alt="img" />
-
-
-                            <Image
-                                loader={myLoader}
-                                width={10}
-                                height={10}
-                                className='SelectedPage_content_images_item'
-                                draggable='false'
-                                src={selected && selected.img}
-                                alt="img" /> */}
-                        </div>}
+                        </>}
 
                 </div>
             </div>

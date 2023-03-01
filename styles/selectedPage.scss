@@ -17,7 +17,7 @@
 }
 
 .divForSelectedPage {
-    background: green;
+   
     height: 100vh;
     width: 100vw;
     position: relative;
@@ -29,7 +29,7 @@
     width: 100vw;
     position: relative;
     overflow-y: hidden;
-
+    background:rgb(155, 155, 155);
     .SelectedPage_scrollBlock {
 
         width: .5vmin;
@@ -62,7 +62,7 @@
         height: 100%;
         width: 100%;
         overflow-y: scroll;
-
+        
         &::-webkit-scrollbar {
             width: 0;
         }
@@ -124,25 +124,28 @@
 
     .SelectedPage_content {
         // height: 100vh;
-        width: 100vw;
+        width: 90vw;
         display: flex;
         justify-content: center;
-
+        gap: 2vw;
+        margin: 0 auto;
         .SelectedPage_content_images {
 
-            margin-top: 20vh;
+            // margin-top: 20vh;
             gap: 20vh;
 
+            gap: 20px;
             width: 60%;
             height: fit-content;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding-bottom: 20vh;
+            // padding-bottom: 20vh;
 
             .SelectedPage_content_images_item {
                 width: 100%;
                 height: 60vh;
+                height: auto;
                 // aspect-ratio: 3/2;
                 object-fit: contain;
                 // opacity: .1;
@@ -175,7 +178,7 @@
 
     .SelectedPage_content_images{
         width: 90% !important;
-        gap: 15vh !important;
+        // gap: 15vh !important;
         margin-top: 15vh !important;
         padding-bottom: 15vh !important;
     }
