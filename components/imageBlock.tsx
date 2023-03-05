@@ -50,7 +50,7 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                     loader={myLoader}
                     width={10}
                     height={10}
-                    
+                    unoptimized={true}
                     onLoadingComplete={onLoadCallback}
                     className={`SelectedPage_imageBlock_img ${isReady ? '' : 'blur'}`}
                     draggable='false'

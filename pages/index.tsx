@@ -15,9 +15,15 @@ import firebase from '../firebase/init'
 // firebase()
 
 
+import dynamic from 'next/dynamic'
 
+const DynamicSlider = dynamic(() => import('../components/slider'), {
+  ssr: false,
+})
 
-
+const DynamicSelectedPage = dynamic(() => import('../components/selectedPage'), {
+  ssr: false,
+})
 
 export default function Home() {
   
@@ -31,8 +37,10 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <Slider />
-        <SelectedPage />
+        {/* <Slider /> */}
+        <DynamicSlider/>
+        {/* <SelectedPage /> */}
+        <DynamicSelectedPage/>
       </main>
     </>
   )
