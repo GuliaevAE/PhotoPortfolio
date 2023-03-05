@@ -183,7 +183,7 @@ const SelectedPage = () => {
                     {switcher &&
                         <>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k <= arrayOfImages.length / 3 &&
+                                {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}
@@ -193,7 +193,7 @@ const SelectedPage = () => {
                                 )}
                             </div>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k > arrayOfImages.length / 3 && k <= arrayOfImages.length * 2 / 3 &&
+                                {arrayOfImages.map((x, k) => k >= arrayOfImages.length / 3 && k < arrayOfImages.length * 2 / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}
@@ -203,7 +203,7 @@ const SelectedPage = () => {
                                 )}
                             </div>
                             <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k > arrayOfImages.length * 2 / 3 &&
+                                {arrayOfImages.map((x, k) => k >= arrayOfImages.length * 2 / 3 &&
                                     <SelectPageImage
                                         key={x.img}
                                         width={10}

@@ -1,19 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { RootState } from "./store"
-import Comand from '../public/images/Comand.jpg'
-import Comand1 from '../public/images/Comand2.jpg'
-import Olga from '../public/images/Olga.jpg'
-import Olga1 from '../public/images/Olga2.jpg'
-import Retush from '../public/images/Retush.jpg'
-import Retush1 from '../public/images/Retush2.jpg'
-import YulySmirnova from '../public/images/YulySmirnova.jpg'
-import YulySmirnova1 from '../public/images/YulySmirnova2.jpg'
-import FSTany from '../public/images/FSTany.jpg'
-import FSTany1 from '../public/images/FSTany2.jpg'
-import Yana from '../public/images/Yana.jpg'
-import Yana1 from '../public/images/Yana2.jpg'
-import FS from '../public/images/FSs.jpg'
-import FS1 from '../public/images/FSs2.jpg'
+import Comand from '../public/images/Comand.webp'
+import Comand1 from '../public/images/Comand2.webp'
+import Olga from '../public/images/Olga.webp'
+import Olga1 from '../public/images/Olga2.webp'
+import Retush from '../public/images/Retush.webp'
+import Retush1 from '../public/images/Retush2.webp'
+import YulySmirnova from '../public/images/YulySmirnova.webp'
+import YulySmirnova1 from '../public/images/YulySmirnova2.webp'
+import FSTany from '../public/images/FSTany.webp'
+import FSTany1 from '../public/images/FSTany2.webp'
+import Yana from '../public/images/Yana.webp'
+import Yana1 from '../public/images/Yana2.webp'
+import FS from '../public/images/FSs.webp'
+import FS1 from '../public/images/FSs2.webp'
 import { StaticImageData } from "next/image"
  
 export type Note = {

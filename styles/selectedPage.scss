@@ -59,6 +59,8 @@
         top: 5vh;
         left: 5vw;
         z-index: 1;
+        text-shadow: 0 3px black;
+        font-size: 25px;
     }
 
     .backAndScroll {
@@ -153,11 +155,10 @@
         justify-content: center;
         gap: 2vw;
         margin: 0 auto;
-
+        margin-top: 20vh;
         .SelectedPage_content_images {
 
-            margin-top: 20vh;
-            gap: 20vh;
+        
 
             gap: 20px;
             width: 100%;
@@ -212,8 +213,8 @@
     .SelectedPage_content_images {
         width: 40% !important;
         // gap: 15vh !important;
-        margin-top: 15vh !important;
-        padding-bottom: 15vh !important;
+        // margin-top: 15vh !important;
+        // padding-bottom: 15vh !important;
 
     }
 }
