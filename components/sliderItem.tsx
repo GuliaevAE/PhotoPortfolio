@@ -2,8 +2,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher,changeSelectedDir } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, arrayOfLoadedImages } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir ,changearrayOfLoadedImages} from '../store/PageContentSlice'
+
+import Link from 'next/link';
+
 
 interface props {
     id: string,
@@ -11,9 +14,9 @@ interface props {
     content: string,
     switcher: boolean,
     nextPercentage: number,
-    header:string,
+    header: string,
     activeImage: string | null,
-    actImgForPlus: (e:string | null)=>void
+    actImgForPlus: (e: string | null) => void
 }
 
 const SliderItem = (props: props) => {
@@ -27,9 +30,8 @@ const SliderItem = (props: props) => {
 
 
     useEffect(() => {
-        
         let titleText = title.current
-        if(titleText){
+        if (titleText) {
             if (boolSwitcher) {
                 titleText.animate({ transform: 'translate(0, -100%)' }, {
                     duration: 700,
@@ -44,18 +46,18 @@ const SliderItem = (props: props) => {
                 })
             }
         }
-        
+
     }, [boolSwitcher])
 
     useEffect(() => {
         if (props.switcher) { setact(false) }
-    }, [ props.switcher])
+    }, [props.switcher])
 
     useEffect(() => {
         const image = ref.current.getElementsByClassName('image')[0]
         image.animate({
             objectPosition: `${props.nextPercentage + 100}% 50%`,
-        }, { duration: 800, fill: 'forwards', easing: 'ease'})
+        }, { duration: 800, fill: 'forwards', easing: 'ease' })
     }, [props.nextPercentage])
 
 
@@ -72,24 +74,42 @@ const SliderItem = (props: props) => {
                 objectPosition: `50% 50%`,
             }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
         }
-    }, [ props.activeImage, props.id])
+    }, [props.activeImage, props.id])
 
     const myLoader = ({ src }: { src: string }) => src
 
-
+    const [isReady, setIsReady] = useState(false);
+    const onLoadCallback = (e: any) => {
+        setIsReady(e.src);
+        dispatch(changearrayOfLoadedImages())
+    };
     return (
-        <div ref={ref} className='sliderItem'  onMouseDown={() => switcher = true}>
-            <Image quality={10}   unoptimized priority={true} loader={myLoader}  className={`image ${props.id}`} id={props.id} draggable='false' src={props.src} alt="img" />
+        <div ref={ref} className='sliderItem' onMouseDown={() => switcher = true}>
+            <Image
+                quality={10}
+                // placeholder='blur'
+                priority={true}
+                unoptimized
+                loader={myLoader}
+                className={`image ${props.id} ${isReady ? '' : 'blur'}`}
+                id={props.id}
+                draggable='false'
+                onLoadingComplete={onLoadCallback}
+                src={props.src}
+                alt="img" />
             {act && <div className='sliderItem_content'>
                 <div className="title">
                     <div ref={title}>
-                        <span onClick={()=>actImgForPlus(String(Number(props.activeImage)-1) )}>+</span>
-                        <span  onClick={(() => {
-                            dispatch(selectContent(props.id))
-                            dispatch(changeBooleanSwitcher(true))
-                            dispatch(changeSelectedDir(props.header))
-                        })} id={props.id}>{props.content}</span>
-                        <span onClick={()=>actImgForPlus(String(Number(props.activeImage)+1) )}>+</span>
+                        <span onClick={() => actImgForPlus(String(Number(props.activeImage) - 1))}>+</span>
+                        <span onClick={(() => {
+                            // dispatch(selectContent(props.id))
+                            // dispatch(changeBooleanSwitcher(true))
+                            // dispatch(changeSelectedDir(props.header))
+                        })} id={props.id}><Link href={`${props.header}`}>{props.content}</Link> </span>
+                        <span onClick={() => actImgForPlus(String(Number(props.activeImage) + 1))}>+</span>
+
+
+                        {/* {[1,2,3].map(x=><span key={x}><Link href={`/${props.id}`}>{props.content}</Link></span>)} */}
                     </div>
 
                 </div>

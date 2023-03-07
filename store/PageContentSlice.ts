@@ -15,16 +15,16 @@ import Yana1 from '../public/images/Yana2.webp'
 import FS from '../public/images/FSs.webp'
 import FS1 from '../public/images/FSs2.webp'
 import { StaticImageData } from "next/image"
- 
+
 export type Note = {
   id: string
   header: string
   content: string
-  img:  any
+  img: any
   imagetitle: string,
   numberOfImages: number,
   dir: string,
-  selectpImg:any
+  selectpImg: any
 }
 
 export type SelectedContentType = null | undefined | Note
@@ -35,12 +35,13 @@ interface NoteState {
   booleanSwitcher: boolean,
   selectedPage: string,
   selectedDir: null | string,
-  focusImage: any
+  focusImage: any,
+  arrayOfLoadedImages: boolean[]
 }
 
 const initialState: NoteState = {
   AllContent:
-    [{ id: '1',selectpImg: Comand1, numberOfImages: 15, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
+    [{ id: '1', selectpImg: Comand1, numberOfImages: 15, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
     { id: '2', selectpImg: Olga1, numberOfImages: 15, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
     { id: '3', selectpImg: Retush1, numberOfImages: 15, header: 'Ретушь', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' },
     { id: '4', selectpImg: YulySmirnova1, numberOfImages: 15, header: 'Юля Смирнова', dir: 'YulySmirnova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: YulySmirnova, imagetitle: 'From Gaggio With Love' },
@@ -48,13 +49,16 @@ const initialState: NoteState = {
     { id: '6', selectpImg: Yana1, numberOfImages: 15, header: '6Toadsadasdo for the day', dir: 'Yana', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Yana, imagetitle: 'Чето еще' },
     { id: '7', selectpImg: FS1, numberOfImages: 15, header: 'FS', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
 
-  ],
+    ],
   SelectedContent: null,
   booleanSwitcher: false,
   selectedPage: "work",
-  selectedDir: null, 
+  selectedDir: null,
 
-  focusImage: null
+  focusImage: null,
+
+
+  arrayOfLoadedImages: []
 
 }
 
@@ -62,6 +66,13 @@ export const pageContentSlice = createSlice({
   name: 'pageContentSlice',
   initialState,
   reducers: {
+    changearrayOfLoadedImages: (state) => {
+      state.arrayOfLoadedImages.push(true)
+    },
+    emptychangearrayOfLoadedImages:(state)=>{
+      state.arrayOfLoadedImages = []
+    },
+
     selectContent: (state, action: PayloadAction<string>) => {
       state.SelectedContent = state.AllContent.find(x => x.id === action.payload)
     },
@@ -74,7 +85,7 @@ export const pageContentSlice = createSlice({
     changeSelectedPage: (state, action: PayloadAction<string>) => {
       state.selectedPage = action.payload
     },
-    changeSelectedDir: (state, action: PayloadAction<string|null>) => {
+    changeSelectedDir: (state, action: PayloadAction<string | null>) => {
       state.selectedDir = action.payload
     },
     changeFocusedImage: (state, action: PayloadAction<any>) => {
@@ -84,7 +95,7 @@ export const pageContentSlice = createSlice({
 })
 
 // actions
-export const { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir, changeFocusedImage } = pageContentSlice.actions
+export const {changearrayOfLoadedImages,emptychangearrayOfLoadedImages, selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir, changeFocusedImage } = pageContentSlice.actions
 
 // selectors
 export const Allcontent = (state: RootState) => state.pageContent.AllContent
@@ -93,4 +104,5 @@ export const booleanSwitcher = (state: RootState) => state.pageContent.booleanSw
 export const selectedPage = (state: RootState) => state.pageContent.selectedPage
 export const selectedDir = (state: RootState) => state.pageContent.selectedDir
 export const focusImage = (state: RootState) => state.pageContent.focusImage
+export const arrayOfLoadedImages = (state: RootState) => state.pageContent.arrayOfLoadedImages
 export default pageContentSlice.reducer

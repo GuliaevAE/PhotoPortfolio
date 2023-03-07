@@ -7,8 +7,8 @@ import MiniSlider from './miniSlider';
 import About from './about';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoadedImages } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages } from '../store/PageContentSlice'
 
 
 interface props {
@@ -16,7 +16,21 @@ interface props {
 }
 
 
+import dynamic from 'next/dynamic'
+const DynamicSliderItem = dynamic(() => Promise.resolve(SliderItem), {
+    ssr: false,
+})
+
+const DynamicMiniSlider = dynamic(() => Promise.resolve(MiniSlider), {
+    ssr: false,
+})
+// import SelectedPage from '../components/selectedPage';
+
+
 const Slider = (props: props) => {
+
+
+
     const dispatch = useAppDispatch()
     const selected = useAppSelector(SelectedContent)
     const isSelected = useAppSelector(booleanSwitcher)
@@ -28,6 +42,8 @@ const Slider = (props: props) => {
     const animatedTextWork = useRef<any>(null)
     const animatedTextAbout = useRef<any>(null)
 
+    const arrOfLoadedImages = useAppSelector(arrayOfLoadedImages)
+
     const plus = useRef<any>(null)
     const [ImageIdOnCenter, changeId] = useState<string>('1')
 
@@ -35,6 +51,28 @@ const Slider = (props: props) => {
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
+
+
+
+    useEffect(() => {
+        if (arrOfLoadedImages.length===allImages.length){
+            plus.current.animate({ color: '#ffffff' }, {
+                duration: 4000,
+                delay: 1000,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
+            sliderComponent.current.animate([
+                {
+                    transform: ` translate(0%, -50%)`, opacity: 1,
+                }], {
+                duration: 1000,
+                // delay: 1000,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
+        }
+    }, [arrOfLoadedImages,allImages])
 
     // useEffect(() => {
     //     plus.current.animate([{
@@ -50,23 +88,24 @@ const Slider = (props: props) => {
 
 
 
-    useEffect(() => {
-        plus.current.animate({ color: '#ffffff' }, {
-            duration: 4000,
-            delay: 1000,
-            fill: 'forwards',
-            easing: 'ease-in-out'
-        })
-        sliderComponent.current.animate([
-            {
-                transform: ` translate(0%, -50%)`, opacity: 1,
-            }], {
-            duration: 4000,
-            delay: 1000,
-            fill: 'forwards',
-            easing: 'ease-in-out'
-        })
-    }, [])
+    // useEffect(() => {
+    //     plus.current.animate({ color: '#ffffff' }, {
+    //         duration: 4000,
+    //         delay: 1000,
+    //         fill: 'forwards',
+    //         easing: 'ease-in-out'
+    //     })
+    //     sliderComponent.current.animate([
+    //         {
+    //             transform: ` translate(0%, -50%)`, opacity: 1,
+    //         }], {
+    //         duration: 1000,
+    //         // delay: 1000,
+    //         fill: 'forwards',
+    //         easing: 'ease-in-out'
+    //     })
+        
+    // }, [])
 
 
 
@@ -102,13 +141,13 @@ const Slider = (props: props) => {
     useEffect(() => {
 
         if (isSelected) {
-            background.current.animate({
-                height: '0'
-            }, {
-                duration: 1000,
-                fill: 'forwards',
-                easing: 'ease-in-out'
-            })
+            // background.current.animate({
+            //     height: '0'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
             animatedTextWork.current.animate({
                 transform: 'translate(0, -100%)'
             }, {
@@ -124,13 +163,13 @@ const Slider = (props: props) => {
                 easing: 'ease-in-out'
             })
         } else {
-            background.current.animate({
-                height: '100vh'
-            }, {
-                duration: 1000,
-                fill: 'forwards',
-                easing: 'ease-in-out'
-            })
+            // background.current.animate({
+            //     height: '100vh'
+            // }, {
+            //     duration: 1000,
+            //     fill: 'forwards',
+            //     easing: 'ease-in-out'
+            // })
             animatedTextWork.current.animate({
                 transform: 'translate(0, 0)'
             }, {
@@ -151,6 +190,7 @@ const Slider = (props: props) => {
     let [isact, setisact] = useState<boolean>(false)
 
     useEffect(() => {
+       
         if (activeImage !== null) {
 
             changeId(activeImage)
@@ -174,7 +214,6 @@ const Slider = (props: props) => {
             }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
 
             selectedImg.animate({
-
                 width: '100vw', height: '100vh'
             }, { duration: 1000, fill: "forwards", easing: 'ease-in-out' })
         }
@@ -235,6 +274,7 @@ const Slider = (props: props) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
         setisact(false)
+
         if (!isact) { actImg(e) }
     }
 
@@ -260,6 +300,7 @@ const Slider = (props: props) => {
             identificationPictureNumber()
 
             if (activeImage !== null) {
+
                 setImage(null)
                 const allimg = sliderComponent.current.getElementsByClassName('image')
 
@@ -288,12 +329,10 @@ const Slider = (props: props) => {
         if (sliderComponent.current.dataset.mouseDownAt === '0') return
         if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
         if (isact) {
-
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
             const maxDelta = window.innerWidth
             const percentage = mouseDelta / maxDelta * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
-
             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
             sliderComponent.current.dataset.percentage = nextPercentage
 
@@ -304,6 +343,7 @@ const Slider = (props: props) => {
             identificationPictureNumber()
 
             if (activeImage !== null) {
+
                 setImage(null)
                 const allimg = sliderComponent.current.getElementsByClassName('image')
 
@@ -343,9 +383,9 @@ const Slider = (props: props) => {
                         onMouseMove={onmousemove}
                         onMouseUp={onmouseup}
 
-                        onTouchStart={ontouchdown}
-                        onTouchMove={ontouchmove}
-                        onTouchEnd={ontouchup}
+                        // onTouchStart={ontouchdown}
+                        // onTouchMove={ontouchmove}
+                        // onTouchEnd={ontouchup}
                     >
                         {allImages.map((x, k) => <SliderItem
                             actImgForPlus={actImgForPlus}
@@ -369,7 +409,7 @@ const Slider = (props: props) => {
                         <div>-</div>
                         <div>{allImages.length}</div>
                     </div>
-                    <MiniSlider miniSliderClisck={actImg} activeImage={activeImage} />
+                    {/* <MiniSlider miniSliderClisck={actImg} activeImage={activeImage} /> */}
                 </div>
 
                 <About />

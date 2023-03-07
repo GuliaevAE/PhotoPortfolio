@@ -1,0 +1,134 @@
+.layout {
+    // background:red;
+    width: 100vw;
+    height: 100vh;
+
+
+    .gag {
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+        .gag_text {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            transform: translate(0, -50%);
+            color: black;
+            display: flex;
+            flex-wrap: nowrap;
+            width: 200vw;
+            
+            span {
+                // display: block;
+                // height: min-content;
+                min-width: 100vw;
+                font-size:40vw;
+            }
+            
+            animation: gag_text 2s infinite linear ;
+        }
+
+        // background:green;
+        height: 100vh;
+        z-index: 10;
+        background:white;
+
+        &.active{
+            animation: changeGag1 2s ease-in-out ;
+            animation-fill-mode: forwards;
+        }
+        
+
+        // &::after {
+        //     content: "";
+        //     display: block;
+        //     position: absolute;
+        //     bottom: 0;
+        //     right: 0;
+        //     z-index: 0;
+        //     animation: after 2s ease-in-out;
+        // }
+        // &::before {
+        //     content: "";
+        //     display: block;
+        //     position: absolute;
+        //     top: 0;
+        //     left: 0;
+        //     z-index: 0;
+        //     animation: before 2s ease-in-out;
+        // }
+    }
+}
+
+@keyframes gag_text {
+    0%{
+        transform: translate(0, -50%);
+    }
+    100%{
+        transform:translate(-50%, -50%);
+    }
+}
+
+
+@keyframes after {
+    0% {
+        border: 100vw solid transparent;
+        border-right: 100vw solid red;
+        border-bottom: 100vw solid red;
+    }
+
+    100% {
+        border: 0px solid transparent;
+        border-right: 0px solid red;
+        border-bottom: 0px solid red;
+    }
+}
+
+@keyframes before {
+    0% {
+        border: 50% solid transparent;
+        border-left: 50% solid blue;
+        border-top: 50% solid blue;
+    }
+
+    100% {
+        border: 0px solid transparent;
+        border-left: 0px solid blue;
+        border-top: 0px solid blue;
+    }
+}
+
+@keyframes changeGag {
+    0% {
+        height: 100vh;
+        box-shadow: inset 0 0 0 50% white
+    }
+
+    100% {
+        height: 100vh;
+        box-shadow: inset 0 0 0 0vh white
+    }
+
+
+}
+
+
+@keyframes changeGag1 {
+    0% {
+        // height: 100vh;
+        width: 100vw;
+    }
+
+    100% {
+        // height: 0;
+        width: 0;
+    }
+}

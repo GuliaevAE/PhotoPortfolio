@@ -6,9 +6,9 @@ import ImageBlock from './imageBlock';
 import FocusedImage from './focusedImage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedDir, focusImage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage, emptychangearrayOfLoadedImages } from '../store/PageContentSlice'
 
-
+import Link from 'next/link';
 
 interface arrayOfImagesItem {
     dir: string,
@@ -17,7 +17,7 @@ interface arrayOfImagesItem {
 
 
 
-const SelectedPage = () => {
+const SelectedPage = ({ select }: any) => {
     const allContent = useAppSelector(Allcontent)
     const Dir = useAppSelector(selectedDir)
     const selected = useAppSelector(SelectedContent)
@@ -33,36 +33,28 @@ const SelectedPage = () => {
 
 
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
-    //////////////////////observer
 
-    const observer = useRef<any>(null);
+
+
     useEffect(() => {
-        if (switcher) {
+        dispatch(emptychangearrayOfLoadedImages())
+    }, [])
 
-            // let options = { threshold: [0.5] };
-            // observer.current = new IntersectionObserver(onEntry, options);
-            // let elements = refSelectedPage.current.getElementsByClassName('SelectedPage_content_images_item');
-            // for (let elm of elements) {
-            //     observer.current.observe(elm);
-            // }
-        } else {
-            scrollBlock.current.animate({
-                height: `0%`
-            }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
-        }
+    // useEffect(() => {
+    //     if (!select) {
 
 
-    }, [switcher])
+
+    //         scrollBlock.current.animate({
+    //             height: `0%`
+    //         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
+    //     }
 
 
-    const onEntry = (entry: any) => {
-        entry.forEach((change: any) => {
-            if (change.isIntersecting) {
-                change.target.classList.add('element-show');
-            }
-        });
-    }
-    //////////////////////
+    // }, [select, switcher])
+
+
+
 
     const onscroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
         scrollBlock.current.animate({
@@ -80,7 +72,7 @@ const SelectedPage = () => {
 
 
     useEffect(() => {
-        if (isSelected) {
+        if (select) {
             setSwitch(true)
             refSelectedPage.current.animate({
                 height: '100vh'
@@ -90,34 +82,28 @@ const SelectedPage = () => {
                 easing: 'ease-in-out'
             })
         } else {
-            // refSelectedPage.current.animate({
-            //     height: '0'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
+
             setTimeout(() => dispatch(changeSelectedDir(null)), 1000)
 
         }
-    }, [dispatch, isSelected])
+    }, [dispatch, select])
 
 
-    useEffect(() => {
-        if (!isSelected && switcher) {
-            // setTimeout(() => {
-            backAndScroll.current.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-            // }, 1000)
-            setTimeout(() => {
-                setSwitch(false)
+    // useEffect(() => {
+    //     if (!isSelected && switcher) {
+    //         // setTimeout(() => {
+    //         backAndScroll.current.scrollTo({
+    //             top: 0,
+    //             behavior: 'smooth'
+    //         });
+    //         // }, 1000)
+    //         setTimeout(() => {
+    //             setSwitch(false)
 
-            }, 1000)
-        }
+    //         }, 1000)
+    //     }
 
-    }, [isSelected, switcher])
+    // }, [isSelected, switcher])
 
     // const storage = getStorage();
 
@@ -127,26 +113,28 @@ const SelectedPage = () => {
 
     useEffect(() => {
         function fillingArray() {
-            if (Dir) {
-                let subarr = []
-                if (!selected) return
-                // for (let i = 1; i < selected.numberOfImages; i++) {
-                //     let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-                //     subarr.push(img)
-                // }
-                // console.log('subarr', subarr)
-                for (let i = 1; i <= selected.numberOfImages; i++) {
-                    // let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-                    subarr.push({ dir: Dir, img: String(i) })
-                }
-                setArr(subarr)
-            } else {
-                console.log('удалено')
-                setArr([])
+            // if (Dir) {
+            let subarr = []
+            if (!select) return
+            console.log('asdfoiasdiua')
+            // for (let i = 1; i < selected.numberOfImages; i++) {
+            //     let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+            //     subarr.push(img)
+            // }
+            // console.log('subarr', subarr)
+            for (let i = 1; i <= select.numberOfImages; i++) {
+                // let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
+
+                subarr.push({ dir: select.dir, img: String(i) })
             }
+            setArr(subarr)
+            // } else {
+            //     console.log('удалено')
+            //     setArr([])
+            // }
         }
         fillingArray()
-    }, [Dir, selected])
+    }, [Dir, select])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
@@ -154,7 +142,7 @@ const SelectedPage = () => {
             left: 0, top: SelectedPage_content.getBoundingClientRect().top, behavior: 'smooth'
         })
 
-      
+
     }
 
 
@@ -167,54 +155,54 @@ const SelectedPage = () => {
         <div ref={refSelectedPage} className='SelectedPage' >
             {focusedImages && <FocusedImage />}
             <span onClick={() => dispatch(changeBooleanSwitcher(false))} className='SelectedPage_imageBlock_back'>
-                Back
+                <Link href={'/'}>   Back</Link>
             </span>
             <div className='SelectedPage_imageBlock_imageIdOnCenter'>
-                <div>{selected && selected.id}</div>
+                <div>{select && select.id}</div>
                 <div>-</div>
                 <div> {allContent.length}</div>
             </div>
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
-                <ImageBlock selected={selected} scrollToImages={scrollToImages} />
+                <ImageBlock selected={select} scrollToImages={scrollToImages} />
 
 
                 <div className='SelectedPage_content'>
-                    {switcher &&
-                        <>
-                            <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
-                                    <SelectPageImage
-                                        key={x.img}
-                                        width={10}
-                                        height={10}
-                                        unoptimized={true}
-                                        src={x} />
-                                )}
-                            </div>
-                            <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k >= arrayOfImages.length / 3 && k < arrayOfImages.length * 2 / 3 &&
-                                    <SelectPageImage
-                                        key={x.img}
-                                        width={10}
-                                        height={10}
-                                        unoptimized={true}
-                                        src={x} />
-                                )}
-                            </div>
-                            <div className='SelectedPage_content_images'>
-                                {arrayOfImages.map((x, k) => k >= arrayOfImages.length * 2 / 3 &&
-                                    <SelectPageImage
-                                        key={x.img}
-                                        width={10}
-                                        height={10}
-                                        unoptimized={true}
-                                        src={x} />
-                                )}
-                            </div>
+
+                    <>
+                        <div className='SelectedPage_content_images'>
+                            {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
+                                <SelectPageImage
+                                    key={x.img}
+                                    width={10}
+                                    height={10}
+                                    unoptimized={true}
+                                    src={x} />
+                            )}
+                        </div>
+                        <div className='SelectedPage_content_images'>
+                            {arrayOfImages.map((x, k) => k >= arrayOfImages.length / 3 && k < arrayOfImages.length * 2 / 3 &&
+                                <SelectPageImage
+                                    key={x.img}
+                                    width={10}
+                                    height={10}
+                                    unoptimized={true}
+                                    src={x} />
+                            )}
+                        </div>
+                        <div className='SelectedPage_content_images'>
+                            {arrayOfImages.map((x, k) => k >= arrayOfImages.length * 2 / 3 &&
+                                <SelectPageImage
+                                    key={x.img}
+                                    width={10}
+                                    height={10}
+                                    unoptimized={true}
+                                    src={x} />
+                            )}
+                        </div>
 
 
-                        </>}
+                    </>
 
                 </div>
             </div>
