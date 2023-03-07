@@ -28,14 +28,14 @@ export async function getStaticPaths() {
 
 
     return {
-        paths: [{ params: { id: '1' } },
-        { params: { id: 'Comand' } },
-        { params: { id: 'OlgaIpatova' } },
-        { params: { id: 'Retush' } },
-        { params: { id: 'YulySmirnova' } },
-        { params: { id: 'FSTany' } },
-        { params: { id: 'Yana' } },
-        { params: { id: 'FS' } }],
+        paths: [
+            { params: { id: 'Comand' } },
+            { params: { id: 'OlgaIpatova' } },
+            { params: { id: 'Retush' } },
+            { params: { id: 'YulySmirnova' } },
+            { params: { id: 'FSTany' } },
+            { params: { id: 'Yana' } },
+            { params: { id: 'FS' } }],
         fallback: false, // can also be true or 'blocking'
     }
 }
@@ -60,8 +60,8 @@ export async function getStaticProps(context: any) {
         props: { data: [] }
     }
 
-    
-   
+
+
 }
 
 // import { useAppSelector, useAppDispatch } from '../store/hooks'
