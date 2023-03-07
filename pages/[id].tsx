@@ -41,6 +41,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context: any) {
+
     const { id } = context.params
     const AllContent =
         [{ id: '1', selectpImg: Comand1, numberOfImages: 15, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
@@ -52,10 +53,15 @@ export async function getStaticProps(context: any) {
         { id: '7', selectpImg: FS1, numberOfImages: 15, header: 'FS', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
         ]
 
-    const selected = AllContent.find(x => x.dir === id)
-    return {
-        props: { data: selected }, // will be passed to the page component as props
+    if (id) {
+        const selected = AllContent.find(x => x.dir === id)
+        return { props: { data: selected } }
+    } else {
+        props: { data: [] }
     }
+
+    
+   
 }
 
 // import { useAppSelector, useAppDispatch } from '../store/hooks'
