@@ -25,16 +25,10 @@ const SelectedPage = ({ select }: any) => {
     const isSelected = useAppSelector(booleanSwitcher)
     const refSelectedPage = useRef<any>(null)
     const scrollBlock = useRef<any>(null)
-
     const backAndScroll = useRef<any>(null)
     const [switcher, setSwitch] = useState<boolean>(false)
-
     const focusedImages = useAppSelector(focusImage)
-
-
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
-
-
 
     useEffect(() => {
         dispatch(emptychangearrayOfLoadedImages())
@@ -42,15 +36,10 @@ const SelectedPage = ({ select }: any) => {
 
     // useEffect(() => {
     //     if (!select) {
-
-
-
     //         scrollBlock.current.animate({
     //             height: `0%`
     //         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
     //     }
-
-
     // }, [select, switcher])
 
 
@@ -60,8 +49,6 @@ const SelectedPage = ({ select }: any) => {
         scrollBlock.current.animate({
             height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
-
-
 
         let SelectedPageimageBlockimg = document.body.getElementsByClassName('SelectedPage_imageBlock_img')[0]
 
@@ -89,49 +76,17 @@ const SelectedPage = ({ select }: any) => {
     }, [dispatch, select])
 
 
-    // useEffect(() => {
-    //     if (!isSelected && switcher) {
-    //         // setTimeout(() => {
-    //         backAndScroll.current.scrollTo({
-    //             top: 0,
-    //             behavior: 'smooth'
-    //         });
-    //         // }, 1000)
-    //         setTimeout(() => {
-    //             setSwitch(false)
-
-    //         }, 1000)
-    //     }
-
-    // }, [isSelected, switcher])
-
-    // const storage = getStorage();
-
-
-
-
-
     useEffect(() => {
         function fillingArray() {
-            // if (Dir) {
+
             let subarr = []
             if (!select) return
             console.log('asdfoiasdiua')
-            // for (let i = 1; i < selected.numberOfImages; i++) {
-            //     let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
-            //     subarr.push(img)
-            // }
-            // console.log('subarr', subarr)
-            for (let i = 1; i <= select.numberOfImages; i++) {
-                // let img = await getDownloadURL(ref(storage, `${Dir}/img${i}.JPG`))
 
+            for (let i = 1; i <= select.numberOfImages; i++) {
                 subarr.push({ dir: select.dir, img: String(i) })
             }
             setArr(subarr)
-            // } else {
-            //     console.log('удалено')
-            //     setArr([])
-            // }
         }
         fillingArray()
     }, [Dir, select])
@@ -141,15 +96,7 @@ const SelectedPage = ({ select }: any) => {
         backAndScroll.current.scrollTo({
             left: 0, top: SelectedPage_content.getBoundingClientRect().top, behavior: 'smooth'
         })
-
-
     }
-
-
-
-
-
-    const myLoader = ({ src }: { src: string }) => src
 
     return (
         <div ref={refSelectedPage} className='SelectedPage' >
@@ -165,45 +112,37 @@ const SelectedPage = ({ select }: any) => {
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
                 <ImageBlock selected={select} scrollToImages={scrollToImages} />
-
-
                 <div className='SelectedPage_content'>
-
-                    <>
-                        <div className='SelectedPage_content_images'>
-                            {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
-                                <SelectPageImage
-                                    key={x.img}
-                                    width={10}
-                                    height={10}
-                                    unoptimized={true}
-                                    src={x} />
-                            )}
-                        </div>
-                        <div className='SelectedPage_content_images'>
-                            {arrayOfImages.map((x, k) => k >= arrayOfImages.length / 3 && k < arrayOfImages.length * 2 / 3 &&
-                                <SelectPageImage
-                                    key={x.img}
-                                    width={10}
-                                    height={10}
-                                    unoptimized={true}
-                                    src={x} />
-                            )}
-                        </div>
-                        <div className='SelectedPage_content_images'>
-                            {arrayOfImages.map((x, k) => k >= arrayOfImages.length * 2 / 3 &&
-                                <SelectPageImage
-                                    key={x.img}
-                                    width={10}
-                                    height={10}
-                                    unoptimized={true}
-                                    src={x} />
-                            )}
-                        </div>
-
-
-                    </>
-
+                    <div className='SelectedPage_content_images'>
+                        {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
+                            <SelectPageImage
+                                key={x.img}
+                                width={10}
+                                height={10}
+                                unoptimized={true}
+                                src={x} />
+                        )}
+                    </div>
+                    <div className='SelectedPage_content_images'>
+                        {arrayOfImages.map((x, k) => k >= arrayOfImages.length / 3 && k < arrayOfImages.length * 2 / 3 &&
+                            <SelectPageImage
+                                key={x.img}
+                                width={10}
+                                height={10}
+                                unoptimized={true}
+                                src={x} />
+                        )}
+                    </div>
+                    <div className='SelectedPage_content_images'>
+                        {arrayOfImages.map((x, k) => k >= arrayOfImages.length * 2 / 3 &&
+                            <SelectPageImage
+                                key={x.img}
+                                width={10}
+                                height={10}
+                                unoptimized={true}
+                                src={x} />
+                        )}
+                    </div>
                 </div>
             </div>
 

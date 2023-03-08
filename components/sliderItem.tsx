@@ -109,7 +109,7 @@ const SliderItem = (props: props) => {
                         <span onClick={() => actImgForPlus(String(Number(props.activeImage) + 1))}>+</span>
 
 
-                        {/* {[1,2,3].map(x=><span key={x}><Link href={`/${props.id}`}>{props.content}</Link></span>)} */}
+                       
                     </div>
 
                 </div>

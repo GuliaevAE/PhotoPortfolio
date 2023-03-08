@@ -1,7 +1,6 @@
 
 import React from 'react';
 import { useRef, useState, useEffect } from 'react';
-import Image from 'next/image';
 import SliderItem from './sliderItem';
 import MiniSlider from './miniSlider';
 import About from './about';
@@ -11,23 +10,12 @@ import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoad
 import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages } from '../store/PageContentSlice'
 
 
-interface props {
-    mini?: boolean
-}
 
 
 import dynamic from 'next/dynamic'
-const DynamicSliderItem = dynamic(() => Promise.resolve(SliderItem), {
-    ssr: false,
-})
-
-const DynamicMiniSlider = dynamic(() => Promise.resolve(MiniSlider), {
-    ssr: false,
-})
-// import SelectedPage from '../components/selectedPage';
 
 
-const Slider = (props: props) => {
+const Slider = () => {
 
 
 
@@ -73,18 +61,6 @@ const Slider = (props: props) => {
             })
         }
     }, [arrOfLoadedImages, allImages])
-
-    // useEffect(() => {
-    //     plus.current.animate([{
-    //         fontSize: '80px'
-    //     }, {
-    //         fontSize: '60px'
-    //     }], {
-    //         duration: 500,
-
-    //         easing: 'ease-in-out'
-    //     })
-    // }, [ImageIdOnCenter])
 
 
 
@@ -141,13 +117,7 @@ const Slider = (props: props) => {
     useEffect(() => {
 
         if (isSelected) {
-            // background.current.animate({
-            //     height: '0'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
+
             animatedTextWork.current.animate({
                 transform: 'translate(0, -100%)'
             }, {
@@ -221,7 +191,6 @@ const Slider = (props: props) => {
             plus.current.animate({
                 opacity: 1, transform: 'translate(-50%, -50%)'
             }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
-            // setTimeout(identificationPictureNumber, 700)
         }
     }, [activeImage])
 
@@ -352,9 +321,6 @@ const Slider = (props: props) => {
             }
         }
     }
-
-
-
 
     return (
         <div ref={background} className="container" onWheel={onwheelmove}>

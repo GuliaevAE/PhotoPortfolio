@@ -3,8 +3,6 @@ import Image from 'next/image'
 
 import { Allcontent, SelectedContent, booleanSwitcher, SelectedContentType } from '../store/PageContentSlice'
 
-import PrerenderImage from './prerenderImage';
-
 interface ImageBlockinterface {
     selected: SelectedContentType,
     scrollToImages: Function
@@ -42,8 +40,6 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                     <div onClick={() => scrollToImages()}>down</div>
                 </div>
 
-
-                {/* <PrerenderImage selected={selected}/> */}
 
 
                 <Image ref={image}
