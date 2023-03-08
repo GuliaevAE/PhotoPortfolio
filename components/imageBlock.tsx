@@ -23,7 +23,7 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
     return (
         <> {selected &&
 
-            <div className='SelectedPage_imageBlock' >
+            <div className={`SelectedPage_imageBlock ${isReady? 'active' : ''}`} >
 
                 <div className='SelectedPage_imageBlock_header'>
                     <h2 >

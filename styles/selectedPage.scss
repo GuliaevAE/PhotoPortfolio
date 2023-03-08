@@ -88,6 +88,40 @@
         // object-position: 50% 50%;
         // background: rgb(240, 15, 15);
 
+        &::after {
+            content: "";
+            display: block;
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            // z-index: 0;
+            
+       
+            border: 200vw solid transparent;
+            border-right: 200vw solid black;
+            border-bottom: 200vw solid black;
+      
+        }
+
+        &.active::after {
+            animation: SelectedPage_imageBlockAfter 2s ease-in-out;
+            animation-fill-mode:forwards;
+        }
+
+        @keyframes SelectedPage_imageBlockAfter {
+            0%{
+                border: 200vw solid transparent;
+                border-right: 200vw solid black;
+                border-bottom: 200vw solid black;
+            }
+            100%{
+                border: 0vw solid transparent;
+                border-right: 0vw solid black;
+                border-bottom: 0vw solid black;
+               
+            }
+        }
+
         .SelectedPage_imageBlock_buttonForScroll {
             display: flex;
             position: absolute;
@@ -135,6 +169,8 @@
             opacity: 1;
             transition: all .5s;
 
+
+
             // object-position: 0% 0%;
             &.blur {
                 opacity: 0;
@@ -156,9 +192,10 @@
         gap: 2vw;
         margin: 0 auto;
         margin-top: 20vh;
+
         .SelectedPage_content_images {
 
-        
+
 
             gap: 20px;
             width: 100%;
@@ -178,6 +215,8 @@
                 // opacity: .1;
                 transition: all 1s;
                 filter: blur(0);
+
+               
 
                 &.element-show {
                     opacity: 1;

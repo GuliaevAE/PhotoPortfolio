@@ -67,7 +67,7 @@ const SelectedPage = ({ select }: any) => {
 
         SelectedPageimageBlockimg.animate({
             transform: `translateY(${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%)`
-        }, { duration: 50, fill: 'forwards', easing: 'ease' })
+        }, { duration: 10, fill: 'forwards', easing: 'linear' })
     }
 
 

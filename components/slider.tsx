@@ -55,7 +55,7 @@ const Slider = (props: props) => {
 
 
     useEffect(() => {
-        if (arrOfLoadedImages.length===allImages.length){
+        if (arrOfLoadedImages.length === allImages.length) {
             plus.current.animate({ color: '#ffffff' }, {
                 duration: 4000,
                 delay: 1000,
@@ -72,7 +72,7 @@ const Slider = (props: props) => {
                 easing: 'ease-in-out'
             })
         }
-    }, [arrOfLoadedImages,allImages])
+    }, [arrOfLoadedImages, allImages])
 
     // useEffect(() => {
     //     plus.current.animate([{
@@ -104,7 +104,7 @@ const Slider = (props: props) => {
     //         fill: 'forwards',
     //         easing: 'ease-in-out'
     //     })
-        
+
     // }, [])
 
 
@@ -190,7 +190,7 @@ const Slider = (props: props) => {
     let [isact, setisact] = useState<boolean>(false)
 
     useEffect(() => {
-       
+
         if (activeImage !== null) {
 
             changeId(activeImage)
@@ -278,41 +278,36 @@ const Slider = (props: props) => {
         if (!isact) { actImg(e) }
     }
 
-    const onwheelmove: React.WheelEventHandler = (e) => {
-        let clientX = e.deltaY
+    const onwheelmove: React.WheelEventHandler = (e:any) => {
+        sliderComponent.current.dataset.mouseDownAt = e.clientX
+        let clientX = e.nativeEvent.wheelDelta
 
-        if (sliderComponent.current.dataset.mouseDownAt === '0') return
-        if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
-        if (isact) {
+        const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + clientX/50
+      
+        setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
+        sliderComponent.current.dataset.percentage = nextPercentage
 
-            const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
-            const maxDelta = window.innerWidth
-            const percentage = mouseDelta / maxDelta * -100
-            const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
+        sliderComponent.current.animate({
+            transform: `translate(${Math.max(Math.min(nextPercentageUnconstrained, 0), -57)}%,-50%)`
+        }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
 
-            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
-            sliderComponent.current.dataset.percentage = nextPercentage
+        identificationPictureNumber()
 
-            sliderComponent.current.animate({
-                transform: `translate(${nextPercentage}%,-50%)`
-            }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
+        if (activeImage !== null) {
 
-            identificationPictureNumber()
+            setImage(null)
+            const allimg = sliderComponent.current.getElementsByClassName('image')
 
-            if (activeImage !== null) {
-
-                setImage(null)
-                const allimg = sliderComponent.current.getElementsByClassName('image')
-
-                for (let img of allimg) {
-                    if (img.id === activeImage) {
-                        img.animate({
-                            width: '18vw', height: '56vh'
-                        }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
-                    }
+            for (let img of allimg) {
+                if (img.id === activeImage) {
+                    img.animate({
+                        width: '18vw', height: '56vh'
+                    }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
                 }
             }
         }
+        sliderComponent.current.dataset.mouseDownAt = '0'
+        sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
     }
     const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
         let clientX = e.touches[0].clientX
@@ -333,7 +328,7 @@ const Slider = (props: props) => {
             const maxDelta = window.innerWidth
             const percentage = mouseDelta / maxDelta * -100
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
-            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
+            setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -57))
             sliderComponent.current.dataset.percentage = nextPercentage
 
             sliderComponent.current.animate({
@@ -383,9 +378,9 @@ const Slider = (props: props) => {
                         onMouseMove={onmousemove}
                         onMouseUp={onmouseup}
 
-                        // onTouchStart={ontouchdown}
-                        // onTouchMove={ontouchmove}
-                        // onTouchEnd={ontouchup}
+                    onTouchStart={ontouchdown}
+                    onTouchMove={ontouchmove}
+                    onTouchEnd={ontouchup}
                     >
                         {allImages.map((x, k) => <SliderItem
                             actImgForPlus={actImgForPlus}

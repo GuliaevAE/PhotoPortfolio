@@ -27,19 +27,20 @@ export default function App({ Component, pageProps }: AppProps) {
   const transitions = useTransition(compoentArray, {
     from: {
       position: "absolute",
-      top: '100vh',
-      zIndex: 1,
+      top: '0',
+      zIndex:0,
       // opacity: 0
     },
     enter: [{
       position: "absolute",
       top: '0',
-      zIndex: 1,
+      zIndex:1,
       // opacity: 1
     }],
     leave: [{
       position: "absolute",
-      zIndex: 0,
+      zIndex:1 ,
+      top: '100vh',
       // opacity: 0,
     }],
     // delay: 200,
@@ -58,13 +59,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
-      <Layout>
-        {/* <Component {...pageProps} /> */}
-        {transitions((style: any, item: any) => {
-          // Render items managed by react-spring
-          return <animated.div style={style}>{item}</animated.div>;
-        })}
-      </Layout>
+      {/* <Layout></Layout> */}
+      {/* <Component {...pageProps} /> */}
+      {transitions((style: any, item: any) => {
+        // Render items managed by react-spring
+        return <animated.div style={style}>{item}</animated.div>;
+      })}
     </Provider>
   )
 }

@@ -1,7 +1,13 @@
+@font-face {
+    font-family: "Try_clover";
+    src: url(../fonts/DolomanPavljenko.otf);
+}
+
 .layout {
     // background:red;
     width: 100vw;
     height: 100vh;
+    font-family: "Try_clover";
 
 
     .gag {
@@ -16,6 +22,10 @@
         align-items: center;
         overflow: hidden;
 
+
+        display: none;
+
+
         .gag_text {
             position: absolute;
             top: 50%;
@@ -25,15 +35,15 @@
             display: flex;
             flex-wrap: nowrap;
             width: 200vw;
-            
+
             span {
                 // display: block;
                 // height: min-content;
                 min-width: 100vw;
-                font-size:40vw;
+                font-size: 40vw;
             }
-            
-            animation: gag_text 2s infinite linear ;
+
+            animation: gag_text 2s infinite linear;
         }
 
         // background:green;
@@ -41,11 +51,11 @@
         z-index: 10;
         background:white;
 
-        &.active{
-            animation: changeGag1 2s ease-in-out ;
+        &.active {
+            animation: changeGag1 2s ease-in-out;
             animation-fill-mode: forwards;
         }
-        
+
 
         // &::after {
         //     content: "";
@@ -69,11 +79,12 @@
 }
 
 @keyframes gag_text {
-    0%{
+    0% {
         transform: translate(0, -50%);
     }
-    100%{
-        transform:translate(-50%, -50%);
+
+    100% {
+        transform: translate(-50%, -50%);
     }
 }
 
