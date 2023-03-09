@@ -95,30 +95,31 @@
             bottom: 0;
             right: 0;
             // z-index: 0;
-            
-       
+
+
             border: 200vw solid transparent;
             border-right: 200vw solid black;
             border-bottom: 200vw solid black;
-      
+
         }
 
         &.active::after {
             animation: SelectedPage_imageBlockAfter 2s ease-in-out;
-            animation-fill-mode:forwards;
+            animation-fill-mode: forwards;
         }
 
         @keyframes SelectedPage_imageBlockAfter {
-            0%{
+            0% {
                 border: 200vw solid transparent;
                 border-right: 200vw solid black;
                 border-bottom: 200vw solid black;
             }
-            100%{
+
+            100% {
                 border: 0vw solid transparent;
                 border-right: 0vw solid black;
                 border-bottom: 0vw solid black;
-               
+
             }
         }
 
@@ -157,7 +158,47 @@
             width: auto;
             gap: 5vh;
             z-index: 1;
+
             // background: green;
+
+            div {
+                overflow: hidden;
+               
+                h1,
+                h2,
+                h3 {
+                    transform: translateY(-110%);
+                    color: white;
+                    // -webkit-text-stroke: .04em black;
+
+                   
+                }
+
+
+               
+            }
+
+
+
+            &.active {
+
+                h1,
+                h2,
+                h3 {
+                    animation: SelectedPage_imageBlock_header_Textanimation 1s ease-in;
+                    animation-fill-mode: forwards;
+                }
+            }
+        }
+
+        @keyframes SelectedPage_imageBlock_header_Textanimation {
+            0% {
+                transform: translateY(-110%);
+            }
+
+            100% {
+                transform: none;
+            }
         }
 
         .SelectedPage_imageBlock_img {
@@ -193,6 +234,7 @@
         margin: 0 auto;
         margin-top: 20vh;
         padding-bottom: 10vh;
+
         .SelectedPage_content_images {
 
 
@@ -216,7 +258,7 @@
                 transition: all 1s;
                 filter: blur(0);
 
-               
+
 
                 &.element-show {
                     opacity: 1;
