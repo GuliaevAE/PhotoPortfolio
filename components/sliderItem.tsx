@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, arrayOfLoadedImages } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir ,changearrayOfLoadedImages} from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher ,changearrayOfLoadedImages} from '../store/PageContentSlice'
 
 import Link from 'next/link';
 

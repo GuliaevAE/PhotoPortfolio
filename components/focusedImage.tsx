@@ -3,8 +3,8 @@ import Image from 'next/image'
 
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedDir, focusImage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, focusImage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeFocusedImage } from '../store/PageContentSlice'
 
 
 const FocusedImage = () => {

@@ -5,8 +5,8 @@ import SelectPageImage from './SelectPageImage';
 import ImageBlock from './imageBlock';
 import FocusedImage from './focusedImage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedDir, focusImage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage, emptychangearrayOfLoadedImages } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, focusImage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeFocusedImage, emptychangearrayOfLoadedImages } from '../store/PageContentSlice'
 
 import Link from 'next/link';
 
@@ -19,7 +19,7 @@ interface arrayOfImagesItem {
 
 const SelectedPage = ({ select }: any) => {
     const allContent = useAppSelector(Allcontent)
-    const Dir = useAppSelector(selectedDir)
+
     const selected = useAppSelector(SelectedContent)
     const dispatch = useAppDispatch()
     const isSelected = useAppSelector(booleanSwitcher)
@@ -70,7 +70,7 @@ const SelectedPage = ({ select }: any) => {
             })
         } else {
 
-            setTimeout(() => dispatch(changeSelectedDir(null)), 1000)
+            // setTimeout(() => dispatch(changeSelectedDir(null)), 1000)
 
         }
     }, [dispatch, select])
@@ -89,7 +89,7 @@ const SelectedPage = ({ select }: any) => {
             setArr(subarr)
         }
         fillingArray()
-    }, [Dir, select])
+    }, [ select])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedDir, changeFocusedImage } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSlectedSliderItem, changeFocusedImage } from '../store/PageContentSlice'
 import OnLoadingComplete from "next/image"
 
 

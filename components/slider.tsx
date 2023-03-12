@@ -6,8 +6,8 @@ import MiniSlider from './miniSlider';
 import About from './about';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoadedImages } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages } from '../store/PageContentSlice'
+import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoadedImages, slectedSliderItem } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages, changeSlectedSliderItem } from '../store/PageContentSlice'
 
 
 
@@ -17,7 +17,7 @@ import dynamic from 'next/dynamic'
 
 const Slider = () => {
 
-
+    const slectedSlItem = useAppSelector(slectedSliderItem)
 
     const dispatch = useAppDispatch()
     const selected = useAppSelector(SelectedContent)
@@ -42,7 +42,18 @@ const Slider = () => {
 
 
 
+    // useEffect(() => {
+    //     if (slectedSlItem !== null)
+    //     console.log(slectedSlItem)
+    //     setImage(slectedSlItem)
+    // }, [dispatch, slectedSlItem])
+
+
     useEffect(() => {
+        
+        slectedSlItem && setnextPercentage(-1 * (Number(slectedSlItem) - 1) * 57 / 7)
+
+
         if (arrOfLoadedImages.length === allImages.length) {
             plus.current.animate({ color: '#ffffff' }, {
                 duration: 4000,
@@ -50,16 +61,45 @@ const Slider = () => {
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
-            sliderComponent.current.animate([
-                {
-                    transform: ` translate(0%, -50%)`, opacity: 1,
-                }], {
-                duration: 1000,
-                // delay: 1000,
-                fill: 'forwards',
-                easing: 'ease-in-out'
-            })
+
+            if (!slectedSlItem) {
+                sliderComponent.current.animate([
+                    {
+                        transform: ` translate(0%, -50%)`, opacity: 1,
+                    }], {
+                    duration: 1000,
+                    // delay: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                })
+            } else {
+                sliderComponent.current.dataset.prevPercentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
+                sliderComponent.current.dataset.percentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
+
+                sliderComponent.current.animate([
+                    {
+                        transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
+                    }, {
+                        transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
+                        opacity: 1
+                    }], {
+                    duration: 1000,
+                    // delay: 1000,
+                    fill: 'forwards',
+                    easing: 'ease-in-out'
+                })
+
+            }
+
+            // setImage('5')
+            // if (slectedSlItem) {
+            //     sliderComponent.current.style.transform = `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2),-50%)`
+            //     // slectedSlItem&& setImage(slectedSlItem)
+            // }
+
+            // setTimeout()
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arrOfLoadedImages, allImages])
 
 
@@ -162,6 +202,11 @@ const Slider = () => {
     useEffect(() => {
 
         if (activeImage !== null) {
+            dispatch(changeSlectedSliderItem(activeImage))
+
+
+
+
 
             changeId(activeImage)
             plus.current.animate([
@@ -174,25 +219,34 @@ const Slider = () => {
             for (let img of allimg) {
                 img.animate({
                     width: '18vw', height: '56vh'
-                }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
+                }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
             }
 
             const selectedImg = sliderComponent.current.getElementsByClassName(activeImage)[0]
             sliderComponent.current.animate({
                 left: '0',
                 transform: `translate(calc(-18vw * ${Number(activeImage) - 1} - 4vw * ${Number(activeImage) - 1} - (100vw - 18vw)/2),-50%)`
-            }, { duration: 1000, fill: 'forwards', easing: 'ease-in-out' })
+            }, { duration: 800, fill: 'forwards', easing: 'ease-in-out' })
+
+
+
+            ////////////////////////////////////////////////
+            sliderComponent.current.dataset.prevPercentage = -1 * (Number(activeImage) - 1) * 57 / 7
+            sliderComponent.current.dataset.percentage = -1 * (Number(activeImage) - 1) * 57 / 7
+            ////////////////////////////////////////////////
+
+
 
             selectedImg.animate({
                 width: '100vw', height: '100vh'
-            }, { duration: 1000, fill: "forwards", easing: 'ease-in-out' })
+            }, { duration: 700, fill: "forwards", easing: 'ease-in-out' })
         }
         else {
             plus.current.animate({
                 opacity: 1, transform: 'translate(-50%, -50%)'
             }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
         }
-    }, [activeImage])
+    }, [activeImage, dispatch])
 
 
 
@@ -247,12 +301,12 @@ const Slider = () => {
         if (!isact) { actImg(e) }
     }
 
-    const onwheelmove: React.WheelEventHandler = (e:any) => {
+    const onwheelmove: React.WheelEventHandler = (e: any) => {
         sliderComponent.current.dataset.mouseDownAt = e.clientX
         let clientX = e.nativeEvent.wheelDelta
 
-        const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + clientX/50
-      
+        const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + clientX / 50
+
         setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
         sliderComponent.current.dataset.percentage = nextPercentage
 
@@ -277,6 +331,10 @@ const Slider = () => {
         }
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
+
+
+
+
     }
     const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
         let clientX = e.touches[0].clientX
@@ -299,7 +357,7 @@ const Slider = () => {
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -57))
             sliderComponent.current.dataset.percentage = nextPercentage
-
+            console.log('nextPercentage', nextPercentage)
             sliderComponent.current.animate({
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
@@ -320,6 +378,7 @@ const Slider = () => {
                 }
             }
         }
+
     }
 
     return (
@@ -344,9 +403,9 @@ const Slider = () => {
                         onMouseMove={onmousemove}
                         onMouseUp={onmouseup}
 
-                    onTouchStart={ontouchdown}
-                    onTouchMove={ontouchmove}
-                    onTouchEnd={ontouchup}
+                        onTouchStart={ontouchdown}
+                        onTouchMove={ontouchmove}
+                        onTouchEnd={ontouchup}
                     >
                         {allImages.map((x, k) => <SliderItem
                             actImgForPlus={actImgForPlus}

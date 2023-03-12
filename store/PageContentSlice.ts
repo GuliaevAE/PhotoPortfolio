@@ -34,7 +34,7 @@ interface NoteState {
   SelectedContent: null | undefined | Note,
   booleanSwitcher: boolean,
   selectedPage: string,
-  selectedDir: null | string,
+  slectedSliderItem: null | string,
   focusImage: any,
   arrayOfLoadedImages: boolean[]
 }
@@ -53,7 +53,7 @@ const initialState: NoteState = {
   SelectedContent: null,
   booleanSwitcher: false,
   selectedPage: "work",
-  selectedDir: null,
+  slectedSliderItem: null,
 
   focusImage: null,
 
@@ -85,8 +85,8 @@ export const pageContentSlice = createSlice({
     changeSelectedPage: (state, action: PayloadAction<string>) => {
       state.selectedPage = action.payload
     },
-    changeSelectedDir: (state, action: PayloadAction<string | null>) => {
-      state.selectedDir = action.payload
+    changeSlectedSliderItem: (state, action: PayloadAction<string | null>) => {
+      state.slectedSliderItem = action.payload
     },
     changeFocusedImage: (state, action: PayloadAction<any>) => {
       state.focusImage = action.payload
@@ -95,14 +95,14 @@ export const pageContentSlice = createSlice({
 })
 
 // actions
-export const {changearrayOfLoadedImages,emptychangearrayOfLoadedImages, selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSelectedDir, changeFocusedImage } = pageContentSlice.actions
+export const {changearrayOfLoadedImages,emptychangearrayOfLoadedImages, selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changeSlectedSliderItem, changeFocusedImage } = pageContentSlice.actions
 
 // selectors
 export const Allcontent = (state: RootState) => state.pageContent.AllContent
 export const SelectedContent = (state: RootState) => state.pageContent.SelectedContent
 export const booleanSwitcher = (state: RootState) => state.pageContent.booleanSwitcher
 export const selectedPage = (state: RootState) => state.pageContent.selectedPage
-export const selectedDir = (state: RootState) => state.pageContent.selectedDir
+export const slectedSliderItem = (state: RootState) => state.pageContent.slectedSliderItem
 export const focusImage = (state: RootState) => state.pageContent.focusImage
 export const arrayOfLoadedImages = (state: RootState) => state.pageContent.arrayOfLoadedImages
 export default pageContentSlice.reducer
