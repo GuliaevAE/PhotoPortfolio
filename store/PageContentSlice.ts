@@ -29,7 +29,7 @@ export type Note = {
 
 export type SelectedContentType = null | undefined | Note
 
-interface NoteState {
+interface initialStateInterface {
   AllContent: Array<Note>,
   SelectedContent: null | undefined | Note,
   booleanSwitcher: boolean,
@@ -39,7 +39,7 @@ interface NoteState {
   arrayOfLoadedImages: boolean[]
 }
 
-const initialState: NoteState = {
+const initialState: initialStateInterface = {
   AllContent:
     [{ id: '1', selectpImg: Comand1, numberOfImages: 15, header: 'Команда', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
     { id: '2', selectpImg: Olga1, numberOfImages: 15, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },

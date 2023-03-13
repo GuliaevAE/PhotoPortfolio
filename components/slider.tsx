@@ -30,6 +30,8 @@ const Slider = () => {
     const animatedTextWork = useRef<any>(null)
     const animatedTextAbout = useRef<any>(null)
 
+    const centerCount = useRef<any>(null)
+
     const arrOfLoadedImages = useAppSelector(arrayOfLoadedImages)
 
     const plus = useRef<any>(null)
@@ -42,15 +44,20 @@ const Slider = () => {
 
 
 
-    // useEffect(() => {
-    //     if (slectedSlItem !== null)
-    //     console.log(slectedSlItem)
-    //     setImage(slectedSlItem)
-    // }, [dispatch, slectedSlItem])
+    useEffect(() => {
+        centerCount.current.animate([{
+            transform: 'rotateY(90deg)'
+        }, {
+            transform: 'none'
+        }], {
+            duration: 500,
+            easing: 'linear'
+        })
+    }, [ImageIdOnCenter])
 
 
     useEffect(() => {
-        
+
         slectedSlItem && setnextPercentage(-1 * (Number(slectedSlItem) - 1) * 57 / 7)
 
 
@@ -68,7 +75,6 @@ const Slider = () => {
                         transform: ` translate(0%, -50%)`, opacity: 1,
                     }], {
                     duration: 1000,
-                    // delay: 1000,
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
@@ -88,16 +94,10 @@ const Slider = () => {
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
+                identificationPictureNumber()
 
             }
 
-            // setImage('5')
-            // if (slectedSlItem) {
-            //     sliderComponent.current.style.transform = `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2),-50%)`
-            //     // slectedSlItem&& setImage(slectedSlItem)
-            // }
-
-            // setTimeout()
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arrOfLoadedImages, allImages])
@@ -173,13 +173,6 @@ const Slider = () => {
                 easing: 'ease-in-out'
             })
         } else {
-            // background.current.animate({
-            //     height: '100vh'
-            // }, {
-            //     duration: 1000,
-            //     fill: 'forwards',
-            //     easing: 'ease-in-out'
-            // })
             animatedTextWork.current.animate({
                 transform: 'translate(0, 0)'
             }, {
@@ -203,8 +196,6 @@ const Slider = () => {
 
         if (activeImage !== null) {
             dispatch(changeSlectedSliderItem(activeImage))
-
-
 
 
 
@@ -357,7 +348,6 @@ const Slider = () => {
             const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + percentage
             setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -57))
             sliderComponent.current.dataset.percentage = nextPercentage
-            console.log('nextPercentage', nextPercentage)
             sliderComponent.current.animate({
                 transform: `translate(${nextPercentage}%,-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
@@ -425,7 +415,7 @@ const Slider = () => {
                         +
                     </div>
                     <div className='sliderAndMinislider_counter'>
-                        <div>{ImageIdOnCenter}</div>
+                        <div ref={centerCount}>{ImageIdOnCenter}</div>
                         <div>-</div>
                         <div>{allImages.length}</div>
                     </div>

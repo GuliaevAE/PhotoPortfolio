@@ -81,8 +81,6 @@ const SelectedPage = ({ select }: any) => {
 
             let subarr = []
             if (!select) return
-            console.log('asdfoiasdiua')
-
             for (let i = 1; i <= select.numberOfImages; i++) {
                 subarr.push({ dir: select.dir, img: String(i) })
             }

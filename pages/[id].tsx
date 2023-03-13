@@ -43,40 +43,22 @@ export async function getStaticPaths() {
 export async function getStaticProps(context: any) {
 
     const { id } = context.params
-    const AllContent =
-    [{ id: '1', selectpImg: Comand1, numberOfImages: 15, header: 'Команда W', dir: 'Comand', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Comand, imagetitle: 'From sadasdNature to Culture' },
-    { id: '2', selectpImg: Olga1, numberOfImages: 15, header: 'Ольга Ипатова', dir: 'OlgaIpatova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Olga, imagetitle: 'Reventing Wonder' },
-    { id: '3', selectpImg: Retush1, numberOfImages: 15, header: 'Юдя Родаева', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' },
-    { id: '4', selectpImg: YulySmirnova1, numberOfImages: 15, header: 'Юля Смирнова', dir: 'YulySmirnova', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: YulySmirnova, imagetitle: 'From Gaggio With Love' },
-    { id: '5', selectpImg: FSTany1, numberOfImages: 15, header: 'Таня', dir: 'FSTany', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FSTany, imagetitle: 'The Regeneration Suit' },
-    { id: '6', selectpImg: Yana1, numberOfImages: 15, header: 'Яна Суетнова', dir: 'Yana', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Yana, imagetitle: 'Чето еще' },
-    { id: '7', selectpImg: FS1, numberOfImages: 15, header: 'Людитлп Бухова', dir: 'FS', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: FS, imagetitle: 'Чето еще' }
+   
 
-    ]
-
-    if (id) {
-        const selected = AllContent.find(x => x.dir === id)
-        return { props: { data: selected } }
-    } else {
-        props: { data: [] }
-    }
-
-
+    return { props: { id } }
 
 }
 
-// import { useAppSelector, useAppDispatch } from '../store/hooks'
-// import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
-// import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
+import { useAppSelector, useAppDispatch } from '../store/hooks'
+import { Allcontent, SelectedContent, booleanSwitcher } from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher } from '../store/PageContentSlice'
 
-export default function Aa({ data }: any) {
-    // console.log('props', data)
-    // const selected = useAppSelector(SelectedContent)
-    // const cs = { id: '3', selectpImg: Retush1, numberOfImages: 15, header: 'Ретушь', dir: 'Retush', content: 'Lorem Lorem Lorem Lorem LoremLorem Lorem Lorem Lorem', img: Retush, imagetitle: 'Sound Expressed In Full' }
-
+export default function Aa({ id }: any) {
+    const allImages = useAppSelector(Allcontent)
+    const selected = allImages.find(x => x.dir === id)
     return (
         <>
-            <DynamicSelectedPage select={data} />
+            <DynamicSelectedPage select={selected} />
         </>
     );
 };
