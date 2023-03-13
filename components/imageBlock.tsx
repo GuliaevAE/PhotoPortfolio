@@ -31,7 +31,9 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                         {selected.header}
                     </h2></div>
                     <div> <h3>
-                        {selected.imagetitle}
+                        {selected.imagetitle.split(' ').map((x, k)=>
+                            <span key={x+k}>{x}</span>
+                            )}
                     </h3></div>
                     <div> <h3>
                         {selected.content}

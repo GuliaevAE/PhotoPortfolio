@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, arrayOfLoadedImages } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher ,changearrayOfLoadedImages} from '../store/PageContentSlice'
+import { selectContent, selectNull, changeBooleanSwitcher, changearrayOfLoadedImages } from '../store/PageContentSlice'
 
 import Link from 'next/link';
 
@@ -27,7 +27,30 @@ const SliderItem = (props: props) => {
     const title = useRef<any>(null)
     const actImgForPlus = props.actImgForPlus
     let switcher: boolean = false
-
+    const [isReady, setIsReady] = useState(false);
+    useEffect(() => {
+        // Number(props.id)%2===0?
+        // isReady&&  ref.current.animate([{
+        //     transform: "rotateY(90deg)"
+        // },
+        // {
+        //     transform: "none"
+        // }
+        // ], {
+        //     duration: 1000,
+        //     easing:'ease-out'
+        // }):
+        isReady&&  ref.current.animate([{
+            transform: "rotateY(90deg)"
+        },
+        {
+            transform: "none"
+        }
+        ], {
+            duration: 1000,
+            easing:'ease-out'
+        })
+    }, [isReady, props.id])
 
     useEffect(() => {
         let titleText = title.current
@@ -78,7 +101,7 @@ const SliderItem = (props: props) => {
 
     const myLoader = ({ src }: { src: string }) => src
 
-    const [isReady, setIsReady] = useState(false);
+   
     const onLoadCallback = (e: any) => {
         setIsReady(e.src);
         dispatch(changearrayOfLoadedImages())
@@ -109,7 +132,7 @@ const SliderItem = (props: props) => {
                         <span onClick={() => actImgForPlus(String(Number(props.activeImage) + 1))}>+</span>
 
 
-                       
+
                     </div>
 
                 </div>

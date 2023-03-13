@@ -61,7 +61,7 @@ const Slider = () => {
         slectedSlItem && setnextPercentage(-1 * (Number(slectedSlItem) - 1) * 57 / 7)
 
 
-        if (arrOfLoadedImages.length === allImages.length) {
+        // if (arrOfLoadedImages.length === allImages.length) {
             plus.current.animate({ color: '#ffffff' }, {
                 duration: 4000,
                 delay: 1000,
@@ -72,7 +72,7 @@ const Slider = () => {
             if (!slectedSlItem) {
                 sliderComponent.current.animate([
                     {
-                        transform: ` translate(0%, -50%)`, opacity: 1,
+                        opacity: 1,
                     }], {
                     duration: 1000,
                     fill: 'forwards',
@@ -98,7 +98,7 @@ const Slider = () => {
 
             }
 
-        }
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arrOfLoadedImages, allImages])
 
@@ -354,22 +354,28 @@ const Slider = () => {
 
             identificationPictureNumber()
 
-            if (activeImage !== null) {
 
-                setImage(null)
-                const allimg = sliderComponent.current.getElementsByClassName('image')
+            setImage(null)
 
-                for (let img of allimg) {
-                    if (img.id === activeImage) {
-                        img.animate({
-                            width: '18vw', height: '56vh'
-                        }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
-                    }
-                }
-            }
+
         }
 
     }
+
+    useEffect(() => {
+        if (activeImage === null) {
+            console.log('sadas')
+            const allimg = sliderComponent.current.getElementsByClassName('image')
+
+            for (let img of allimg) {
+
+                img.animate({
+                    width: '18vw', height: '56vh'
+                }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
+
+            }
+        }
+    }, [activeImage])
 
     return (
         <div ref={background} className="container" onWheel={onwheelmove}>
