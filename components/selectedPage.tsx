@@ -1,5 +1,5 @@
 import React from 'react';
-import { useRef, useState, useEffect, ChangeEvent } from 'react';
+import { useRef, useState, useEffect, ChangeEvent, useLayoutEffect } from 'react';
 import Image from 'next/image'
 import SelectPageImage from './SelectPageImage';
 import ImageBlock from './imageBlock';
@@ -10,11 +10,19 @@ import { selectContent, selectNull, changeBooleanSwitcher, changeFocusedImage, e
 
 import Link from 'next/link';
 
+
+
+
 interface arrayOfImagesItem {
     dir: string,
     img: string
 }
 
+
+import { gsap } from "gsap";
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 
 const SelectedPage = ({ select }: any) => {
@@ -29,6 +37,12 @@ const SelectedPage = ({ select }: any) => {
     const [switcher, setSwitch] = useState<boolean>(false)
     const focusedImages = useAppSelector(focusImage)
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
+
+   
+
+
+
+
 
     useEffect(() => {
         dispatch(emptychangearrayOfLoadedImages())
@@ -87,7 +101,7 @@ const SelectedPage = ({ select }: any) => {
             setArr(subarr)
         }
         fillingArray()
-    }, [ select])
+    }, [select])
 
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
@@ -110,7 +124,7 @@ const SelectedPage = ({ select }: any) => {
             <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
                 <ImageBlock selected={select} scrollToImages={scrollToImages} />
-                <div className='SelectedPage_content'>
+                <div className='SelectedPage_content' >
                     <div className='SelectedPage_content_images'>
                         {arrayOfImages.map((x, k) => k < arrayOfImages.length / 3 &&
                             <SelectPageImage

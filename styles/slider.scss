@@ -11,7 +11,7 @@
 .container {
   height: 100vh;
   width: 100vw;
-  background: rgb(21, 21, 21);
+  background: var(--sliderBacground);
   margin: 0;
   position: relative;
   overflow: hidden;
@@ -19,6 +19,7 @@
   .content {
     height: 100%;
     overflow: hidden;
+
     .sliderAndMinislider {
       position: relative;
       display: flex;
@@ -95,6 +96,7 @@
           transition: all 1s ease-out;
           cursor: pointer;
 
+
           &.slideDown {
             transform: translateY(300%)
           }
@@ -120,10 +122,10 @@
       // font-weight: 300;
       opacity: 0;
       cursor: pointer;
-      color:#ffffff00;
-      font-family:'Times New Roman', Times, serif;
+      color: #ffffff00;
+      font-family: 'Times New Roman', Times, serif;
     }
-    
+
 
     .about {
       background: rgb(0, 0, 0);
@@ -167,7 +169,7 @@
         }
 
         .about_image {
-          width: 45%;
+          width: calc((1vw + 1vh)* 30);
           display: flex;
           justify-content: center;
           align-content: center;
@@ -188,15 +190,17 @@
         }
 
         .about_content {
-          font-size: 22px;
+          font-size: 1.5rem;
           width: 45%;
           overflow: hidden;
           display: flex;
           flex-direction: column;
           gap: 2vmin;
           align-self: center;
+          justify-content:center;
+          min-height: 50vh;
 
-
+          
           .about_content_textBlock {
             display: flex;
             flex-wrap: wrap;

@@ -53,9 +53,12 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <Provider store={store}>
+      
+      <Layout>
       {transitions((style: any, item: any) => {
         return <animated.div style={style}>{item}</animated.div>;
       })}
+    </Layout>
     </Provider>
   )
 }

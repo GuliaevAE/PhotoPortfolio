@@ -53,6 +53,9 @@ const Slider = () => {
             duration: 500,
             easing: 'linear'
         })
+
+        let allImg = sliderComponent.current.getElementsByClassName('image')
+        // let 
     }, [ImageIdOnCenter])
 
 
@@ -62,41 +65,41 @@ const Slider = () => {
 
 
         // if (arrOfLoadedImages.length === allImages.length) {
-            plus.current.animate({ color: '#ffffff' }, {
-                duration: 4000,
-                delay: 1000,
+        plus.current.animate({ color: '#ffffff' }, {
+            duration: 4000,
+            delay: 1000,
+            fill: 'forwards',
+            easing: 'ease-in-out'
+        })
+
+        if (!slectedSlItem) {
+            sliderComponent.current.animate([
+                {
+                    opacity: 1,
+                }], {
+                duration: 1000,
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
+        } else {
+            sliderComponent.current.dataset.prevPercentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
+            sliderComponent.current.dataset.percentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
 
-            if (!slectedSlItem) {
-                sliderComponent.current.animate([
-                    {
-                        opacity: 1,
-                    }], {
-                    duration: 1000,
-                    fill: 'forwards',
-                    easing: 'ease-in-out'
-                })
-            } else {
-                sliderComponent.current.dataset.prevPercentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
-                sliderComponent.current.dataset.percentage = -1 * (Number(slectedSlItem) - 1) * 57 / 7
+            sliderComponent.current.animate([
+                {
+                    transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
+                }, {
+                    transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
+                    opacity: 1
+                }], {
+                duration: 1000,
+                // delay: 1000,
+                fill: 'forwards',
+                easing: 'ease-in-out'
+            })
+            identificationPictureNumber()
 
-                sliderComponent.current.animate([
-                    {
-                        transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
-                    }, {
-                        transform: `translate(calc(-18vw * ${Number(slectedSlItem) - 1} - 4vw * ${Number(slectedSlItem) - 1} - (100vw - 18vw)/2  + ${window && window.innerWidth / 2}px - 9vw),-50%)`,
-                        opacity: 1
-                    }], {
-                    duration: 1000,
-                    // delay: 1000,
-                    fill: 'forwards',
-                    easing: 'ease-in-out'
-                })
-                identificationPictureNumber()
-
-            }
+        }
 
         // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -265,6 +268,7 @@ const Slider = () => {
         for (let img of allImg) {
             if (ImageIdOnCenter !== img.id && img.getBoundingClientRect().left <= plus.current.getBoundingClientRect().left && img.getBoundingClientRect().left + img.getBoundingClientRect().width >= plus.current.getBoundingClientRect().left) {
                 changeId(img.id)
+               
             }
         }
     }

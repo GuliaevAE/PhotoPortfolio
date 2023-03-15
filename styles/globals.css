@@ -1,5 +1,5 @@
 :root {
-  
+  --sliderBacground: rgb(31, 31, 31)
 }
 
 
@@ -16,8 +16,41 @@ body {
   font-family: "Try_clover";
   color: white;
   background: rgb(21, 21, 21);
+    
+  cursor: none;
 }
 
+#cursor,
+#aura {
+  position: fixed;
+  border-radius: 100%;
+
+  user-select: none;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+#aura {
+  transition: transform .5s cubic-bezier(0.075, -1.27, .3, 2.33), opacity .2s cubic-bezier(0.75, -1.27, .3, 2.33);
+}
+
+.cursorHidden {
+  opacity: 0;
+}
+
+#cursor {
+  width: 8px;
+  height: 8px;
+  background: white;
+  transition: transform .5s, opacity .2s cubic-bezier(0.75, -1.27, .3, 2.33);
+}
+
+#aura {
+  width: 30px;
+  height: 30px;
+  border: 1px solid white;
+  /* transform: translate(5px, 5px); */
+}
 
 
 a {
