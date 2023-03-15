@@ -54,8 +54,7 @@ const Slider = () => {
             easing: 'linear'
         })
 
-        let allImg = sliderComponent.current.getElementsByClassName('image')
-        // let 
+       
     }, [ImageIdOnCenter])
 
 
