@@ -94,7 +94,7 @@
           -ms-user-select: none;
           user-select: none;
           transition: all 1s ease-out;
-          cursor: pointer;
+          //cursor: pointer;
 
 
           &.slideDown {
@@ -121,7 +121,7 @@
       font-size: 50px;
       // font-weight: 300;
       opacity: 0;
-      cursor: pointer;
+      //cursor: pointer;
       color: #ffffff00;
       font-family: 'Times New Roman', Times, serif;
     }
@@ -297,7 +297,7 @@
 
       span {
         display: block;
-        cursor: pointer;
+        //cursor: pointer;
       }
 
       .header_item {

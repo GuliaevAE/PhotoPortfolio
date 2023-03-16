@@ -301,7 +301,7 @@ const Slider = () => {
 
         const nextPercentageUnconstrained = parseFloat(sliderComponent.current.dataset.prevPercentage) + clientX / 50
 
-        setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -52.5))
+        setnextPercentage(Math.max(Math.min(nextPercentageUnconstrained, 0), -57))
         sliderComponent.current.dataset.percentage = nextPercentage
 
         sliderComponent.current.animate({
@@ -367,7 +367,6 @@ const Slider = () => {
 
     useEffect(() => {
         if (activeImage === null) {
-            console.log('sadas')
             const allimg = sliderComponent.current.getElementsByClassName('image')
 
             for (let img of allimg) {

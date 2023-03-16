@@ -15,7 +15,7 @@ body {
   overflow: hidden;
   font-family: "Try_clover";
   color: white;
-    
+
   cursor: none;
 }
 
@@ -55,10 +55,16 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+  cursor:none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+
+
+
+@media (hover: none) and (pointer: coarse) {
+
+  #cursor,
+  #aura {
+    display: none;
   }
 }
