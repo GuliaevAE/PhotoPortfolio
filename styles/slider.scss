@@ -111,6 +111,9 @@
       bottom: 10vh;
       left: 50%;
       transform: translateX(-50%);
+      div:first-child{
+        color:var(--secondTextColor)
+      }
     }
 
     .sliderAndMinislider_plus {
@@ -197,10 +200,10 @@
           flex-direction: column;
           gap: 2vmin;
           align-self: center;
-          justify-content:center;
+          justify-content: center;
           min-height: 50vh;
 
-          
+
           .about_content_textBlock {
             display: flex;
             flex-wrap: wrap;
@@ -292,20 +295,86 @@
       z-index: 2;
 
       font-size: 20px;
-      overflow: hidden;
+
 
 
       span {
-        display: block;
+        // display: block;
         //cursor: pointer;
+
       }
 
       .header_item {
-        opacity: .5;
+        opacity: 1;
         transition: all .5s;
+        position: relative;
+        padding: 5px;
+
+        &::before,
+        &::after,
+        span::before,
+        span::after {
+          content: '';
+          position: absolute;
+          background: white;
+          transition: all .3s;
+        }
+
+        &::before {
+          bottom: 0%;
+          width: 0%;
+          right: 0%;
+          height: 2px;
+        }
+
+        &::after {
+
+          top: 0%;
+          width: 0%;
+          left: 0%;
+          height: 2px;
+        }
+
+        &:hover::before,
+        &:hover::after {
+          width: 100%;
+        }
+
+        &:hover span::before,
+        &:hover span::after {
+          height: 100%;
+
+        }
+
+        span::before {
+
+          top: 0%;
+          width: 2px;
+          right: 0%;
+          height: 0%;
+
+          transition-delay: .3s;
+          transition-property: height;
+        }
+
+        span::after {
+          bottom: 0%;
+          width: 2px;
+          left: 0%;
+          height: 0%;
+          transition-delay: .3s;
+          transition-property: height;
+        }
+
 
         &.active {
-          opacity: 1;
+          color: var(--secondTextColor);
+          &::before,
+          &::after,
+          span::before,
+          span::after {
+            background: var(--secondTextColor)
+          }
         }
 
 

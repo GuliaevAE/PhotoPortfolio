@@ -18,7 +18,7 @@ export default function Layout({ children }: any) {
         }
     }, [arrOfLoadedImages, allImages])
 
-
+ 
     let [mouseX, setmouseX] = useState(0)
     let [mouseY, setmouseY] = useState(0)
 
@@ -74,10 +74,22 @@ export default function Layout({ children }: any) {
         mouseY])
 
     useEffect(() => {
-        window.addEventListener('mousemove', (e) => {
+        window.addEventListener('mousemove', (e:any) => {
             // cursor.current.classList.remove('cursorHidden')
             // aura.current.classList.remove('cursorHidden')
-
+            if(e.target&&e.target.classList.contains('image')){
+                cursor.current.animate({
+                    background: 'var(--secondTextColor)'
+                },{
+                    duration:300, fill: 'forwards'
+                })
+            }else{
+                cursor.current.animate({
+                    background: 'white'
+                },{
+                    duration:300, fill: 'forwards'
+                }) 
+            }
             mouseCoords(e)
         })
 

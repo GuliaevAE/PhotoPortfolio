@@ -54,7 +54,7 @@ const Slider = () => {
             easing: 'linear'
         })
 
-       
+
     }, [ImageIdOnCenter])
 
 
@@ -267,17 +267,14 @@ const Slider = () => {
         for (let img of allImg) {
             if (ImageIdOnCenter !== img.id && img.getBoundingClientRect().left <= plus.current.getBoundingClientRect().left && img.getBoundingClientRect().left + img.getBoundingClientRect().width >= plus.current.getBoundingClientRect().left) {
                 changeId(img.id)
-               
             }
         }
     }
 
+
+    ////////screenHandlers
     const ontouchdown: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = e.touches[0].clientX;
-    }
-
-    const onmousedown: React.MouseEventHandler<HTMLDivElement> = (e) => {
-        sliderComponent.current.dataset.mouseDownAt = e.clientX
     }
 
     const ontouchup: React.TouchEventHandler<HTMLDivElement> = (e) => {
@@ -286,6 +283,21 @@ const Slider = () => {
         setisact(false)
         if (!isact) { actImg(e) }
     }
+
+    const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
+        let clientX = e.touches[0].clientX
+        moveFunction(clientX)
+    }
+
+
+
+
+    ////////mouseHandlers
+    const onmousedown: React.MouseEventHandler<HTMLDivElement> = (e) => {
+        sliderComponent.current.dataset.mouseDownAt = e.clientX
+    }
+
+
 
     const onmouseup: React.MouseEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
@@ -325,26 +337,18 @@ const Slider = () => {
         }
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
-
-
-
-
     }
-    const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
-        let clientX = e.touches[0].clientX
-        moveFunction(clientX)
-    }
+
 
     const onmousemove: React.MouseEventHandler<HTMLDivElement> = (e) => {
         let clientX = e.clientX
         moveFunction(clientX)
-
     }
 
     const moveFunction = (clientX: number) => {
         if (sliderComponent.current.dataset.mouseDownAt === '0') return
-        if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) { setisact(true) }
-        if (isact) {
+        if (Math.abs(sliderComponent.current.dataset.mouseDownAt - clientX) > window.innerWidth / 50) {
+            !isact && setisact(true)
             const mouseDelta = parseFloat(sliderComponent.current.dataset.mouseDownAt) - clientX
             const maxDelta = window.innerWidth
             const percentage = mouseDelta / maxDelta * -100
@@ -356,9 +360,10 @@ const Slider = () => {
             }, { duration: 800, fill: 'forwards', easing: 'ease-in' })
 
             identificationPictureNumber()
-
-
             setImage(null)
+        }
+        if (isact) {
+
 
 
         }
