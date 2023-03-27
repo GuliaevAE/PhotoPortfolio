@@ -14,6 +14,7 @@ interface props {
     content: string,
     switcher: boolean,
     nextPercentage: number,
+    dir: string,
     header: string,
     activeImage: string | null,
     actImgForPlus: (e: string | null) => void
@@ -40,7 +41,7 @@ const SliderItem = (props: props) => {
         //     duration: 1000,
         //     easing:'ease-out'
         // }):
-        isReady&&  ref.current.animate([{
+        isReady && ref.current.animate([{
             transform: "rotateY(90deg)"
         },
         {
@@ -48,29 +49,30 @@ const SliderItem = (props: props) => {
         }
         ], {
             duration: 1000,
-            easing:'ease-out'
+            easing: 'ease-out'
         })
     }, [isReady, props.id])
 
-    useEffect(() => {
-        let titleText = title.current
-        if (titleText) {
-            if (boolSwitcher) {
-                titleText.animate({ transform: 'translate(0, -100%)' }, {
-                    duration: 700,
-                    fill: 'forwards',
-                    easing: 'ease-in-out'
-                })
-            } else {
-                titleText.animate({ transform: 'translate(0, 0)' }, {
-                    duration: 700,
-                    fill: 'forwards',
-                    easing: 'ease-in-out'
-                })
-            }
-        }
+    // useEffect(() => {
+    //     console.log(boolSwitcher)
+    //     let titleText = title.current
+    //     if (titleText) {
+    //         if (boolSwitcher) {
+    //             titleText.animate({ transform: 'translate(0, -100%)' }, {
+    //                 duration: 700,
+    //                 fill: 'forwards',
+    //                 easing: 'ease-in-out'
+    //             })
+    //         } else {
+    //             titleText.animate({ transform: 'translate(0, 0)' }, {
+    //                 duration: 700,
+    //                 fill: 'forwards',
+    //                 easing: 'ease-in-out'
+    //             })
+    //         }
+    //     }
 
-    }, [boolSwitcher])
+    // }, [boolSwitcher])
 
     useEffect(() => {
         if (props.switcher) { setact(false) }
@@ -78,8 +80,9 @@ const SliderItem = (props: props) => {
 
     useEffect(() => {
         const image = ref.current.getElementsByClassName('image')[0]
+        // console.log(props.nextPercentage+100)
         image.animate({
-            objectPosition: `${props.nextPercentage + 100}% 50%`,
+            objectPosition: `${(props.nextPercentage + 100)}% 50%`,
         }, { duration: 800, fill: 'forwards', easing: 'ease' })
     }, [props.nextPercentage])
 
@@ -95,21 +98,22 @@ const SliderItem = (props: props) => {
             const image = ref.current.getElementsByClassName('image')[0]
             image.animate({
                 objectPosition: `50% 50%`,
-            }, { duration: 1000, fill: 'forwards', easing: 'ease-out' })
+            }, { duration: 800, fill: 'forwards', easing: 'ease-out' })
         }
     }, [props.activeImage, props.id])
 
     const myLoader = ({ src }: { src: string }) => src
 
-   
+
     const onLoadCallback = (e: any) => {
         setIsReady(e.src);
         dispatch(changearrayOfLoadedImages())
     };
     return (
         <div ref={ref} className='sliderItem' onMouseDown={() => switcher = true}>
+            <div className='sliderItem_name'><span>{props.header.split(' ')[0]}</span></div>
             <Image
-                quality={10}
+                quality={40}
                 // placeholder='blur'
                 priority={true}
                 unoptimized
@@ -127,8 +131,8 @@ const SliderItem = (props: props) => {
                         <span onClick={(() => {
                             // dispatch(selectContent(props.id))
                             // dispatch(changeBooleanSwitcher(true))
-                            // dispatch(changeSelectedDir(props.header))
-                        })} id={props.id}><Link href={`${props.header}`}>{props.content}</Link> </span>
+                            // dispatch(changeSelectedDir(props.dir))
+                        })} id={props.id}><Link href={`${props.dir}`}>{props.content}</Link> </span>
                         <span onClick={() => actImgForPlus(String(Number(props.activeImage) + 1))}>+</span>
 
 

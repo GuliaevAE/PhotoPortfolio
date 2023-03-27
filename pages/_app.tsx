@@ -3,6 +3,8 @@ import '../styles/slider.scss'
 import '../styles/sliderItem.scss'
 import '../styles/selectedPage.scss'
 import '../styles/focusedImage.scss'
+import '../styles/about.scss'
+import '../styles/navigationMenu.scss'
 
 import '../styles/layout.scss'
 
@@ -27,38 +29,45 @@ export default function App({ Component, pageProps }: AppProps) {
     from: {
       position: "absolute",
       top: '0',
-      zIndex:0,
+      zIndex: 0,
     },
     enter: [{
       position: "absolute",
       top: '0',
-      zIndex:1,
+      zIndex: 1,
     }],
     leave: [{
       position: "absolute",
-      zIndex:1 ,
+      zIndex: 1,
       top: '100vh',
     }],
   });
 
-
+  let [currentPath, setCurrentPath] = useState('/')
   useEffect(() => {
-    if (compoentArray[0].key === router.pathname) {
+
+    // if (compoentArray[0].key === router.pathname) {   
+    //   return;
+    // }
+
+    if (currentPath === router.asPath) {
       return;
     }
+    console.log(router.asPath)
     setComponentArray([<Component key={router.pathname} {...pageProps} />]);
-  }, [Component, pageProps, router, compoentArray]);
+    setCurrentPath(router.asPath)
+  }, [Component, pageProps, router, compoentArray, currentPath]);
 
 
 
   return (
     <Provider store={store}>
-      
+
       <Layout>
-      {transitions((style: any, item: any) => {
-        return <animated.div style={style}>{item}</animated.div>;
-      })}
-    </Layout>
+        {transitions((style: any, item: any) => {
+          return <animated.div style={style}>{item}</animated.div>;
+        })}
+      </Layout>
     </Provider>
   )
 }

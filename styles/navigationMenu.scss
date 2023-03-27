@@ -1,0 +1,91 @@
+.navigationMenu {
+    width: 50vw;
+    height: 100vh;
+    // background:black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-right: .5vmin;
+
+ 
+
+    .navigationMenu_item {
+        height: 10vh;
+        width: 90%;
+        position: relative;
+
+        .navigationMenu_imageLink {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            object-position: 0% 25%;
+
+
+
+        }
+
+        &:hover {
+            .navigationMenu_item_name {
+                transform: none
+            }
+        }
+
+       
+
+        .navigationMenu_item_name {
+            position: absolute;
+            top: 0px;
+            right: 0;
+            width: fit-content;
+            height: 100%;
+            background: white;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            transform: translateX(calc(100% + 10vh));
+            transition: all .5s;
+            z-index: 1;
+
+            // overflow: hidden;
+            span {
+                font-size: 2em;
+                white-space: nowrap;
+                font-weight: 1000;
+                letter-spacing: 2px;
+            }
+
+            // border-top: 20px solid #000;
+            &::after {
+                content: '';
+                position: absolute;
+                left: calc(-10vh + 1.5px);
+                top: 0;
+                // height: 100%;
+                border-top: calc(10vh + 1.5px) solid transparent;
+                // border-bottom: 10px solid transparent; 
+
+                border-right: 10vh solid white;
+            }
+        }
+
+        &::after {
+            content: '';
+
+
+        }
+    }
+
+}
+
+// @media (hover: none) and (pointer: coarse) {
+
+//     .navigationMenu{
+//         .navigationMenu_item{
+//             .navigationMenu_item_name {
+//                 transform: none
+//             }
+//         }
+//     }
+    
+// }

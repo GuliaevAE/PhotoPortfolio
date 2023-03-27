@@ -9,9 +9,6 @@ import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoadedImages, slectedSliderItem } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages, changeSlectedSliderItem } from '../store/PageContentSlice'
 
-
-
-
 import dynamic from 'next/dynamic'
 
 
@@ -276,7 +273,7 @@ const Slider = () => {
     const ontouchdown: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = e.touches[0].clientX;
     }
-
+ 
     const ontouchup: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
@@ -287,7 +284,7 @@ const Slider = () => {
     const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
         let clientX = e.touches[0].clientX
         moveFunction(clientX)
-    }
+    } 
 
 
 
@@ -362,11 +359,7 @@ const Slider = () => {
             identificationPictureNumber()
             setImage(null)
         }
-        if (isact) {
 
-
-
-        }
 
     }
 
@@ -410,7 +403,7 @@ const Slider = () => {
                         onTouchMove={ontouchmove}
                         onTouchEnd={ontouchup}
                     >
-                        {allImages.map((x, k) => <SliderItem
+                        {allImages.map(x => <SliderItem
                             actImgForPlus={actImgForPlus}
                             activeImage={activeImage}
                             key={x.id}
@@ -419,7 +412,8 @@ const Slider = () => {
                             switcher={isact}
                             content={x.imagetitle}
                             src={x.img}
-                            header={x.dir}
+                            dir={x.dir}
+                            header={x.header}
                         />
                         )}
 

@@ -104,12 +104,12 @@ export default function Layout({ children }: any) {
 
             cursor.current.animate({
                 transform: 'scale(2)'
-            }, { duration: 300, fill: 'forwards' })
+            }, { duration: 200, fill: 'forwards' })
         })
         window.addEventListener('mouseup', () => {
             cursor.current.animate({
                 transform: 'scale(1)'
-            }, { duration: 300, fill: 'forwards' })
+            }, { duration: 200, fill: 'forwards' })
         })
 
     }, [])

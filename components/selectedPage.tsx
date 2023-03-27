@@ -21,6 +21,7 @@ interface arrayOfImagesItem {
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import NavigationMenu from './navigationMenu';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,7 +39,7 @@ const SelectedPage = ({ select }: any) => {
     const focusedImages = useAppSelector(focusImage)
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
 
-   
+
 
 
 
@@ -60,9 +61,21 @@ const SelectedPage = ({ select }: any) => {
 
 
     const onscroll = (event: React.UIEvent<HTMLDivElement, UIEvent>) => {
+
+        let scrollValue = event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100
         scrollBlock.current.animate({
-            height: `${event.currentTarget.scrollTop / (event.currentTarget.scrollHeight - event.currentTarget.clientHeight) * 100}%`
+            height: `${scrollValue}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
+        console.log
+        scrollValue >= 99 ?
+
+            scrollBlock.current.animate({
+                width: `50%`
+            }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
+            :
+            scrollBlock.current.animate({
+                width: `.5vmin`
+            }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
 
         let SelectedPageimageBlockimg = document.body.getElementsByClassName('SelectedPage_imageBlock_img')[0]
 
@@ -106,8 +119,24 @@ const SelectedPage = ({ select }: any) => {
     function scrollToImages() {
         let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
         backAndScroll.current.scrollTo({
-            left: 0, top: SelectedPage_content.getBoundingClientRect().top, behavior: 'smooth'
+            left: 0, top: window.innerHeight, behavior: 'smooth'
         })
+    }
+
+
+    function changeCursor(tag: boolean) {
+        let aura = document.getElementById('aura')
+        tag ?
+            aura && aura.animate({
+                border: '1px solid black '
+            }, {
+                duration: 100, fill: 'forwards'
+            }) :
+            aura && aura.animate({
+                border: '1px solid white '
+            }, {
+                duration: 100, fill: 'forwards'
+            })
     }
 
     return (
@@ -121,7 +150,13 @@ const SelectedPage = ({ select }: any) => {
                 <div>-</div>
                 <div> {allContent.length}</div>
             </div>
-            <div ref={scrollBlock} className='SelectedPage_scrollBlock' />
+            <div ref={scrollBlock} className='SelectedPage_scrollBlock'
+                onMouseEnter={() => changeCursor(true)}
+                onMouseLeave={() => changeCursor(false)}>
+
+<NavigationMenu/>
+
+            </div>
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
                 <ImageBlock selected={select} scrollToImages={scrollToImages} />
                 <div className='SelectedPage_content' >

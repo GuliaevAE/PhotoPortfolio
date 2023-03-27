@@ -22,18 +22,14 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
         <> {selected &&
 
             <div className={`SelectedPage_imageBlock ${isReady ? 'active' : ''}`} >
-
                 <div className={`SelectedPage_imageBlock_header ${isReady ? 'active' : ''}`}>
-
-
-
                     <div> <h2 >
                         {selected.header}
                     </h2></div>
                     <div> <h3>
-                        {selected.imagetitle.split(' ').map((x, k)=>
-                            <span key={x+k}>{x}</span>
-                            )}
+                        {selected.imagetitle.split(' ').map((x, k) =>
+                            <span key={x + k}>{x}</span>
+                        )}
                     </h3></div>
                     <div> <h3>
                         {selected.content}
