@@ -23,15 +23,15 @@ const NavigationMenu = () => {
                         <Image
 
                             quality={40}
-                            // placeholder='blur'
-                            // priority={true}
+                            placeholder='blur'
+                            priority={true}
                             unoptimized
                             loader={myLoader}
                             className={`navigationMenu_imageLink `}
                             //  id={props.id}
                             draggable='false'
                             //  onLoadingComplete={onLoadCallback}
-                            src={x && x.selectpImg}
+                            src={ x.selectpImg}
                             alt="img" />
                     </Link>
                 </div>
