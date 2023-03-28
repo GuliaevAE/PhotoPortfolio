@@ -160,7 +160,7 @@ const SelectedPage = ({ select }: any) => {
                 onMouseEnter={() => changeCursor(true)}
                 onMouseLeave={() => changeCursor(false)}>
 
-                <DynamicNavigationMenu />
+                <NavigationMenu />
 
             </div>
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
