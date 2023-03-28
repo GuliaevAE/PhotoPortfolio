@@ -12,7 +12,6 @@ import Link from 'next/link';
 
 
 
-
 interface arrayOfImagesItem {
     dir: string,
     img: string
@@ -25,6 +24,13 @@ import NavigationMenu from './navigationMenu';
 
 gsap.registerPlugin(ScrollTrigger);
 
+
+
+import dynamic from 'next/dynamic'
+
+const DynamicNavigationMenu = dynamic(() => Promise.resolve(NavigationMenu), {
+    ssr: false,
+})
 
 const SelectedPage = ({ select }: any) => {
     const allContent = useAppSelector(Allcontent)
@@ -154,7 +160,7 @@ const SelectedPage = ({ select }: any) => {
                 onMouseEnter={() => changeCursor(true)}
                 onMouseLeave={() => changeCursor(false)}>
 
-<NavigationMenu/>
+                <DynamicNavigationMenu />
 
             </div>
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>

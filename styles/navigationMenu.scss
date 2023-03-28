@@ -8,7 +8,7 @@
     align-items: center;
     padding-right: .5vmin;
 
- 
+
 
     .navigationMenu_item {
         height: 10vh;
@@ -20,8 +20,12 @@
             width: 100%;
             object-fit: cover;
             object-position: 0% 25%;
+            opacity: 1;
+            transition: opacity .5s;
 
-
+            &.blur {
+                opacity: 0;
+            }
 
         }
 
@@ -31,7 +35,7 @@
             }
         }
 
-       
+
 
         .navigationMenu_item_name {
             position: absolute;
@@ -87,5 +91,5 @@
 //             }
 //         }
 //     }
-    
+
 // }

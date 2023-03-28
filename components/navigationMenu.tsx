@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, selectedPage, arrayOfLoadedImages, slectedSliderItem } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage, changearrayOfLoadedImages, changeSlectedSliderItem } from '../store/PageContentSlice'
+import NavigationImage from './navigationImage';
 
 const NavigationMenu = () => {
     const dispatch = useAppDispatch()
@@ -20,10 +21,22 @@ const NavigationMenu = () => {
                         
                         href={x.dir}>
                         <div className='navigationMenu_item_name'><span>{x.header}</span></div>
-                        <Image
+                        <NavigationImage 
+                         quality={40}
+                         // placeholder='blur'
+                         priority={true}
+                         unoptimized
+                        
+                        //  className={`navigationMenu_imageLink `}
+                         //  id={props.id}
+                         draggable={false}
+                         //  onLoadingComplete={onLoadCallback}
+                         src={ x.selectpImg}
+                        />
+                        {/* <Image
 
                             quality={40}
-                            placeholder='blur'
+                            // placeholder='blur'
                             priority={true}
                             unoptimized
                             loader={myLoader}
@@ -32,7 +45,7 @@ const NavigationMenu = () => {
                             draggable='false'
                             //  onLoadingComplete={onLoadCallback}
                             src={ x.selectpImg}
-                            alt="img" />
+                            alt="img" /> */}
                     </Link>
                 </div>
 
