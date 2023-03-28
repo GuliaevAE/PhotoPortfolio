@@ -73,15 +73,15 @@ const SelectedPage = ({ select }: any) => {
             height: `${scrollValue}%`
         }, { duration: 100, fill: 'forwards', easing: 'ease-in-out' })
         console.log
-        scrollValue >= 99 ?
+        // scrollValue >= 99 ?
 
-            scrollBlock.current.animate({
-                width: `50%`
-            }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
-            :
-            scrollBlock.current.animate({
-                width: `.5vmin`
-            }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
+        //     scrollBlock.current.animate({
+        //         width: `50%`
+        //     }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
+        //     :
+        //     scrollBlock.current.animate({
+        //         width: `.5vmin`
+        //     }, { duration: 500, fill: 'forwards', easing: 'ease-out' })
 
         let SelectedPageimageBlockimg = document.body.getElementsByClassName('SelectedPage_imageBlock_img')[0]
 
@@ -160,7 +160,7 @@ const SelectedPage = ({ select }: any) => {
                 onMouseEnter={() => changeCursor(true)}
                 onMouseLeave={() => changeCursor(false)}>
 
-                <NavigationMenu />
+                {/* <NavigationMenu /> */}
 
             </div>
             <div ref={backAndScroll} className='backAndScroll' onScroll={(e) => onscroll(e)}>
