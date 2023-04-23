@@ -1,9 +1,8 @@
 import React, {useEffect, useState, useRef} from 'react';
 import Image from 'next/image';
 
-import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
+import { useAppSelector } from '../store/hooks'
+import { Allcontent   } from '../store/PageContentSlice'
 
 interface props {
     activeImage: string | null

@@ -1,30 +1,24 @@
 import React from 'react';
-import { useRef, useState, useEffect, ChangeEvent, useLayoutEffect } from 'react';
-import Image from 'next/image'
+import { useRef, useState, useEffect  } from 'react';
 import SelectPageImage from './selectPage_Image';
-import ImageBlock from './imageBlock';
-import FocusedImage from './focusedImage';
+import ImageBlock from './selectedPage_imageBlock';
+import FocusedImage from './selectedPage_focusedImage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, focusImage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeFocusedImage, emptychangearrayOfLoadedImages } from '../store/PageContentSlice'
+import { changeBooleanSwitcher, emptychangearrayOfLoadedImages } from '../store/PageContentSlice'
 
 import Link from 'next/link';
-
-
 
 interface arrayOfImagesItem {
     dir: string,
     img: string
 }
 
-
 import { gsap } from "gsap";
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import NavigationMenu from './navigationMenu';
 
 gsap.registerPlugin(ScrollTrigger);
-
-
 
 import dynamic from 'next/dynamic'
 
@@ -44,12 +38,6 @@ const SelectedPage = ({ select }: any) => {
     const [switcher, setSwitch] = useState<boolean>(false)
     const focusedImages = useAppSelector(focusImage)
     const [arrayOfImages, setArr] = useState<arrayOfImagesItem[]>([])
-
-
-
-
-
-
 
     useEffect(() => {
         dispatch(emptychangearrayOfLoadedImages())
@@ -123,12 +111,10 @@ const SelectedPage = ({ select }: any) => {
     }, [select])
 
     function scrollToImages() {
-        let SelectedPage_content = document.body.getElementsByClassName('SelectedPage_content')[0]
         backAndScroll.current.scrollTo({
             left: 0, top: window.innerHeight, behavior: 'smooth'
         })
     }
-
 
     function changeCursor(tag: boolean) {
         let aura = document.getElementById('aura')

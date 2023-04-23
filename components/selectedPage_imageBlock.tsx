@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image'
 
-import { Allcontent, SelectedContent, booleanSwitcher, SelectedContentType } from '../store/PageContentSlice'
+import { SelectedContentType } from '../store/PageContentSlice'
 
 interface ImageBlockinterface {
     selected: SelectedContentType,
     scrollToImages: Function
 }
-
 
 export default function ImageBlock({ selected, scrollToImages }: ImageBlockinterface) {
     const [isReady, setIsReady] = useState(false);
