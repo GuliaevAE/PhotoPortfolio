@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import '../styles/slider.scss'
-import '../styles/sliderItem.scss'
+import '../styles/slider_Item.scss'
 import '../styles/selectedPage.scss'
 import '../styles/focusedImage.scss'
 import '../styles/about.scss'

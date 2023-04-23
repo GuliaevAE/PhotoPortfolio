@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef, useState, useEffect, ChangeEvent, useLayoutEffect } from 'react';
 import Image from 'next/image'
-import SelectPageImage from './SelectPageImage';
+import SelectPageImage from './selectPage_Image';
 import ImageBlock from './imageBlock';
 import FocusedImage from './focusedImage';
 import { useAppSelector, useAppDispatch } from '../store/hooks'

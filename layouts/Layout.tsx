@@ -26,48 +26,24 @@ export default function Layout({ children }: any) {
     function mouseCoords(e: MouseEvent) {
         setmouseX(e.pageX)
         setmouseY(e.pageY)
-       
-       
     }
 
 
     useEffect(() => {
+        cursor.current.classList.contains('cursorHidden') && mouseX && cursor.current.classList.remove('cursorHidden')
+        aura.current.classList.contains('cursorHidden') && mouseY && aura.current.classList.remove('cursorHidden')
+
         gsap.set(cursor.current, {
             css: {
                 left: mouseX,
                 top: mouseY
             }
         })
-        // gsap.to(cursor.current, {
-        //     left: mouseX,
-        //     top: mouseY,
-
-
-        //     // onRepeat: () => {
-        //     //     // setposX((posX)=>posX + (mouseX - posX) / 5)
-        //     //     // // setposY((posY)=>posY + (mouseY - posY) / 5)
-        //     //     // gsap.set(cursor.current, {
-        //     //     //     css: {
-        //     //     //         left: mouseX,
-        //     //     //         top: mouseY
-        //     //     //     }
-        //     //     // })
-        //     //     // gsap.set(aura.current, {
-        //     //     //     css: {
-        //     //     //         left: posX-23,
-        //     //     //         top: posY-23
-        //     //     //     }
-        //     //     // })
-        //     // }
-
-        // })
+      
         gsap.to(aura.current, {
             left: mouseX - 11,
             top: mouseY - 11,
             duration: .2
-
-
-
         })
 
     }, [mouseX,
@@ -75,8 +51,6 @@ export default function Layout({ children }: any) {
 
     useEffect(() => {
         window.addEventListener('mousemove', (e:any) => {
-            // cursor.current.classList.remove('cursorHidden')
-            // aura.current.classList.remove('cursorHidden')
             if(e.target&&e.target.classList.contains('image')){
                 cursor.current.animate({
                     background: 'var(--secondTextColor)'
@@ -93,14 +67,11 @@ export default function Layout({ children }: any) {
             mouseCoords(e)
         })
 
-        window.addEventListener('mouseout', () => {
+        // window.addEventListener('mouseout', () => {
             // cursor.current.classList.add('cursorHidden')
             // aura.current.classList.add('cursorHidden')
-        })
+        // })
         window.addEventListener('mousedown', () => {
-            // gsap.to(cursor.current, {
-            //     transform: 'scale(2)'
-            // })
 
             cursor.current.animate({
                 transform: 'scale(2)'
@@ -115,8 +86,8 @@ export default function Layout({ children }: any) {
     }, [])
     return (
         <div className='layout'>
-            <div ref={cursor} id="cursor" />
-            <div ref={aura} id="aura" />
+            <div ref={cursor} className='cursorHidden' id="cursor" />
+            <div ref={aura} className='cursorHidden' id="aura" />
             <div ref={gag} className={`gag ${switcher ? 'active' : ''}`}>
                 <div className='gag_text'>
                     <span>nataly</span>

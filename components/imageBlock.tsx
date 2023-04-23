@@ -41,11 +41,8 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                     <div onClick={() => scrollToImages()}>down</div>
                 </div>
 
-
-
                 <Image ref={image}
                     loader={myLoader}
-
                     unoptimized
                     onLoadingComplete={onLoadCallback}
                     className={`SelectedPage_imageBlock_img ${isReady ? '' : 'blur'}`}
@@ -53,8 +50,6 @@ export default function ImageBlock({ selected, scrollToImages }: ImageBlockinter
                     priority={true}
                     src={selected.selectpImg}
                     alt="img" />
-
-
             </div>}</>
     );
 };

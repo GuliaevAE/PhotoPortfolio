@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useRef, useState, useEffect } from 'react';
-import SliderItem from './sliderItem';
+import SliderItem from './slider_item';
 import MiniSlider from './miniSlider';
 import About from './about';
 
@@ -38,28 +38,18 @@ const Slider = () => {
     const [activeImage, setImage] = useState<string | null>(null)
     let [nextPercentage, setnextPercentage] = useState(0)
 
-
-
-
     useEffect(() => {
-        centerCount.current.animate([{
-            transform: 'rotateY(90deg)'
-        }, {
-            transform: 'none'
-        }], {
-            duration: 500,
-            easing: 'linear'
-        })
-
-
+        centerCount.current.animate([
+            { transform: 'rotateY(90deg)' },
+            { transform: 'none' }
+        ],
+            { duration: 500, easing: 'linear' }
+        )
     }, [ImageIdOnCenter])
 
 
     useEffect(() => {
-
         slectedSlItem && setnextPercentage(-1 * (Number(slectedSlItem) - 1) * 57 / 7)
-
-
         // if (arrOfLoadedImages.length === allImages.length) {
         plus.current.animate({ color: '#ffffff' }, {
             duration: 4000,
@@ -89,18 +79,15 @@ const Slider = () => {
                     opacity: 1
                 }], {
                 duration: 1000,
-                // delay: 1000,
                 fill: 'forwards',
                 easing: 'ease-in-out'
             })
             identificationPictureNumber()
 
         }
-
         // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [arrOfLoadedImages, allImages])
-
 
 
     // useEffect(() => {
@@ -121,10 +108,6 @@ const Slider = () => {
     //     })
 
     // }, [])
-
-
-
-
 
     useEffect(() => {
         switch (pageTag) {
@@ -195,14 +178,12 @@ const Slider = () => {
 
         if (activeImage !== null) {
             dispatch(changeSlectedSliderItem(activeImage))
-
-
-
             changeId(activeImage)
             plus.current.animate([
                 { opacity: 1 },
                 { opacity: 0 },
-                { opacity: 0, transform: 'translateY(-100%)' }
+                { opacity: 0, transform: 'translateY(-100%)' },
+                { opacity: 0, transform: 'translateY(-50vh)' }
             ], { duration: 300, fill: 'forwards', easing: 'ease-in' })
 
             const allimg = sliderComponent.current.getElementsByClassName('image')
@@ -218,23 +199,20 @@ const Slider = () => {
                 transform: `translate(calc(-18vw * ${Number(activeImage) - 1} - 4vw * ${Number(activeImage) - 1} - (100vw - 18vw)/2),-50%)`
             }, { duration: 800, fill: 'forwards', easing: 'ease-in-out' })
 
-
-
             ////////////////////////////////////////////////
             sliderComponent.current.dataset.prevPercentage = -1 * (Number(activeImage) - 1) * 57 / 7
             sliderComponent.current.dataset.percentage = -1 * (Number(activeImage) - 1) * 57 / 7
             ////////////////////////////////////////////////
-
-
 
             selectedImg.animate({
                 width: '100vw', height: '100vh'
             }, { duration: 700, fill: "forwards", easing: 'ease-in-out' })
         }
         else {
-            plus.current.animate({
-                opacity: 1, transform: 'translate(-50%, -50%)'
-            }, { duration: 700, fill: 'forwards', easing: 'ease-in-out' })
+            plus.current.animate([
+                { opacity: 0, transform: 'translate(-50%, -50%)' },
+                { opacity: 1, transform: 'translate(-50%, -50%)' }],
+                { duration: 700, fill: 'forwards', easing: 'ease-out' })
         }
     }, [activeImage, dispatch])
 
@@ -273,7 +251,7 @@ const Slider = () => {
     const ontouchdown: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = e.touches[0].clientX;
     }
- 
+
     const ontouchup: React.TouchEventHandler<HTMLDivElement> = (e) => {
         sliderComponent.current.dataset.mouseDownAt = '0'
         sliderComponent.current.dataset.prevPercentage = sliderComponent.current.dataset.percentage
@@ -284,7 +262,7 @@ const Slider = () => {
     const ontouchmove: React.TouchEventHandler<HTMLDivElement> = (e) => {
         let clientX = e.touches[0].clientX
         moveFunction(clientX)
-    } 
+    }
 
 
 

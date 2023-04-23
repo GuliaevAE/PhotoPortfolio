@@ -29,29 +29,18 @@ const SliderItem = (props: props) => {
     const actImgForPlus = props.actImgForPlus
     let switcher: boolean = false
     const [isReady, setIsReady] = useState(false);
-    useEffect(() => {
-        // Number(props.id)%2===0?
-        // isReady&&  ref.current.animate([{
-        //     transform: "rotateY(90deg)"
-        // },
-        // {
-        //     transform: "none"
-        // }
-        // ], {
-        //     duration: 1000,
-        //     easing:'ease-out'
-        // }):
-        isReady && ref.current.animate([{
-            transform: "rotateY(90deg)"
-        },
-        {
-            transform: "none"
-        }
-        ], {
-            duration: 1000,
-            easing: 'ease-out'
-        })
-    }, [isReady, props.id])
+    // useEffect(() => {
+    // isReady && ref.current.animate([{
+    //     transform: "rotateY(90deg)"
+    // },
+    // {
+    //     transform: "none"
+    // }
+    // ], {
+    //     duration: 1000,
+    //     easing: 'ease-out'
+    // })
+    // }, [isReady, props.id])
 
     // useEffect(() => {
     //     console.log(boolSwitcher)
@@ -71,7 +60,6 @@ const SliderItem = (props: props) => {
     //             })
     //         }
     //     }
-
     // }, [boolSwitcher])
 
     useEffect(() => {
@@ -80,13 +68,10 @@ const SliderItem = (props: props) => {
 
     useEffect(() => {
         const image = ref.current.getElementsByClassName('image')[0]
-        // console.log(props.nextPercentage+100)
         image.animate({
             objectPosition: `${(props.nextPercentage + 100)}% 50%`,
         }, { duration: 800, fill: 'forwards', easing: 'ease' })
     }, [props.nextPercentage])
-
-
 
     useEffect(() => {
         if (props.activeImage === props.id && !act) { setact(true) }
@@ -104,7 +89,6 @@ const SliderItem = (props: props) => {
 
     const myLoader = ({ src }: { src: string }) => src
 
-
     const onLoadCallback = (e: any) => {
         setIsReady(e.src);
         dispatch(changearrayOfLoadedImages())
@@ -114,7 +98,6 @@ const SliderItem = (props: props) => {
             <div className='sliderItem_name'><span>{props.header.split(' ')[0]}</span></div>
             <Image
                 quality={40}
-                // placeholder='blur'
                 priority={true}
                 unoptimized
                 loader={myLoader}
@@ -129,14 +112,8 @@ const SliderItem = (props: props) => {
                     <div ref={title}>
                         <span onClick={() => actImgForPlus(String(Number(props.activeImage) - 1))}>+</span>
                         <span onClick={(() => {
-                            // dispatch(selectContent(props.id))
-                            // dispatch(changeBooleanSwitcher(true))
-                            // dispatch(changeSelectedDir(props.dir))
                         })} id={props.id}><Link href={`${props.dir}`}>{props.content}</Link> </span>
                         <span onClick={() => actImgForPlus(String(Number(props.activeImage) + 1))}>+</span>
-
-
-
                     </div>
 
                 </div>

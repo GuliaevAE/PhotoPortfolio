@@ -1,16 +1,13 @@
 import React from 'react';
 import Image from 'next/image'
 
-
 import { useAppSelector, useAppDispatch } from '../store/hooks'
 import { Allcontent, SelectedContent, booleanSwitcher, focusImage } from '../store/PageContentSlice'
 import { selectContent, selectNull, changeBooleanSwitcher, changeFocusedImage } from '../store/PageContentSlice'
 
-
 const FocusedImage = () => {
     const focusedImages = useAppSelector(focusImage)
     const dispatch = useAppDispatch()
-
     const myLoader = ({ src }: { src: string }) => src
 
     return (
@@ -25,8 +22,6 @@ const FocusedImage = () => {
                 priority={true}
                 src={focusedImages && focusedImages}
                 alt="img" />
-
-
         </div>
     );
 };

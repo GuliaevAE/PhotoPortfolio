@@ -1,11 +1,9 @@
 import React from 'react';
 import Image from 'next/image';
-import { useRef, useState, useEffect, ChangeEvent } from 'react';
+import { useRef, useState, useEffect } from 'react';
 
-import { useAppSelector, useAppDispatch } from '../store/hooks'
-import { Allcontent, SelectedContent, booleanSwitcher, selectedPage } from '../store/PageContentSlice'
-import { selectContent, selectNull, changeBooleanSwitcher, changeSelectedPage } from '../store/PageContentSlice'
-
+import { useAppSelector,  } from '../store/hooks'
+import {  selectedPage } from '../store/PageContentSlice'
 
 const About = () => {
     const about = useRef<any>(null)
@@ -16,7 +14,6 @@ const About = () => {
     useEffect(() => {
         switch (pageTag) {
             case 'work':
-
                 about.current.animate({
                     height: '0vh'
                 }, {
@@ -24,19 +21,15 @@ const About = () => {
                     fill: 'forwards',
                     easing: 'ease-in-out'
                 })
-
                 setTimeout(() => {
                     setAboutSwitch(false)
-
                     // about.current.scrollTo({
                     //     top: 0,
                     //     behavior: 'smooth'
                     // });
                 }, 900)
-
                 break;
             case 'about':
-
                 about.current.animate({
                     height: '100vh'
                 }, {
@@ -46,18 +39,16 @@ const About = () => {
                 });
                 setAboutSwitch(true)
                 break;
-
             default:
                 break;
         }
     }, [pageTag])
 
-
     //////////////////////observer
 
     const observer = useRef<any>(null);
 
-    const onEntry=(entry: any)=> {
+    const onEntry = (entry: any) => {
         entry.forEach((change: any) => {
             if (change.isIntersecting) {
                 change.target.classList.add('element-show');
@@ -70,7 +61,7 @@ const About = () => {
         if (aboutSwitcher) {
             let options = { threshold: [0.5] };
             observer.current = new IntersectionObserver(onEntry, options);
-            // let elements = about.current.getElementsByClassName('about_content_textBlock_span');
+            // let elements = about.current.getElementsByClassName('about_content_textBlock_text');
             let elements = about.current.getElementsByClassName('about_content');
             for (let elm of elements) {
                 observer.current.observe(elm);
@@ -89,32 +80,6 @@ const About = () => {
         }
     }, [aboutSwitcher])
 
-
-
-    let str = 'Красивый визуал сделать легко. Умный визуал — это глубокая работа. И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
-    // let str1 = 'Умный визуал — это глубокая работа. И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
-    let str2 = 'И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.'
-
-
-    let str3 = 'Brand фотография'
-    let str4 = '— это новое уникальное направление, которое сочетает в себе ум и творчество, логику и полёт фантазии, красивую картинку и глубокий смысл.'
-    let str5 = 'Правильно выстроенный визуальный контент максимально отражает Вас и Ваш продукт, верно транслирует Ваши роли в медиа-пространстве и привлекает именно Вашу целевую аудиторию. Ведь визуал — это первое, что заставляет Ваших потенциальных клиентов задержаться на Вашей странице.'
-
-    let str6 = 'Грамотная визуализация бренда создает ДОВЕРИЕ'
-    let str7 = 'А доверие, как известно, вовлекает, удерживает внимание и прекрасно продает!'
-
-
-
-    let str8 = 'Я — Brand фотограф и эксперт по визуальному продвижению в Instagram'
-
-    let str11 = '- два высших образования, что говорит о системности, структуре и желании быть в постоянном развитии'
-    let str12 = '- 10 лет опыта работы в красивом бизнесе снимаю с 2013 года'
-    let str13 = '- бэкграунд: пейзажная фотография, детские и семейные съёмки, кинематографическая фотография, создание Slide movie'
-    let str14 = '- участник тематических конкурсов 35AWARDS 2019'
-    let str15 = '- участник выставки BICFP ROME EXPO В Италии 2020  '
-    let str16 = '- снимаю с 2013 года'
-    let str17 = '- повышение квалификации на курсе «BRAND фотография» в агентстве визуального брендинга MIA'
-
     const myLoader = ({ src }: { src: string }) => src
 
     return (
@@ -124,7 +89,10 @@ const About = () => {
 
                 <div className='about_content'>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            Красивый визуал сделать легко. <strong>Умный визуал — это глубокая работа.</strong>
+                            И результатом этой работы станет грамотное позиционирование Вас и Вашего продукта в медиапространстве.
+                        </div>
                     </div>
 
 
@@ -145,20 +113,30 @@ const About = () => {
                 </div>
                 <div className='about_content'>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str3}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            <strong>Brand фотография</strong>
+                        </div>
                     </div>
 
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str4}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            — это новое уникальное направление, которое сочетает в себе ум и творчество, логику и полёт фантазии, красивую картинку и глубокий смысл.
+                        </div>
                     </div>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str5}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            Правильно выстроенный визуальный контент максимально отражает Вас и Ваш продукт, верно транслирует Ваши роли в медиа-пространстве и привлекает именно Вашу целевую аудиторию. Ведь визуал — это первое, что заставляет Ваших потенциальных клиентов задержаться на Вашей странице.
+                        </div>
                     </div>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str6}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            Грамотная визуализация бренда создает <strong> ДОВЕРИЕ</strong>
+                        </div>
                     </div>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str7}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            А доверие, как известно, вовлекает, удерживает внимание и прекрасно продает!
+                        </div>
                     </div>
                 </div>
             </div>}
@@ -174,33 +152,45 @@ const About = () => {
                         unoptimized={true}
                         priority={true}
                         src={'https://sun9-east.userapi.com/sun9-76/s/v1/ig2/59A7dDDLihBlIHffrT-j5Rv28tkuxAYyPLlSsF7hhr8yotq4vc7z9m7CvG8rt8D-byP2AWRneIthadsEfS8KqQZS.jpg?size=1600x1270&quality=95&type=album'} />
-                </div>  
+                </div>
                 <div className='about_content'>
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str8}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            <span className='about_content_textBlock_span_text'>
+                                Я — Brand фотограф и эксперт по визуальному продвижению в Instagram
+                            </span>
+                        </div>
                     </div>
 
                     <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str11}</span> </div>
+                        <div className='about_content_textBlock_text'>
+                            <ul>
+                                <li>
+                                    два высших образования, что говорит о системности, структуре и желании быть в постоянном развитии
+                                </li>
+                                <li>
+                                    10 лет опыта работы в красивом бизнесе снимаю с 2013 года
+                                </li>
+                                <li>
+                                    бэкграунд: пейзажная фотография, детские и семейные съёмки, кинематографическая фотография, создание Slide movie
+                                </li>
+                                <li>
+                                    участник тематических конкурсов 35AWARDS 2019
+                                </li>
+                                <li>
+                                    участник выставки BICFP ROME EXPO В Италии 2020
+                                </li>
+                                <li>
+                                    снимаю с 2013 года
+                                </li>
+                                <li>
+                                    повышение квалификации на курсе «BRAND фотография» в агентстве визуального брендинга MIA
+                                </li>
+                            </ul>
+
+                        </div>
                     </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str12}</span> </div>
-                    </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str13}</span> </div>
-                    </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str14}</span> </div>
-                    </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str15}</span> </div>
-                    </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str16}</span> </div>
-                    </div>
-                    <div className='about_content_textBlock'>
-                        <div className='about_content_textBlock_span'><span className='about_content_textBlock_span_text'>{str17}</span> </div>
-                    </div>
+
                 </div>
             </div>}
 

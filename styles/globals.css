@@ -2,7 +2,10 @@
   --sliderBacground: rgb(31, 31, 31);
   --secondTextColor:rgb(195, 172, 41)
 }
-
+@font-face {
+  font-family: "Try_clover";
+  src: url(../fonts/DolomanPavljenko.otf);
+}
 
 * {
   box-sizing: border-box;
@@ -17,7 +20,6 @@ body {
   overflow: hidden;
   font-family: "Try_clover";
   color: white;
-
   cursor: none;
 }
 
@@ -25,17 +27,21 @@ body {
 #aura {
   position: fixed;
   border-radius: 100%;
-
   user-select: none;
   pointer-events: none;
   z-index: 10000;
+  transition: opacity 1s ease-in;
+  opacity: 1;
+ 
 }
 
 #aura {
   transition: transform .5s cubic-bezier(0.075, -1.27, .3, 2.33), opacity .2s cubic-bezier(0.75, -1.27, .3, 2.33);
+  /* box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.399) */
 }
 
-.cursorHidden {
+#cursor.cursorHidden,
+#aura.cursorHidden {
   opacity: 0;
 }
 
@@ -44,6 +50,7 @@ body {
   height: 8px;
   background: white;
   transition: transform .5s, opacity .2s cubic-bezier(0.75, -1.27, .3, 2.33);
+  box-shadow: 0 0 15px 1px var(--secondTextColor)
 }
 
 #aura {
